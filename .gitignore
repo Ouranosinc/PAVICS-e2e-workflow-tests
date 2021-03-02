@@ -12,3 +12,7 @@ esgf-compute-api-*/
 
 # files produced by build
 buildout/
+
+## IDEs
+.idea/
+.vscode/
