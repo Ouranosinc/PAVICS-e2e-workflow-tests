@@ -24,6 +24,10 @@ pipeline {
                description: 'PAVICS_SDI_REPO branch to test against.', trim: true)
         string(name: 'PAVICS_SDI_REPO', defaultValue: 'Ouranosinc/pavics-sdi',
                description: 'https://github.com/Ouranosinc/pavics-sdi repo or fork to test against.', trim: true)
+        booleanParam(name: 'TEST_PAVICS_SDI_WEAVER', defaultValue: false,
+                     description: '''Execute tests related to Weaver within PAVICS_SDI_REPO.
+Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
+(see https://github.com/bird-house/birdhouse-deploy/tree/master/birdhouse/components#weaver).''')
         booleanParam(name: 'TEST_FINCH_REPO', defaultValue: true,
                      description: 'Check the box to test finch repo.')
         string(name: 'FINCH_BRANCH', defaultValue: 'master',
