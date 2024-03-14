@@ -181,7 +181,6 @@ dependencies:
   - nbresuse  # needed by jupyterlab-system-monitor
   # xeus-python: back-end kernel implementing the Jupyter Debug Protocol
   - xeus-python
-  - jupyter-dash
   # https:://github.com/jupyterhub/jupyter-server-proxy
   - jupyter-server-proxy
   # https://github.com/dask/dask-labextension
