@@ -4,7 +4,7 @@ channels:
   - conda-forge
   - cdat
   - bokeh
-  - plotly  # for jupyter-dash
+    # - plotly  # for jupyter-dash
     #  - pyston
   - pyviz/label/dev  # for jupyter-panel-proxy, panel
   - defaults
@@ -40,7 +40,7 @@ dependencies:
   - numpy
   # TODO: unpin cf_xarray due to https://github.com/xarray-contrib/cf-xarray/issues/442
   - cf_xarray != 0.8.1
-  - birdy
+  - birdy >= 0.8.5
     # - owslib>=0.23.0  # from ravenpy
     # - netcdf4  # from ravenpy
   # TODO: remove libnetcdf PIN because https://github.com/Ouranosinc/PAVICS-landing/issues/66
@@ -84,6 +84,8 @@ dependencies:
   # https://github.com/bird-house/birdhouse-deploy/pull/63#issuecomment-668270608
   # pinning hvplot did not solve the problem with violin plot.
   - hvplot
+  # https://anaconda.org/conda-forge/dash
+  - dash >= 2.16.1
   # https://streamlit.io/
   # https://anaconda.org/conda-forge/streamlit
   - streamlit
