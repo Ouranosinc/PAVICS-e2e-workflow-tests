@@ -21,7 +21,7 @@ RUN apt-get update && \
 # Create user jenkins for our Jenkins e2e notebooks test suite.
 # Change /opt/conda folder permissions for jupyter-conda extension.
 RUN groupadd --gid 1000 jenkins \
-    && useradd --uid 1000 --gid jenkins --create-home jenkins && \
+    && useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins && \
     chmod -R a+rwX /opt/conda
 
 COPY environment.yml /environment.yml
@@ -43,10 +43,8 @@ COPY environment.yml /environment.yml
 # Conda was stuck at this step:
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 #
-# Python 3.10 cause this "ValueError: `popmean.shape[axis]` must equal 1." in
-# homepage nb 4, see https://github.com/Ouranosinc/PAVICS-landing/issues/65
 RUN umask 0000 && \
-    mamba create --name birdy --channel conda-forge --channel defaults xclim ravenpy python=3.9 --yes && \
+    mamba create --name birdy --channel conda-forge --channel defaults xclim ravenpy python=3.10 --yes && \
     mamba env update --name birdy --file /environment.yml && \
     mamba clean --all --yes
 
@@ -97,7 +95,9 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT/base-notebook/jupyter_notebook_config.py --output-document /etc/jupyter/jupyter_notebook_config.py && \
     chmod a+rx /usr/local/bin/start.sh /usr/local/bin/start-singleuser.sh /usr/local/bin/start-notebook.sh /usr/local/bin/fix-permissions && \
     chmod a+r /etc/jupyter/jupyter_notebook_config.py && \
-    mkdir /notebook_dir && chown jenkins /notebook_dir && \
+    mkdir -p /notebook_dir/writable-workspace && chown jenkins /notebook_dir/writable-workspace && \
+    mkdir -p /notebook_dir/pavics-homepage && chown jenkins /notebook_dir/pavics-homepage && \
+    chown root:root /notebook_dir && chmod a-w /notebook_dir && \
     chmod a+rwX -R /opt/conda/envs/birdy/fonts && \
     mkdir /opt/conda/pkgs/cache && \
     chown jenkins:jenkins -R /opt/conda/pkgs/cache && \

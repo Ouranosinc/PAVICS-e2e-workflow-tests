@@ -4,7 +4,7 @@ channels:
   - conda-forge
   - cdat
   - bokeh
-  - plotly  # for jupyter-dash
+    # - plotly  # for jupyter-dash
     #  - pyston
   - pyviz/label/dev  # for jupyter-panel-proxy, panel
   - defaults
@@ -19,8 +19,13 @@ dependencies:
 
   # Pin latest xclim and ravenpy to avoid downgrading during the second installation phase.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
-  - xclim >= 0.43.0
-  - ravenpy >= 0.12.1
+  - xclim >= 0.47.0
+  - ravenpy >= 0.13.0
+
+  # https://anaconda.org/conda-forge/xscen
+  # A climate change scenario-building analysis framework, built with xclim/xarray.
+  # PIN to 0.8.2 for xclim 0.47.0 compat
+  - xscen == 0.8.2
 
     #- dask  # from xclim and ravenpy
     #- distributed
@@ -32,13 +37,10 @@ dependencies:
   - matplotlib
     # - xarray  # from xclim and ravenpy
     # - numpy  # from xclim and ravenpy
-  # TODO: unpin numpy, pinned for hvplot.quadmesh(rasterize=True)
-  # datashade=True is an alias
-  # See https://github.com/holoviz/hvplot/issues/1073
-  - numpy <= 1.23.5
+  - numpy
   # TODO: unpin cf_xarray due to https://github.com/xarray-contrib/cf-xarray/issues/442
   - cf_xarray != 0.8.1
-  - birdy
+  - birdy >= 0.8.5
     # - owslib>=0.23.0  # from ravenpy
     # - netcdf4  # from ravenpy
   # TODO: remove libnetcdf PIN because https://github.com/Ouranosinc/PAVICS-landing/issues/66
@@ -49,6 +51,10 @@ dependencies:
   - cfgrib
   - pydap
   - cartopy >= 0.21.0
+  # Fixes cartopy bug arising with scipy 1.11.
+  # https://github.com/Ouranosinc/pavics-sdi/pull/298
+  # https://github.com/Ouranosinc/pavics-sdi/issues/294
+  - pykdtree
   - descartes # Is this really needed???
     # - rasterio  # from ravenpy
     # - gdal  # for osgeo, from ravenpy
@@ -60,15 +66,14 @@ dependencies:
   - pyogrio
   - scikit-image
   - ipyleaflet
-  - threddsclient
+  - threddsclient >= 0.4.5
   - bokeh
   - regionmask
   - siphon
   - jupyter_bokeh
   - pscript
   - h5netcdf
-  # TODO: remove panel pin when Analogues dashboard works
-  - panel <= 0.14.4
+  - panel >= 1.2.2
   # https://github.com/holoviz/panel
   - pyviz_comms  # (was labextension pyviz/jupyterlab_pyviz in jupyterlab v2)
   - holoviews
@@ -79,6 +84,8 @@ dependencies:
   # https://github.com/bird-house/birdhouse-deploy/pull/63#issuecomment-668270608
   # pinning hvplot did not solve the problem with violin plot.
   - hvplot
+  # https://anaconda.org/conda-forge/dash
+  - dash >= 2.16.1
   # https://streamlit.io/
   # https://anaconda.org/conda-forge/streamlit
   - streamlit
@@ -102,11 +109,7 @@ dependencies:
   # Plugin for building and loading intake catalogs for earth system data sets
   # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM
   # Large Ensemble datasets.
-  # Pin intake-esm since newer version activated validation of optional fields and broke our notebooks
-  #  ValidationError: 1 validation error for ESMCatalogModel
-  #  aggregation_control
-  #    field required (type=value_error.missing)
-  - intake-esm <= 2021.8.17
+  - intake-esm >= 2023.6.14
   # load netCDF, Zarr and other multi-dimensional data (xarray_image, netcdf,
   # grib, opendap, rasterio, remote-xarray, zarr)
   - intake-xarray
@@ -180,7 +183,6 @@ dependencies:
   - nbresuse  # needed by jupyterlab-system-monitor
   # xeus-python: back-end kernel implementing the Jupyter Debug Protocol
   - xeus-python
-  - jupyter-dash
   # https:://github.com/jupyterhub/jupyter-server-proxy
   - jupyter-server-proxy
   # https://github.com/dask/dask-labextension
@@ -225,6 +227,10 @@ dependencies:
     # https://pypi.org/project/fstd2nc/
     # Converts RPN standard files (from Environment Canada) to netCDF files.
     - fstd2nc
+    # https://pypi.org/project/figanos/
+    # Outils pour produire des graphiques informatifs sur les impacts des
+    # changements climatiques.
+    - figanos
     # visual debugger for Jupyter Notebook, not working with JupyterLab at this moment
     - pixiedust
     # block execution of 'run_all_cells' until user input finished

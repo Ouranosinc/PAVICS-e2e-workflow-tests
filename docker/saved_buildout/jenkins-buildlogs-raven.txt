@@ -1,0 +1,2135 @@
+Started by user Long Vu
+ > git rev-parse --is-inside-work-tree # timeout=10
+Setting origin to https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git
+ > git config remote.origin.url https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git # timeout=10
+Fetching origin...
+Fetching upstream changes from origin
+ > git --version # timeout=10
+ > git config --get remote.origin.url # timeout=10
+ > git fetch --tags --progress -- origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/current-production-version
+Seen branch in repository origin/devel-new-extensions
+Seen branch in repository origin/extended_tests
+Seen branch in repository origin/master
+Seen branch in repository origin/new-build-no-jupyter-dash
+Seen branch in repository origin/new-build-no-ravenpy
+Seen branch in repository origin/new-docker-build
+Seen branch in repository origin/test-dockerhub-build
+Seen branch in repository origin/twitcher_perf_test_notebook
+Seen 9 remote branches
+Obtained Jenkinsfile from 232b5eeec0e7a6b752788db1ce6ba6bded5ab31d
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on linux1 in /home/jenkins/agent/workspace/_workflow-tests_new-docker-build@2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+No credentials specified
+Fetching changes from the remote Git repository
+Fetching without tags
+Checking out Revision 232b5eeec0e7a6b752788db1ce6ba6bded5ab31d (new-docker-build)
+Commit message: "release: update to use image pavics/workflow-tests:py310-240316"
+ > git rev-parse --is-inside-work-tree # timeout=10
+ > git config remote.origin.url https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git # timeout=10
+Fetching upstream changes from https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git
+ > git --version # timeout=10
+ > git fetch --no-tags --progress -- https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 232b5eeec0e7a6b752788db1ce6ba6bded5ab31d # timeout=10
+ > git rev-list --no-walk 232b5eeec0e7a6b752788db1ce6ba6bded5ab31d # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
++ docker inspect -f . pavics/workflow-tests:py310-240316
+.
+[Pipeline] withDockerContainer
+linux1 seems to be running inside container c7b47b12d037a55684325ed6aba8c5cdbf14095a9ef2302738499cdd57ccd08b
+$ docker run -t -d -u 1000:1000 -w /home/jenkins/agent/workspace/_workflow-tests_new-docker-build@2 --volumes-from c7b47b12d037a55684325ed6aba8c5cdbf14095a9ef2302738499cdd57ccd08b -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** pavics/workflow-tests:py310-240316 cat
+$ docker top 7c83b119fa591b77c96fbb1844a5b1e12a65c7feabd647b27ba0948bace7a2f1 -eo pid,comm
+[Pipeline] {
+[Pipeline] ansiColor
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2024-03-16T18:15:44.266Z] Timeout set to expire in 2 hr 0 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Run tests)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withCredentials
+[2024-03-16T18:15:44.984Z] Masking supported pattern matches of $ESGF_AUTH_USERNAME or $ESGF_AUTH_PASSWORD or $ESGF_AUTH_TOKEN or $COMPUTE_TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2024-03-16T18:15:45.686Z] + VERIFY_SSL=true SAVE_RESULTING_NOTEBOOK=true ./testall
+[2024-03-16T18:15:45.686Z] TEST_PAVICS_SDI_REPO has been set to 'false'
+[2024-03-16T18:15:45.686Z] PAVICS_SDI_BRANCH has been set to 'master'
+[2024-03-16T18:15:45.686Z] PAVICS_SDI_REPO has been set to 'Ouranosinc/pavics-sdi'
+[2024-03-16T18:15:45.686Z] TEST_FINCH_REPO has been set to 'false'
+[2024-03-16T18:15:45.686Z] FINCH_BRANCH has been set to 'master'
+[2024-03-16T18:15:45.686Z] FINCH_REPO has been set to 'bird-house/finch'
+[2024-03-16T18:15:45.686Z] TEST_PAVICS_LANDING_REPO has been set to 'false'
+[2024-03-16T18:15:45.686Z] PAVICS_LANDING_BRANCH has been set to 'master'
+[2024-03-16T18:15:45.686Z] PAVICS_LANDING_REPO has been set to 'Ouranosinc/PAVICS-landing'
+[2024-03-16T18:15:45.686Z] TEST_RAVEN_REPO has been set to 'true'
+[2024-03-16T18:15:45.686Z] RAVEN_BRANCH has been set to 'main'
+[2024-03-16T18:15:45.686Z] RAVEN_REPO has been set to 'Ouranosinc/raven'
+[2024-03-16T18:15:45.686Z] TEST_RAVENPY_REPO has been set to 'true'
+[2024-03-16T18:15:45.686Z] RAVENPY_BRANCH has been set to 'master'
+[2024-03-16T18:15:45.686Z] RAVENPY_REPO has been set to 'CSHS-CWRA/RavenPy'
+[2024-03-16T18:15:45.686Z] TEST_ESGF_COMPUTE_API_REPO has been set to 'false'
+[2024-03-16T18:15:45.686Z] ESGF_COMPUTE_API_BRANCH has been set to 'devel'
+[2024-03-16T18:15:45.686Z] ESGF_COMPUTE_API_REPO has been set to 'ESGF/esgf-compute-api'
+[2024-03-16T18:15:45.686Z] TEST_LOCAL_NOTEBOOKS has been set to 'false'
+[2024-03-16T18:15:45.686Z] + git clean -fdx
+[2024-03-16T18:15:46.274Z] Removing .pytest_cache/
+[2024-03-16T18:15:46.274Z] Removing PAVICS-landing-master/
+[2024-03-16T18:15:46.274Z] Removing RavenPy-master/
+[2024-03-16T18:15:46.274Z] Removing __pycache__/
+[2024-03-16T18:15:46.274Z] Removing buildout/
+[2024-03-16T18:15:46.274Z] Removing esgf-compute-api-devel/
+[2024-03-16T18:15:46.274Z] Removing finch-master/
+[2024-03-16T18:15:46.274Z] Removing pavics-sdi-master/
+[2024-03-16T18:15:46.274Z] Removing raven-main/
+[2024-03-16T18:15:46.274Z] + ./downloadrepos
+[2024-03-16T18:15:46.274Z] TEST_PAVICS_SDI_REPO has been set to 'false'
+[2024-03-16T18:15:46.274Z] PAVICS_SDI_BRANCH has been set to 'master'
+[2024-03-16T18:15:46.274Z] PAVICS_SDI_REPO has been set to 'Ouranosinc/pavics-sdi'
+[2024-03-16T18:15:46.274Z] TEST_FINCH_REPO has been set to 'false'
+[2024-03-16T18:15:46.274Z] FINCH_BRANCH has been set to 'master'
+[2024-03-16T18:15:46.274Z] FINCH_REPO has been set to 'bird-house/finch'
+[2024-03-16T18:15:46.274Z] TEST_PAVICS_LANDING_REPO has been set to 'false'
+[2024-03-16T18:15:46.274Z] PAVICS_LANDING_BRANCH has been set to 'master'
+[2024-03-16T18:15:46.274Z] PAVICS_LANDING_REPO has been set to 'Ouranosinc/PAVICS-landing'
+[2024-03-16T18:15:46.274Z] TEST_RAVEN_REPO has been set to 'true'
+[2024-03-16T18:15:46.274Z] RAVEN_BRANCH has been set to 'main'
+[2024-03-16T18:15:46.274Z] RAVEN_REPO has been set to 'Ouranosinc/raven'
+[2024-03-16T18:15:46.274Z] TEST_RAVENPY_REPO has been set to 'true'
+[2024-03-16T18:15:46.274Z] RAVENPY_BRANCH has been set to 'master'
+[2024-03-16T18:15:46.274Z] RAVENPY_REPO has been set to 'CSHS-CWRA/RavenPy'
+[2024-03-16T18:15:46.274Z] TEST_ESGF_COMPUTE_API_REPO has been set to 'false'
+[2024-03-16T18:15:46.274Z] ESGF_COMPUTE_API_BRANCH has been set to 'devel'
+[2024-03-16T18:15:46.274Z] ESGF_COMPUTE_API_REPO has been set to 'ESGF/esgf-compute-api'
+[2024-03-16T18:15:46.274Z] TEST_LOCAL_NOTEBOOKS has been set to 'false'
+[2024-03-16T18:15:46.274Z] + rm -rf pavics-sdi-*
+[2024-03-16T18:15:46.274Z] + ls
+[2024-03-16T18:15:46.274Z] + grep pavics-sdi
+[2024-03-16T18:15:46.274Z] + downloadrepos https://github.com/Ouranosinc/pavics-sdi master
+[2024-03-16T18:15:46.274Z] + github_repo=https://github.com/Ouranosinc/pavics-sdi
+[2024-03-16T18:15:46.274Z] + shift
+[2024-03-16T18:15:46.274Z] + branch=master
+[2024-03-16T18:15:46.274Z] + shift
+[2024-03-16T18:15:46.274Z] + wget --quiet --output-document - https://github.com/Ouranosinc/pavics-sdi/archive/master.tar.gz
+[2024-03-16T18:15:46.274Z] + tar xz
+[2024-03-16T18:16:53.954Z] + ls
+[2024-03-16T18:16:53.954Z] + grep pavics-sdi
+[2024-03-16T18:16:53.954Z] pavics-sdi-master
+[2024-03-16T18:16:53.954Z] + set +x
+[2024-03-16T18:16:53.954Z] + rm -rf finch-*
+[2024-03-16T18:16:53.954Z] + grep finch
+[2024-03-16T18:16:53.954Z] + ls
+[2024-03-16T18:16:53.954Z] + downloadrepos https://github.com/bird-house/finch master
+[2024-03-16T18:16:53.954Z] + github_repo=https://github.com/bird-house/finch
+[2024-03-16T18:16:53.954Z] + shift
+[2024-03-16T18:16:53.954Z] + branch=master
+[2024-03-16T18:16:53.955Z] + shift
+[2024-03-16T18:16:53.955Z] + wget --quiet --output-document - https://github.com/bird-house/finch/archive/master.tar.gz
+[2024-03-16T18:16:53.955Z] + tar xz
+[2024-03-16T18:16:53.955Z] + ls
+[2024-03-16T18:16:53.955Z] + grep finch
+[2024-03-16T18:16:53.955Z] finch-master
+[2024-03-16T18:16:53.955Z] + set +x
+[2024-03-16T18:16:53.955Z] + rm -rf PAVICS-landing-*
+[2024-03-16T18:16:53.955Z] + ls
+[2024-03-16T18:16:53.955Z] + grep PAVICS-landing
+[2024-03-16T18:16:53.955Z] + downloadrepos https://github.com/Ouranosinc/PAVICS-landing master
+[2024-03-16T18:16:53.955Z] + github_repo=https://github.com/Ouranosinc/PAVICS-landing
+[2024-03-16T18:16:53.955Z] + shift
+[2024-03-16T18:16:53.955Z] + branch=master
+[2024-03-16T18:16:53.955Z] + shift
+[2024-03-16T18:16:53.955Z] + wget --quiet --output-document - https://github.com/Ouranosinc/PAVICS-landing/archive/master.tar.gz
+[2024-03-16T18:16:53.955Z] + tar xz
+[2024-03-16T18:16:53.955Z] + ls
+[2024-03-16T18:16:53.955Z] + grep PAVICS-landing
+[2024-03-16T18:16:53.955Z] PAVICS-landing-master
+[2024-03-16T18:16:53.955Z] + set +x
+[2024-03-16T18:16:53.955Z] + rm -rf raven-*
+[2024-03-16T18:16:53.955Z] + ls
+[2024-03-16T18:16:53.955Z] + grep raven
+[2024-03-16T18:16:53.955Z] + downloadrepos https://github.com/Ouranosinc/raven main
+[2024-03-16T18:16:53.955Z] + github_repo=https://github.com/Ouranosinc/raven
+[2024-03-16T18:16:53.955Z] + shift
+[2024-03-16T18:16:53.955Z] + branch=main
+[2024-03-16T18:16:53.955Z] + shift
+[2024-03-16T18:16:53.955Z] + wget --quiet --output-document - https://github.com/Ouranosinc/raven/archive/main.tar.gz
+[2024-03-16T18:16:53.955Z] + tar xz
+[2024-03-16T18:16:54.892Z] + grep raven
+[2024-03-16T18:16:54.892Z] + ls
+[2024-03-16T18:16:54.892Z] raven-main
+[2024-03-16T18:16:54.892Z] + set +x
+[2024-03-16T18:16:54.892Z] + rm -rf RavenPy-*
+[2024-03-16T18:16:54.892Z] + ls
+[2024-03-16T18:16:54.892Z] + grep RavenPy
+[2024-03-16T18:16:54.892Z] + downloadrepos https://github.com/CSHS-CWRA/RavenPy master
+[2024-03-16T18:16:54.892Z] + github_repo=https://github.com/CSHS-CWRA/RavenPy
+[2024-03-16T18:16:54.892Z] + shift
+[2024-03-16T18:16:54.892Z] + branch=master
+[2024-03-16T18:16:54.892Z] + shift
+[2024-03-16T18:16:54.892Z] + wget --quiet --output-document - https://github.com/CSHS-CWRA/RavenPy/archive/master.tar.gz
+[2024-03-16T18:16:54.892Z] + tar xz
+[2024-03-16T18:16:56.826Z] + ls
+[2024-03-16T18:16:56.827Z] + grep RavenPy
+[2024-03-16T18:16:56.827Z] RavenPy-master
+[2024-03-16T18:16:56.827Z] + set +x
+[2024-03-16T18:16:56.827Z] + rm -rf esgf-compute-api-*
+[2024-03-16T18:16:56.827Z] + ls
+[2024-03-16T18:16:56.827Z] + grep esgf-compute-api
+[2024-03-16T18:16:56.827Z] + downloadrepos https://github.com/ESGF/esgf-compute-api devel
+[2024-03-16T18:16:56.827Z] + github_repo=https://github.com/ESGF/esgf-compute-api
+[2024-03-16T18:16:56.827Z] + shift
+[2024-03-16T18:16:56.827Z] + branch=devel
+[2024-03-16T18:16:56.827Z] + shift
+[2024-03-16T18:16:56.827Z] + wget --quiet --output-document - https://github.com/ESGF/esgf-compute-api/archive/devel.tar.gz
+[2024-03-16T18:16:56.827Z] + tar xz
+[2024-03-16T18:16:57.762Z] + ls
+[2024-03-16T18:16:57.762Z] + grep esgf-compute-api
+[2024-03-16T18:16:57.762Z] esgf-compute-api-devel
+[2024-03-16T18:16:57.762Z] + set +x
+[2024-03-16T18:16:57.762Z] + echo master
+[2024-03-16T18:16:57.762Z] + sed s@/@-@g
+[2024-03-16T18:16:57.762Z] + PAVICS_SDI_BRANCH=master
+[2024-03-16T18:16:57.762Z] + echo Ouranosinc/pavics-sdi
+[2024-03-16T18:16:57.762Z] + sed s@^.*/@@g
+[2024-03-16T18:16:57.762Z] + PAVICS_SDI_REPO_NAME=pavics-sdi
+[2024-03-16T18:16:57.762Z] + echo master
+[2024-03-16T18:16:57.762Z] + sed s@/@-@g
+[2024-03-16T18:16:57.762Z] + FINCH_BRANCH=master
+[2024-03-16T18:16:57.762Z] + echo bird-house/finch
+[2024-03-16T18:16:57.762Z] + sed s@^.*/@@g
+[2024-03-16T18:16:57.762Z] + FINCH_REPO_NAME=finch
+[2024-03-16T18:16:57.762Z] + echo master
+[2024-03-16T18:16:57.762Z] + sed s@/@-@g
+[2024-03-16T18:16:57.762Z] + PAVICS_LANDING_BRANCH=master
+[2024-03-16T18:16:57.762Z] + echo Ouranosinc/PAVICS-landing
+[2024-03-16T18:16:57.762Z] + sed s@^.*/@@g
+[2024-03-16T18:16:57.762Z] + PAVICS_LANDING_REPO_NAME=PAVICS-landing
+[2024-03-16T18:16:57.762Z] + echo main
+[2024-03-16T18:16:57.762Z] + sed s@/@-@g
+[2024-03-16T18:16:57.762Z] + RAVEN_BRANCH=main
+[2024-03-16T18:16:57.762Z] + echo Ouranosinc/raven
+[2024-03-16T18:16:57.762Z] + sed s@^.*/@@g
+[2024-03-16T18:16:57.762Z] + RAVEN_REPO_NAME=raven
+[2024-03-16T18:16:57.762Z] + echo+  master
+[2024-03-16T18:16:57.762Z] sed s@/@-@g
+[2024-03-16T18:16:57.762Z] + RAVENPY_BRANCH=master
+[2024-03-16T18:16:57.762Z] + echo CSHS-CWRA/RavenPy
+[2024-03-16T18:16:57.762Z] + sed s@^.*/@@g
+[2024-03-16T18:16:57.762Z] + RAVENPY_REPO_NAME=RavenPy
+[2024-03-16T18:16:57.762Z] + echo devel
+[2024-03-16T18:16:57.762Z] + sed s@/@-@g
+[2024-03-16T18:16:57.762Z] + ESGF_COMPUTE_API_BRANCH=devel
+[2024-03-16T18:16:57.762Z] + echo ESGF/esgf-compute-api
+[2024-03-16T18:16:57.762Z] + sed s@^.*/@@g
+[2024-03-16T18:16:57.762Z] + ESGF_COMPUTE_API_REPO_NAME=esgf-compute-api
+[2024-03-16T18:16:57.762Z] + + sed s@[^a-zA-Z0-9_\-\.]@-@g
+[2024-03-16T18:16:57.762Z] echo pavics-sdi-master
+[2024-03-16T18:16:57.762Z] + PAVICS_SDI_DIR=pavics-sdi-master
+[2024-03-16T18:16:57.762Z] + echo finch-master
+[2024-03-16T18:16:57.762Z] + sed s@[^a-zA-Z0-9_\-\.]@-@g
+[2024-03-16T18:16:57.762Z] + FINCH_DIR=finch-master
+[2024-03-16T18:16:57.762Z] + echo PAVICS-landing-master
+[2024-03-16T18:16:57.762Z] + sed s@[^a-zA-Z0-9_\-\.]@-@g
+[2024-03-16T18:16:57.762Z] + PAVICS_LANDING_DIR=PAVICS-landing-master
+[2024-03-16T18:16:57.762Z] + echo raven-main
+[2024-03-16T18:16:57.762Z] + sed s@[^a-zA-Z0-9_\-\.]@-@g
+[2024-03-16T18:16:57.762Z] + RAVEN_DIR=raven-main
+[2024-03-16T18:16:57.762Z] + echo RavenPy-master
+[2024-03-16T18:16:57.762Z] + sed s@[^a-zA-Z0-9_\-\.]@-@g
+[2024-03-16T18:16:57.762Z] + RAVENPY_DIR=RavenPy-master
+[2024-03-16T18:16:57.762Z] + echo esgf-compute-api-devel
+[2024-03-16T18:16:57.762Z] + sed s@[^a-zA-Z0-9_\-\.]@-@g
+[2024-03-16T18:16:57.762Z] + ESGF_COMPUTE_API_DIR=esgf-compute-api-devel
+[2024-03-16T18:16:57.762Z] + echo true
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + VERIFY_SSL=true
+[2024-03-16T18:16:57.762Z] + [ xtrue = xfalse ]
+[2024-03-16T18:16:57.762Z] + rm -v finch-master/setup.cfg
+[2024-03-16T18:16:57.762Z] removed 'finch-master/setup.cfg'
+[2024-03-16T18:16:57.762Z] + rm -v raven-main/setup.cfg
+[2024-03-16T18:16:57.762Z] removed 'raven-main/setup.cfg'
+[2024-03-16T18:16:57.762Z] + rm -v raven-main/pyproject.toml
+[2024-03-16T18:16:57.762Z] removed 'raven-main/pyproject.toml'
+[2024-03-16T18:16:57.762Z] + rm -v RavenPy-master/setup.cfg
+[2024-03-16T18:16:57.762Z] removed 'RavenPy-master/setup.cfg'
+[2024-03-16T18:16:57.762Z] + rm -v RavenPy-master/tox.ini
+[2024-03-16T18:16:57.762Z] removed 'RavenPy-master/tox.ini'
+[2024-03-16T18:16:57.762Z] + rm -v RavenPy-master/pyproject.toml
+[2024-03-16T18:16:57.762Z] removed 'RavenPy-master/pyproject.toml'
+[2024-03-16T18:16:57.762Z] + rm -v esgf-compute-api-devel/setup.cfg
+[2024-03-16T18:16:57.762Z] rm: cannot remove 'esgf-compute-api-devel/setup.cfg': No such file or directory
+[2024-03-16T18:16:57.762Z] + rm -v esgf-compute-api-devel/tox.ini
+[2024-03-16T18:16:57.762Z] rm: cannot remove 'esgf-compute-api-devel/tox.ini': No such file or directory
+[2024-03-16T18:16:57.762Z] + echo false
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + TEST_MAGPIE_AUTH=false
+[2024-03-16T18:16:57.762Z] + echo false
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + TEST_PAVICS_SDI_REPO=false
+[2024-03-16T18:16:57.762Z] + echo false
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + TEST_PAVICS_SDI_WEAVER=false
+[2024-03-16T18:16:57.762Z] + echo false
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + TEST_FINCH_REPO=false
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + echo false
+[2024-03-16T18:16:57.762Z] + TEST_PAVICS_LANDING_REPO=false
+[2024-03-16T18:16:57.762Z] + echo true
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + TEST_RAVEN_REPO=true
+[2024-03-16T18:16:57.762Z] + echo true
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + TEST_RAVENPY_REPO=true
+[2024-03-16T18:16:57.762Z] + echo false+ 
+[2024-03-16T18:16:57.762Z] tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + TEST_ESGF_COMPUTE_API_REPO=false
+[2024-03-16T18:16:57.762Z] + echo false
+[2024-03-16T18:16:57.762Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:16:57.762Z] + TEST_LOCAL_NOTEBOOKS=false
+[2024-03-16T18:16:57.762Z] + NOTEBOOKS_TO_TEST=
+[2024-03-16T18:16:57.762Z] + [ xfalse = xtrue ]
+[2024-03-16T18:16:57.763Z] + [ xfalse = xtrue ]
+[2024-03-16T18:16:57.763Z] + [ xfalse = xtrue ]
+[2024-03-16T18:16:57.763Z] + [ xfalse = xtrue ]
+[2024-03-16T18:16:57.763Z] + [ xtrue = xtrue ]
+[2024-03-16T18:16:57.763Z] + NOTEBOOKS_TO_TEST= raven-main/docs/source/notebooks/*.ipynb
+[2024-03-16T18:16:57.763Z] + [ xtrue = xtrue ]
+[2024-03-16T18:16:57.763Z] + NOTEBOOKS_TO_TEST= raven-main/docs/source/notebooks/*.ipynb RavenPy-master/docs/notebooks/*.ipynb
+[2024-03-16T18:16:57.763Z] + NOTEBOOKS_TO_TEST= raven-main/docs/source/notebooks/*.ipynb RavenPy-master/docs/notebooks/*.ipynb RavenPy-master/docs/notebooks/paper/*.ipynb
+[2024-03-16T18:16:57.763Z] + [ xfalse = xtrue ]
+[2024-03-16T18:16:57.763Z] + [ xfalse = xtrue ]
+[2024-03-16T18:16:57.763Z] + ./runtest  raven-main/docs/source/notebooks/*.ipynb RavenPy-master/docs/notebooks/*.ipynb RavenPy-master/docs/notebooks/paper/*.ipynb
+[2024-03-16T18:16:57.763Z] + [ -n  ]
+[2024-03-16T18:16:57.763Z] + [ ! -z pavics.ouranos.ca ]
+[2024-03-16T18:16:57.763Z] + echo Will run notebooks against pavics.ouranos.ca
+[2024-03-16T18:16:57.763Z] Will run notebooks against pavics.ouranos.ca
+[2024-03-16T18:16:57.763Z] + [ -z  ]
+[2024-03-16T18:16:57.763Z] + sed -i /\(\.ncml\|TEST_USE_PROD_DATA\)/!s/pavics.ouranos.ca/pavics.ouranos.ca/g raven-main/docs/source/notebooks/Region_selection.ipynb raven-main/docs/source/notebooks/Subset_climate_data_over_watershed.ipynb RavenPy-master/docs/notebooks/00_Introduction_to_JupyterLab.ipynb RavenPy-master/docs/notebooks/01_Getting_watershed_boundaries.ipynb RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb RavenPy-master/docs/notebooks/03_Extracting_forcing_data.ipynb RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb RavenPy-master/docs/notebooks/05_Advanced_RavenPy_configuration.ipynb RavenPy-master/docs/notebooks/06_Raven_calibration.ipynb RavenPy-master/docs/notebooks/07_Making_and_using_hotstart_files.ipynb RavenPy-master/docs/notebooks/08_Getting_and_bias_correcting_CMIP6_data.ipynb RavenPy-master/docs/notebooks/09_Hydrological_impacts_of_climate_change.ipynb RavenPy-master/docs/notebooks/10_Data_assimilation.ipynb RavenPy-master/docs/notebooks/11_Climatological_ESP_forecasting.ipynb RavenPy-master/docs/notebooks/12_Performing_hindcasting_experiments.ipynb RavenPy-master/docs/notebooks/Assess_probabilistic_flood_risk.ipynb RavenPy-master/docs/notebooks/Comparing_hindcasts_and_ESP_forecasts.ipynb RavenPy-master/docs/notebooks/Distributed_hydrological_modelling.ipynb RavenPy-master/docs/notebooks/HydroShare_integration.ipynb RavenPy-master/docs/notebooks/Hydrological_realtime_forecasting.ipynb RavenPy-master/docs/notebooks/Managing_Jupyter_Environments.ipynb RavenPy-master/docs/notebooks/Perform_Regionalization.ipynb RavenPy-master/docs/notebooks/Running_HMETS_with_CANOPEX_dataset.ipynb RavenPy-master/docs/notebooks/Sensitivity_analysis.ipynb RavenPy-master/docs/notebooks/time_series_analysis.ipynb RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb
+[2024-03-16T18:16:57.763Z] + git diff
+[2024-03-16T18:16:57.763Z] + export PYTHONWARNINGS=ignore:Unverified HTTPS request
+[2024-03-16T18:16:57.763Z] + py.test --nbval raven-main/docs/source/notebooks/Region_selection.ipynb raven-main/docs/source/notebooks/Subset_climate_data_over_watershed.ipynb RavenPy-master/docs/notebooks/00_Introduction_to_JupyterLab.ipynb RavenPy-master/docs/notebooks/01_Getting_watershed_boundaries.ipynb RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb RavenPy-master/docs/notebooks/03_Extracting_forcing_data.ipynb RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb RavenPy-master/docs/notebooks/05_Advanced_RavenPy_configuration.ipynb RavenPy-master/docs/notebooks/06_Raven_calibration.ipynb RavenPy-master/docs/notebooks/07_Making_and_using_hotstart_files.ipynb RavenPy-master/docs/notebooks/08_Getting_and_bias_correcting_CMIP6_data.ipynb RavenPy-master/docs/notebooks/09_Hydrological_impacts_of_climate_change.ipynb RavenPy-master/docs/notebooks/10_Data_assimilation.ipynb RavenPy-master/docs/notebooks/11_Climatological_ESP_forecasting.ipynb RavenPy-master/docs/notebooks/12_Performing_hindcasting_experiments.ipynb RavenPy-master/docs/notebooks/Assess_probabilistic_flood_risk.ipynb RavenPy-master/docs/notebooks/Comparing_hindcasts_and_ESP_forecasts.ipynb RavenPy-master/docs/notebooks/Distributed_hydrological_modelling.ipynb RavenPy-master/docs/notebooks/HydroShare_integration.ipynb RavenPy-master/docs/notebooks/Hydrological_realtime_forecasting.ipynb RavenPy-master/docs/notebooks/Managing_Jupyter_Environments.ipynb RavenPy-master/docs/notebooks/Perform_Regionalization.ipynb RavenPy-master/docs/notebooks/Running_HMETS_with_CANOPEX_dataset.ipynb RavenPy-master/docs/notebooks/Sensitivity_analysis.ipynb RavenPy-master/docs/notebooks/time_series_analysis.ipynb RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb --sanitize-with notebooks/output-sanitize.cfg --dist=loadscope --numprocesses=0 --nbval-lax
+[2024-03-16T18:16:59.666Z] /opt/conda/envs/birdy/lib/python3.10/site-packages/nbval/plugin.py:122: DeprecationWarning: --sanitize-with has been renamed to --nbval-sanitize-with
+[2024-03-16T18:16:59.666Z]   warnings.warn("--sanitize-with has been renamed to --nbval-sanitize-with", DeprecationWarning)
+[2024-03-16T18:16:59.926Z] ============================= test session starts ==============================
+[2024-03-16T18:16:59.926Z] platform linux -- Python 3.10.13, pytest-8.1.1, pluggy-1.4.0
+[2024-03-16T18:16:59.926Z] rootdir: /home/jenkins/agent/workspace/_workflow-tests_new-docker-build@2
+[2024-03-16T18:16:59.926Z] plugins: anyio-4.3.0, dash-2.16.1, nbval-0.11.0, tornasync-0.6.0.post2, xdist-3.5.0
+[2024-03-16T18:16:59.926Z] collected 242 items
+[2024-03-16T18:16:59.926Z] 
+[2024-03-16T18:17:12.355Z] raven-main/docs/source/notebooks/Region_selection.ipynb .........        [  3%]
+[2024-03-16T18:17:13.297Z] raven-main/docs/source/notebooks/Subset_climate_data_over_watershed.ipynb . [  4%]
+[2024-03-16T18:17:27.050Z] ......                                                                   [  6%]
+[2024-03-16T18:17:29.586Z] RavenPy-master/docs/notebooks/00_Introduction_to_JupyterLab.ipynb ...... [  9%]
+[2024-03-16T18:17:29.586Z]                                                                          [  9%]
+[2024-03-16T18:17:31.751Z] RavenPy-master/docs/notebooks/01_Getting_watershed_boundaries.ipynb .... [ 10%]
+[2024-03-16T18:17:39.896Z] ....                                                                     [ 12%]
+[2024-03-16T18:17:45.189Z] RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb . [ 12%]
+[2024-03-16T18:17:53.005Z] ....F.FF..F..                                                            [ 18%]
+[2024-03-16T18:18:25.867Z] RavenPy-master/docs/notebooks/03_Extracting_forcing_data.ipynb ......... [ 21%]
+[2024-03-16T18:19:39.155Z] ..                                                                       [ 22%]
+[2024-03-16T18:19:40.094Z] RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb ... [ 23%]
+[2024-03-16T18:19:50.086Z] ..FFFFFFFF.......                                                        [ 30%]
+[2024-03-16T18:19:58.644Z] RavenPy-master/docs/notebooks/05_Advanced_RavenPy_configuration.ipynb .. [ 31%]
+[2024-03-16T18:20:08.916Z] ...........                                                              [ 36%]
+[2024-03-16T18:20:19.431Z] RavenPy-master/docs/notebooks/06_Raven_calibration.ipynb ......          [ 38%]
+[2024-03-16T18:20:26.055Z] RavenPy-master/docs/notebooks/07_Making_and_using_hotstart_files.ipynb . [ 39%]
+[2024-03-16T18:20:32.062Z] .....                                                                    [ 41%]
+[2024-03-16T18:20:33.977Z] RavenPy-master/docs/notebooks/08_Getting_and_bias_correcting_CMIP6_data.ipynb . [ 41%]
+[2024-03-16T18:33:31.477Z] .................                                                        [ 48%]
+[2024-03-16T18:33:36.787Z] RavenPy-master/docs/notebooks/09_Hydrological_impacts_of_climate_change.ipynb . [ 49%]
+[2024-03-16T18:33:43.938Z] ....                                                                     [ 50%]
+[2024-03-16T18:34:24.369Z] RavenPy-master/docs/notebooks/10_Data_assimilation.ipynb ........        [ 54%]
+[2024-03-16T18:34:33.108Z] RavenPy-master/docs/notebooks/11_Climatological_ESP_forecasting.ipynb .. [ 54%]
+[2024-03-16T18:34:59.122Z] ......                                                                   [ 57%]
+[2024-03-16T18:35:05.698Z] RavenPy-master/docs/notebooks/12_Performing_hindcasting_experiments.ipynb . [ 57%]
+[2024-03-16T18:35:16.653Z] .......                                                                  [ 60%]
+[2024-03-16T18:35:23.846Z] RavenPy-master/docs/notebooks/Assess_probabilistic_flood_risk.ipynb .... [ 62%]
+[2024-03-16T18:35:38.246Z] ....                                                                     [ 64%]
+[2024-03-16T18:35:46.384Z] RavenPy-master/docs/notebooks/Comparing_hindcasts_and_ESP_forecasts.ipynb . [ 64%]
+[2024-03-16T18:36:07.108Z] .......                                                                  [ 67%]
+[2024-03-16T18:36:10.403Z] RavenPy-master/docs/notebooks/Distributed_hydrological_modelling.ipynb . [ 67%]
+[2024-03-16T18:36:36.462Z] .......                                                                  [ 70%]
+[2024-03-16T18:36:39.748Z] RavenPy-master/docs/notebooks/HydroShare_integration.ipynb FFFF          [ 72%]
+[2024-03-16T18:36:52.121Z] RavenPy-master/docs/notebooks/Hydrological_realtime_forecasting.ipynb .. [ 73%]
+[2024-03-16T18:36:58.464Z] ....                                                                     [ 74%]
+[2024-03-16T18:38:07.142Z] RavenPy-master/docs/notebooks/Managing_Jupyter_Environments.ipynb ...    [ 76%]
+[2024-03-16T18:38:31.016Z] RavenPy-master/docs/notebooks/Perform_Regionalization.ipynb .......      [ 78%]
+[2024-03-16T18:38:34.295Z] RavenPy-master/docs/notebooks/Running_HMETS_with_CANOPEX_dataset.ipynb . [ 79%]
+[2024-03-16T18:38:49.100Z] .............                                                            [ 84%]
+[2024-03-16T18:39:09.049Z] RavenPy-master/docs/notebooks/Sensitivity_analysis.ipynb .....           [ 86%]
+[2024-03-16T18:39:17.943Z] RavenPy-master/docs/notebooks/time_series_analysis.ipynb ...........     [ 91%]
+[2024-03-16T18:39:27.907Z] RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb . [ 91%]
+[2024-03-16T18:44:09.603Z] .........FFFFFFFFFFF                                                     [100%]
+[2024-03-16T18:44:09.603Z] 
+[2024-03-16T18:44:09.603Z] =================================== FAILURES ===================================
+[2024-03-16T18:44:09.603Z] _ RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb::Cell 5 _
+[2024-03-16T18:44:09.603Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.603Z] [94mCell 5: Cell execution caused an exception
+[2024-03-16T18:44:09.603Z] 
+[2024-03-16T18:44:09.603Z] Input:
+[2024-03-16T18:44:09.603Z] [0mfeatures, statistics, raster = stats_resp.get(asobj=True)
+[2024-03-16T18:44:09.603Z] grid = raster[0]
+[2024-03-16T18:44:09.603Z] grid.plot()
+[2024-03-16T18:44:09.603Z] 
+[2024-03-16T18:44:09.603Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.603Z] 
+[2024-03-16T18:44:09.603Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.603Z] [0;31mValueError[0m                                Traceback (most recent call last)
+[2024-03-16T18:44:09.603Z] Cell [0;32mIn[1], line 3[0m
+[2024-03-16T18:44:09.603Z] [1;32m      1[0m features, statistics, raster [38;5;241m=[39m stats_resp[38;5;241m.[39mget(asobj[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
+[2024-03-16T18:44:09.604Z] [1;32m      2[0m grid [38;5;241m=[39m raster[[38;5;241m0[39m]
+[2024-03-16T18:44:09.604Z] [0;32m----> 3[0m [43mgrid[49m[38;5;241;43m.[39;49m[43mplot[49m[43m([49m[43m)[49m
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/plot/accessor.py:942[0m, in [0;36mDatasetPlotAccessor.__call__[0;34m(self, *args, **kwargs)[0m
+[2024-03-16T18:44:09.604Z] [1;32m    941[0m [38;5;28;01mdef[39;00m [38;5;21m__call__[39m([38;5;28mself[39m, [38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs) [38;5;241m-[39m[38;5;241m>[39m NoReturn:
+[2024-03-16T18:44:09.604Z] [0;32m--> 942[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[2024-03-16T18:44:09.604Z] [1;32m    943[0m         [38;5;124m"[39m[38;5;124mDataset.plot cannot be called directly. Use [39m[38;5;124m"[39m
+[2024-03-16T18:44:09.604Z] [1;32m    944[0m         [38;5;124m"[39m[38;5;124man explicit plot method, e.g. ds.plot.scatter(...)[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.604Z] [1;32m    945[0m     )
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [0;31mValueError[0m: Dataset.plot cannot be called directly. Use an explicit plot method, e.g. ds.plot.scatter(...)
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] _ RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb::Cell 7 _
+[2024-03-16T18:44:09.604Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.604Z] [94mCell 7: Cell execution caused an exception
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] Input:
+[2024-03-16T18:44:09.604Z] [0munique, counts = np.unique(grid, return_counts=True)
+[2024-03-16T18:44:09.604Z] print("The land-use categories available are: " + str(unique))
+[2024-03-16T18:44:09.604Z] print("The number of occurrences of each land-use category is: " + str(counts))
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] # Pixels values at '127' are NaN and can be ignored.
+[2024-03-16T18:44:09.604Z] from matplotlib.colors import Normalize
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] norm = Normalize()
+[2024-03-16T18:44:09.604Z] norm.autoscale(unique[:-1])
+[2024-03-16T18:44:09.604Z] cm = mpl.colormaps["tab20"]
+[2024-03-16T18:44:09.604Z] plt.bar(unique[:-1], counts[:-1], color=cm(norm(unique[:-1])))
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] # plt.bar(unique[:-1], counts[:-1])
+[2024-03-16T18:44:09.604Z] plt.xticks(np.arange(min(unique[:-1]), max(unique[:-1]) + 1, 1.0))
+[2024-03-16T18:44:09.604Z] plt.xlabel("Land-use categories")
+[2024-03-16T18:44:09.604Z] plt.ylabel("Number of pixels")
+[2024-03-16T18:44:09.604Z] plt.show()
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] grid.where(grid != 127).sel(band=1).plot.imshow(cmap="tab20")
+[2024-03-16T18:44:09.604Z] grid.name = "Land-use categories"
+[2024-03-16T18:44:09.604Z] plt.show()
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.604Z] [0;31mTypeError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.604Z] [0;32m/tmp/ipykernel_391/750628277.py[0m in [0;36m?[0;34m()[0m
+[2024-03-16T18:44:09.604Z] [0;32m----> 1[0;31m [0munique[0m[0;34m,[0m [0mcounts[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0munique[0m[0;34m([0m[0mgrid[0m[0;34m,[0m [0mreturn_counts[0m[0;34m=[0m[0;32mTrue[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [0m[1;32m      2[0m [0mprint[0m[0;34m([0m[0;34m"The land-use categories available are: "[0m [0;34m+[0m [0mstr[0m[0;34m([0m[0munique[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [1;32m      3[0m [0mprint[0m[0;34m([0m[0;34m"The number of occurrences of each land-use category is: "[0m [0;34m+[0m [0mstr[0m[0;34m([0m[0mcounts[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [1;32m      4[0m [0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [0;32m<__array_function__ internals>[0m in [0;36m?[0;34m(*args, **kwargs)[0m
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/numpy/lib/arraysetops.py[0m in [0;36m?[0;34m(ar, return_index, return_inverse, return_counts, axis, equal_nan)[0m
+[2024-03-16T18:44:09.604Z] [1;32m    268[0m     [0;34m>>[0m[0;34m>[0m [0mnp[0m[0;34m.[0m[0mrepeat[0m[0;34m([0m[0mvalues[0m[0;34m,[0m [0mcounts[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [1;32m    269[0m     [0marray[0m[0;34m([0m[0;34m[[0m[0;36m1[0m[0;34m,[0m [0;36m2[0m[0;34m,[0m [0;36m2[0m[0;34m,[0m [0;36m2[0m[0;34m,[0m [0;36m3[0m[0;34m,[0m [0;36m4[0m[0;34m,[0m [0;36m6[0m[0;34m][0m[0;34m)[0m    [0;31m# original order not preserved[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [1;32m    270[0m [0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [1;32m    271[0m     """
+[2024-03-16T18:44:09.604Z] [0;32m--> 272[0;31m     [0mar[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0masanyarray[0m[0;34m([0m[0mar[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [0m[1;32m    273[0m     [0;32mif[0m [0maxis[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [1;32m    274[0m         ret = _unique1d(ar, return_index, return_inverse, return_counts, 
+[2024-03-16T18:44:09.604Z] [1;32m    275[0m                         equal_nan=equal_nan)
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/dataset.py[0m in [0;36m?[0;34m(self, dtype)[0m
+[2024-03-16T18:44:09.604Z] [1;32m   1472[0m     [0;32mdef[0m [0m__array__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mdtype[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [0;32m-> 1473[0;31m         raise TypeError(
+[2024-03-16T18:44:09.604Z] [0m[1;32m   1474[0m             [0;34m"cannot directly convert an xarray.Dataset into a "[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [1;32m   1475[0m             [0;34m"numpy array. Instead, create an xarray.DataArray "[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] [1;32m   1476[0m             [0;34m"first, either with indexing on the Dataset or by "[0m[0;34m[0m[0;34m[0m[0m
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [0;31mTypeError[0m: cannot directly convert an xarray.Dataset into a numpy array. Instead, create an xarray.DataArray first, either with indexing on the Dataset or by invoking the `to_array()` method.
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] _ RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb::Cell 8 _
+[2024-03-16T18:44:09.604Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.604Z] [94mCell 8: Cell execution caused an exception
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] Input:
+[2024-03-16T18:44:09.604Z] [0mimport cartopy.crs as ccrs
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] # Set a CRS transformation:
+[2024-03-16T18:44:09.604Z] crs = ccrs.LambertConformal(
+[2024-03-16T18:44:09.604Z]     central_latitude=49, central_longitude=-95, standard_parallels=(49, 77)
+[2024-03-16T18:44:09.604Z] )
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] ax = plt.subplot(projection=crs)
+[2024-03-16T18:44:09.604Z] grid.name = "Land-use categories"
+[2024-03-16T18:44:09.604Z] grid.where(grid != 127).sel(band=1).plot.imshow(ax=ax, transform=crs, cmap="tab20")
+[2024-03-16T18:44:09.604Z] plt.show()
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.604Z] 
+[2024-03-16T18:44:09.604Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.604Z] [0;31mAttributeError[0m                            Traceback (most recent call last)
+[2024-03-16T18:44:09.604Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/common.py:305[0m, in [0;36mAttrAccessMixin.__setattr__[0;34m(self, name, value)[0m
+[2024-03-16T18:44:09.604Z] [1;32m    304[0m [38;5;28;01mtry[39;00m:
+[2024-03-16T18:44:09.605Z] [0;32m--> 305[0m     [38;5;28;43mobject[39;49m[38;5;241;43m.[39;49m[38;5;21;43m__setattr__[39;49m[43m([49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43mname[49m[43m,[49m[43m [49m[43mvalue[49m[43m)[49m
+[2024-03-16T18:44:09.605Z] [1;32m    306[0m [38;5;28;01mexcept[39;00m [38;5;167;01mAttributeError[39;00m [38;5;28;01mas[39;00m e:
+[2024-03-16T18:44:09.605Z] [1;32m    307[0m     [38;5;66;03m# Don't accidentally shadow custom AttributeErrors, e.g.[39;00m
+[2024-03-16T18:44:09.605Z] [1;32m    308[0m     [38;5;66;03m# DataArray.dims.setter[39;00m
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] [0;31mAttributeError[0m: 'Dataset' object has no attribute 'name'
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] The above exception was the direct cause of the following exception:
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] [0;31mAttributeError[0m                            Traceback (most recent call last)
+[2024-03-16T18:44:09.605Z] Cell [0;32mIn[1], line 9[0m
+[2024-03-16T18:44:09.605Z] [1;32m      4[0m crs [38;5;241m=[39m ccrs[38;5;241m.[39mLambertConformal(
+[2024-03-16T18:44:09.605Z] [1;32m      5[0m     central_latitude[38;5;241m=[39m[38;5;241m49[39m, central_longitude[38;5;241m=[39m[38;5;241m-[39m[38;5;241m95[39m, standard_parallels[38;5;241m=[39m([38;5;241m49[39m, [38;5;241m77[39m)
+[2024-03-16T18:44:09.605Z] [1;32m      6[0m )
+[2024-03-16T18:44:09.605Z] [1;32m      8[0m ax [38;5;241m=[39m plt[38;5;241m.[39msubplot(projection[38;5;241m=[39mcrs)
+[2024-03-16T18:44:09.605Z] [0;32m----> 9[0m [43mgrid[49m[38;5;241;43m.[39;49m[43mname[49m [38;5;241m=[39m [38;5;124m"[39m[38;5;124mLand-use categories[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.605Z] [1;32m     10[0m grid[38;5;241m.[39mwhere(grid [38;5;241m!=[39m [38;5;241m127[39m)[38;5;241m.[39msel(band[38;5;241m=[39m[38;5;241m1[39m)[38;5;241m.[39mplot[38;5;241m.[39mimshow(ax[38;5;241m=[39max, transform[38;5;241m=[39mcrs, cmap[38;5;241m=[39m[38;5;124m"[39m[38;5;124mtab20[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.605Z] [1;32m     11[0m plt[38;5;241m.[39mshow()
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/common.py:311[0m, in [0;36mAttrAccessMixin.__setattr__[0;34m(self, name, value)[0m
+[2024-03-16T18:44:09.605Z] [1;32m    309[0m [38;5;28;01mif[39;00m [38;5;28mstr[39m(e) [38;5;241m!=[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m[38;5;28mtype[39m([38;5;28mself[39m)[38;5;241m.[39m[38;5;18m__name__[39m[38;5;132;01m!r}[39;00m[38;5;124m object has no attribute [39m[38;5;132;01m{[39;00mname[38;5;132;01m!r}[39;00m[38;5;124m"[39m:
+[2024-03-16T18:44:09.605Z] [1;32m    310[0m     [38;5;28;01mraise[39;00m
+[2024-03-16T18:44:09.605Z] [0;32m--> 311[0m [38;5;28;01mraise[39;00m [38;5;167;01mAttributeError[39;00m(
+[2024-03-16T18:44:09.605Z] [1;32m    312[0m     [38;5;124mf[39m[38;5;124m"[39m[38;5;124mcannot set attribute [39m[38;5;132;01m{[39;00mname[38;5;132;01m!r}[39;00m[38;5;124m on a [39m[38;5;132;01m{[39;00m[38;5;28mtype[39m([38;5;28mself[39m)[38;5;241m.[39m[38;5;18m__name__[39m[38;5;132;01m!r}[39;00m[38;5;124m object. Use __setitem__ style[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.605Z] [1;32m    313[0m     [38;5;124m"[39m[38;5;124massignment (e.g., `ds[[39m[38;5;124m'[39m[38;5;124mname[39m[38;5;124m'[39m[38;5;124m] = ...`) instead of assigning variables.[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.605Z] [1;32m    314[0m ) [38;5;28;01mfrom[39;00m [38;5;21;01me[39;00m
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] [0;31mAttributeError[0m: cannot set attribute 'name' on a 'Dataset' object. Use __setitem__ styleassignment (e.g., `ds['name'] = ...`) instead of assigning variables.
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] _ RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb::Cell 11 _
+[2024-03-16T18:44:09.605Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.605Z] [94mCell 11: Cell execution caused an exception
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] Input:
+[2024-03-16T18:44:09.605Z] [0mcrs = ccrs.LambertConformal(
+[2024-03-16T18:44:09.605Z]     central_latitude=49, central_longitude=-95, standard_parallels=(49, 77)
+[2024-03-16T18:44:09.605Z] )
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] dem.name = "Elevation"
+[2024-03-16T18:44:09.605Z] dem.attrs["units"] = "m"
+[2024-03-16T18:44:09.605Z] ax = plt.subplot(projection=crs)
+[2024-03-16T18:44:09.605Z] dem.where(dem != -32768).sel(band=1).plot.imshow(ax=ax, transform=crs, cmap="gnuplot")
+[2024-03-16T18:44:09.605Z] plt.show()
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.605Z] [0;31mAttributeError[0m                            Traceback (most recent call last)
+[2024-03-16T18:44:09.605Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/common.py:305[0m, in [0;36mAttrAccessMixin.__setattr__[0;34m(self, name, value)[0m
+[2024-03-16T18:44:09.605Z] [1;32m    304[0m [38;5;28;01mtry[39;00m:
+[2024-03-16T18:44:09.605Z] [0;32m--> 305[0m     [38;5;28;43mobject[39;49m[38;5;241;43m.[39;49m[38;5;21;43m__setattr__[39;49m[43m([49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43mname[49m[43m,[49m[43m [49m[43mvalue[49m[43m)[49m
+[2024-03-16T18:44:09.605Z] [1;32m    306[0m [38;5;28;01mexcept[39;00m [38;5;167;01mAttributeError[39;00m [38;5;28;01mas[39;00m e:
+[2024-03-16T18:44:09.605Z] [1;32m    307[0m     [38;5;66;03m# Don't accidentally shadow custom AttributeErrors, e.g.[39;00m
+[2024-03-16T18:44:09.605Z] [1;32m    308[0m     [38;5;66;03m# DataArray.dims.setter[39;00m
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] [0;31mAttributeError[0m: 'Dataset' object has no attribute 'name'
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] The above exception was the direct cause of the following exception:
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.605Z] [0;31mAttributeError[0m                            Traceback (most recent call last)
+[2024-03-16T18:44:09.605Z] Cell [0;32mIn[1], line 5[0m
+[2024-03-16T18:44:09.605Z] [1;32m      1[0m crs [38;5;241m=[39m ccrs[38;5;241m.[39mLambertConformal(
+[2024-03-16T18:44:09.605Z] [1;32m      2[0m     central_latitude[38;5;241m=[39m[38;5;241m49[39m, central_longitude[38;5;241m=[39m[38;5;241m-[39m[38;5;241m95[39m, standard_parallels[38;5;241m=[39m([38;5;241m49[39m, [38;5;241m77[39m)
+[2024-03-16T18:44:09.605Z] [1;32m      3[0m )
+[2024-03-16T18:44:09.605Z] [0;32m----> 5[0m [43mdem[49m[38;5;241;43m.[39;49m[43mname[49m [38;5;241m=[39m [38;5;124m"[39m[38;5;124mElevation[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.605Z] [1;32m      6[0m dem[38;5;241m.[39mattrs[[38;5;124m"[39m[38;5;124munits[39m[38;5;124m"[39m] [38;5;241m=[39m [38;5;124m"[39m[38;5;124mm[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.605Z] [1;32m      7[0m ax [38;5;241m=[39m plt[38;5;241m.[39msubplot(projection[38;5;241m=[39mcrs)
+[2024-03-16T18:44:09.605Z] 
+[2024-03-16T18:44:09.606Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/common.py:311[0m, in [0;36mAttrAccessMixin.__setattr__[0;34m(self, name, value)[0m
+[2024-03-16T18:44:09.606Z] [1;32m    309[0m [38;5;28;01mif[39;00m [38;5;28mstr[39m(e) [38;5;241m!=[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m[38;5;28mtype[39m([38;5;28mself[39m)[38;5;241m.[39m[38;5;18m__name__[39m[38;5;132;01m!r}[39;00m[38;5;124m object has no attribute [39m[38;5;132;01m{[39;00mname[38;5;132;01m!r}[39;00m[38;5;124m"[39m:
+[2024-03-16T18:44:09.606Z] [1;32m    310[0m     [38;5;28;01mraise[39;00m
+[2024-03-16T18:44:09.606Z] [0;32m--> 311[0m [38;5;28;01mraise[39;00m [38;5;167;01mAttributeError[39;00m(
+[2024-03-16T18:44:09.606Z] [1;32m    312[0m     [38;5;124mf[39m[38;5;124m"[39m[38;5;124mcannot set attribute [39m[38;5;132;01m{[39;00mname[38;5;132;01m!r}[39;00m[38;5;124m on a [39m[38;5;132;01m{[39;00m[38;5;28mtype[39m([38;5;28mself[39m)[38;5;241m.[39m[38;5;18m__name__[39m[38;5;132;01m!r}[39;00m[38;5;124m object. Use __setitem__ style[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.606Z] [1;32m    313[0m     [38;5;124m"[39m[38;5;124massignment (e.g., `ds[[39m[38;5;124m'[39m[38;5;124mname[39m[38;5;124m'[39m[38;5;124m] = ...`) instead of assigning variables.[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.606Z] [1;32m    314[0m ) [38;5;28;01mfrom[39;00m [38;5;21;01me[39;00m
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] [0;31mAttributeError[0m: cannot set attribute 'name' on a 'Dataset' object. Use __setitem__ styleassignment (e.g., `ds['name'] = ...`) instead of assigning variables.
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] _ RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 5 _
+[2024-03-16T18:44:09.606Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.606Z] [94mCell 5: Cell execution caused an exception
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] Input:
+[2024-03-16T18:44:09.606Z] [0m# If we want to import our own raven configuration files and forcing data, we can do so by importing them
+[2024-03-16T18:44:09.606Z] # using the ravenpy.run  method. This will run the model exactly as the users will have designed it.
+[2024-03-16T18:44:09.606Z] from ravenpy import OutputReader
+[2024-03-16T18:44:09.606Z] from ravenpy.ravenpy import run
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] # This is used to specify the raven configuration files prefixes. In this case, we will retake the previously created files
+[2024-03-16T18:44:09.606Z] run_name = run_name
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] # This is the path where the files were uploaded by the user. Model outputs will also be placed there in a
+[2024-03-16T18:44:09.606Z] # subfolder called "outputs"
+[2024-03-16T18:44:09.606Z] configdir = workdir
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] # Run the model and get the path to the outputs folder that can be used in the output reader.
+[2024-03-16T18:44:09.606Z] outputs_path = run(modelname=run_name, configdir=configdir)
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] # Get the outputs using the Output Reader object.
+[2024-03-16T18:44:09.606Z] outputs = OutputReader(run_name=run_name, path=outputs_path)
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.606Z] [0;31mRavenError[0m                                Traceback (most recent call last)
+[2024-03-16T18:44:09.606Z] Cell [0;32mIn[1], line 14[0m
+[2024-03-16T18:44:09.606Z] [1;32m     11[0m configdir [38;5;241m=[39m workdir
+[2024-03-16T18:44:09.606Z] [1;32m     13[0m [38;5;66;03m# Run the model and get the path to the outputs folder that can be used in the output reader.[39;00m
+[2024-03-16T18:44:09.606Z] [0;32m---> 14[0m outputs_path [38;5;241m=[39m [43mrun[49m[43m([49m[43mmodelname[49m[38;5;241;43m=[39;49m[43mrun_name[49m[43m,[49m[43m [49m[43mconfigdir[49m[38;5;241;43m=[39;49m[43mconfigdir[49m[43m)[49m
+[2024-03-16T18:44:09.606Z] [1;32m     16[0m [38;5;66;03m# Get the outputs using the Output Reader object.[39;00m
+[2024-03-16T18:44:09.606Z] [1;32m     17[0m outputs [38;5;241m=[39m OutputReader(run_name[38;5;241m=[39mrun_name, path[38;5;241m=[39moutputs_path)
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/ravenpy/ravenpy.py:323[0m, in [0;36mrun[0;34m(modelname, configdir, outputdir, overwrite, verbose)[0m
+[2024-03-16T18:44:09.606Z] [1;32m    320[0m         warn(msg, category[38;5;241m=[39mRavenWarning)
+[2024-03-16T18:44:09.606Z] [1;32m    322[0m [38;5;28;01mif[39;00m messages[[38;5;124m"[39m[38;5;124mERROR[39m[38;5;124m"[39m]:
+[2024-03-16T18:44:09.606Z] [0;32m--> 323[0m     [38;5;28;01mraise[39;00m RavenError(
+[2024-03-16T18:44:09.606Z] [1;32m    324[0m         [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin([[38;5;124mf[39m[38;5;124m"[39m[38;5;124mConfig directory: [39m[38;5;132;01m{[39;00mconfigdir[38;5;132;01m}[39;00m[38;5;124m"[39m] [38;5;241m+[39m messages[[38;5;124m"[39m[38;5;124mERROR[39m[38;5;124m"[39m])
+[2024-03-16T18:44:09.606Z] [1;32m    325[0m     )
+[2024-03-16T18:44:09.606Z] [1;32m    327[0m [38;5;28;01mif[39;00m returncode [38;5;241m!=[39m [38;5;241m0[39m:
+[2024-03-16T18:44:09.606Z] [1;32m    328[0m     [38;5;28;01mraise[39;00m [38;5;167;01mOSError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mRaven segfaulted : [39m[38;5;130;01m\n[39;00m[38;5;132;01m{[39;00mstdout[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] [0;31mRavenError[0m: Config directory: /tmp/NB4wuwg3s5n
+[2024-03-16T18:44:09.606Z] :CustomOutput command: Unrecognized custom output temporal aggregation method
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] _ RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 6 _
+[2024-03-16T18:44:09.606Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.606Z] [94mCell 6: Cell execution caused an exception
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] Input:
+[2024-03-16T18:44:09.606Z] [0m# If we already have a model configuration that we built in-memory (such as the "m" GR4JCN model we built above),
+[2024-03-16T18:44:09.606Z] # then we can use the Emulator object to simply emulate the model we were working on and get outputs directly
+[2024-03-16T18:44:09.606Z] from ravenpy import Emulator
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] # Prepare the emulator by writing files on disk
+[2024-03-16T18:44:09.606Z] e = Emulator(config=m)
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] # Run the model and get the outputs.
+[2024-03-16T18:44:09.606Z] outputs = e.run()
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.606Z] [0;31mRavenError[0m                                Traceback (most recent call last)
+[2024-03-16T18:44:09.606Z] Cell [0;32mIn[1], line 9[0m
+[2024-03-16T18:44:09.606Z] [1;32m      6[0m e [38;5;241m=[39m Emulator(config[38;5;241m=[39mm)
+[2024-03-16T18:44:09.606Z] [1;32m      8[0m [38;5;66;03m# Run the model and get the outputs.[39;00m
+[2024-03-16T18:44:09.606Z] [0;32m----> 9[0m outputs [38;5;241m=[39m [43me[49m[38;5;241;43m.[39;49m[43mrun[49m[43m([49m[43m)[49m
+[2024-03-16T18:44:09.606Z] 
+[2024-03-16T18:44:09.606Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/ravenpy/ravenpy.py:68[0m, in [0;36mEmulator.run[0;34m(self, overwrite)[0m
+[2024-03-16T18:44:09.606Z] [1;32m     64[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m ([38;5;28mself[39m[38;5;241m.[39mworkdir [38;5;241m/[39m [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39mmodelname[38;5;132;01m}[39;00m[38;5;124m.rvi[39m[38;5;124m"[39m)[38;5;241m.[39mexists():
+[2024-03-16T18:44:09.606Z] [1;32m     65[0m     [38;5;66;03m# FIXME: No attribute 'write_rv' on Emulator [attribute-error][39;00m
+[2024-03-16T18:44:09.606Z] [1;32m     66[0m     [38;5;28mself[39m[38;5;241m.[39mwrite_rv(overwrite[38;5;241m=[39moverwrite)
+[2024-03-16T18:44:09.607Z] [0;32m---> 68[0m [38;5;28mself[39m[38;5;241m.[39m_output_path [38;5;241m=[39m [43mrun[49m[43m([49m
+[2024-03-16T18:44:09.607Z] [1;32m     69[0m [43m    [49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mmodelname[49m[43m,[49m[43m [49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mworkdir[49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43moutput[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[43moverwrite[49m[38;5;241;43m=[39;49m[43moverwrite[49m
+[2024-03-16T18:44:09.607Z] [1;32m     70[0m [43m[49m[43m)[49m
+[2024-03-16T18:44:09.607Z] [1;32m     71[0m [38;5;28mself[39m[38;5;241m.[39m_output [38;5;241m=[39m OutputReader([38;5;28mself[39m[38;5;241m.[39mconfig[38;5;241m.[39mrun_name, path[38;5;241m=[39m[38;5;28mself[39m[38;5;241m.[39m_output_path)
+[2024-03-16T18:44:09.607Z] [1;32m     72[0m [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_output
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/ravenpy/ravenpy.py:323[0m, in [0;36mrun[0;34m(modelname, configdir, outputdir, overwrite, verbose)[0m
+[2024-03-16T18:44:09.607Z] [1;32m    320[0m         warn(msg, category[38;5;241m=[39mRavenWarning)
+[2024-03-16T18:44:09.607Z] [1;32m    322[0m [38;5;28;01mif[39;00m messages[[38;5;124m"[39m[38;5;124mERROR[39m[38;5;124m"[39m]:
+[2024-03-16T18:44:09.607Z] [0;32m--> 323[0m     [38;5;28;01mraise[39;00m RavenError(
+[2024-03-16T18:44:09.607Z] [1;32m    324[0m         [38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m[38;5;241m.[39mjoin([[38;5;124mf[39m[38;5;124m"[39m[38;5;124mConfig directory: [39m[38;5;132;01m{[39;00mconfigdir[38;5;132;01m}[39;00m[38;5;124m"[39m] [38;5;241m+[39m messages[[38;5;124m"[39m[38;5;124mERROR[39m[38;5;124m"[39m])
+[2024-03-16T18:44:09.607Z] [1;32m    325[0m     )
+[2024-03-16T18:44:09.607Z] [1;32m    327[0m [38;5;28;01mif[39;00m returncode [38;5;241m!=[39m [38;5;241m0[39m:
+[2024-03-16T18:44:09.607Z] [1;32m    328[0m     [38;5;28;01mraise[39;00m [38;5;167;01mOSError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mRaven segfaulted : [39m[38;5;130;01m\n[39;00m[38;5;132;01m{[39;00mstdout[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [0;31mRavenError[0m: Config directory: /tmp/tmp8sa6j0x_
+[2024-03-16T18:44:09.607Z] :CustomOutput command: Unrecognized custom output temporal aggregation method
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] _ RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 7 _
+[2024-03-16T18:44:09.607Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.607Z] [94mCell 7: Cell execution caused an exception
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] Input:
+[2024-03-16T18:44:09.607Z] [0m# Show the files available in the outputs. Each of these can be accessed to get information about the simulation.
+[2024-03-16T18:44:09.607Z] outputs.files
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.607Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.607Z] Cell [0;32mIn[1], line 2[0m
+[2024-03-16T18:44:09.607Z] [1;32m      1[0m [38;5;66;03m# Show the files available in the outputs. Each of these can be accessed to get information about the simulation.[39;00m
+[2024-03-16T18:44:09.607Z] [0;32m----> 2[0m [43moutputs[49m[38;5;241m.[39mfiles
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [0;31mNameError[0m: name 'outputs' is not defined
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] _ RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 8 _
+[2024-03-16T18:44:09.607Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.607Z] [94mCell 8: Cell execution caused an exception
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] Input:
+[2024-03-16T18:44:09.607Z] [0m# The model outputs are actually already loaded as Python objects in memory, thus we can access the data directly.
+[2024-03-16T18:44:09.607Z] print("----------------HYDROGRAPH----------------")
+[2024-03-16T18:44:09.607Z] display(outputs.hydrograph)
+[2024-03-16T18:44:09.607Z] print("")
+[2024-03-16T18:44:09.607Z] print("-----------------STORAGE------------------")
+[2024-03-16T18:44:09.607Z] display(outputs.storage)
+[2024-03-16T18:44:09.607Z] print("")
+[2024-03-16T18:44:09.607Z] print("-----------------SOLUTION-----------------")
+[2024-03-16T18:44:09.607Z] display(outputs.solution)
+[2024-03-16T18:44:09.607Z] print("")
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.607Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.607Z] Cell [0;32mIn[1], line 3[0m
+[2024-03-16T18:44:09.607Z] [1;32m      1[0m [38;5;66;03m# The model outputs are actually already loaded as Python objects in memory, thus we can access the data directly.[39;00m
+[2024-03-16T18:44:09.607Z] [1;32m      2[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;124m----------------HYDROGRAPH----------------[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.607Z] [0;32m----> 3[0m display([43moutputs[49m[38;5;241m.[39mhydrograph)
+[2024-03-16T18:44:09.607Z] [1;32m      4[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.607Z] [1;32m      5[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;124m-----------------STORAGE------------------[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [0;31mNameError[0m: name 'outputs' is not defined
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] _ RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 9 _
+[2024-03-16T18:44:09.607Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.607Z] [94mCell 9: Cell execution caused an exception
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] Input:
+[2024-03-16T18:44:09.607Z] [0m# Import the graphing utility built to handle Raven model outputs
+[2024-03-16T18:44:09.607Z] from ravenpy.utilities.nb_graphs import hydrographs
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] hydrograph_objects = outputs.hydrograph
+[2024-03-16T18:44:09.607Z] hydrographs(hydrograph_objects)
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.607Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.607Z] Cell [0;32mIn[1], line 4[0m
+[2024-03-16T18:44:09.607Z] [1;32m      1[0m [38;5;66;03m# Import the graphing utility built to handle Raven model outputs[39;00m
+[2024-03-16T18:44:09.607Z] [1;32m      2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mravenpy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mutilities[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnb_graphs[39;00m [38;5;28;01mimport[39;00m hydrographs
+[2024-03-16T18:44:09.607Z] [0;32m----> 4[0m hydrograph_objects [38;5;241m=[39m [43moutputs[49m[38;5;241m.[39mhydrograph
+[2024-03-16T18:44:09.607Z] [1;32m      5[0m hydrographs(hydrograph_objects)
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [0;31mNameError[0m: name 'outputs' is not defined
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] _ RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 10 _
+[2024-03-16T18:44:09.607Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.607Z] [94mCell 10: Cell execution caused an exception
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] Input:
+[2024-03-16T18:44:09.607Z] [0moutputs.hydrograph.q_sim.plot()
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.607Z] 
+[2024-03-16T18:44:09.607Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.608Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.608Z] Cell [0;32mIn[1], line 1[0m
+[2024-03-16T18:44:09.608Z] [0;32m----> 1[0m [43moutputs[49m[38;5;241m.[39mhydrograph[38;5;241m.[39mq_sim[38;5;241m.[39mplot()
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [0;31mNameError[0m: name 'outputs' is not defined
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] _ RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 11 _
+[2024-03-16T18:44:09.608Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.608Z] [94mCell 11: Cell execution caused an exception
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] Input:
+[2024-03-16T18:44:09.608Z] [0mprint(list(outputs.storage.keys()))
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.608Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.608Z] Cell [0;32mIn[1], line 1[0m
+[2024-03-16T18:44:09.608Z] [0;32m----> 1[0m [38;5;28mprint[39m([38;5;28mlist[39m([43moutputs[49m[38;5;241m.[39mstorage[38;5;241m.[39mkeys()))
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [0;31mNameError[0m: name 'outputs' is not defined
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] _ RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 12 _
+[2024-03-16T18:44:09.608Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.608Z] [94mCell 12: Cell execution caused an exception
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] Input:
+[2024-03-16T18:44:09.608Z] [0m# Plot the "Snow" variable
+[2024-03-16T18:44:09.608Z] outputs.storage["Snow"].plot()
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.608Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.608Z] Cell [0;32mIn[1], line 2[0m
+[2024-03-16T18:44:09.608Z] [1;32m      1[0m [38;5;66;03m# Plot the "Snow" variable[39;00m
+[2024-03-16T18:44:09.608Z] [0;32m----> 2[0m [43moutputs[49m[38;5;241m.[39mstorage[[38;5;124m"[39m[38;5;124mSnow[39m[38;5;124m"[39m][38;5;241m.[39mplot()
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [0;31mNameError[0m: name 'outputs' is not defined
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] ______ RavenPy-master/docs/notebooks/HydroShare_integration.ipynb::Cell 0 ______
+[2024-03-16T18:44:09.608Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.608Z] [94mCell 0: Cell execution caused an exception
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] Input:
+[2024-03-16T18:44:09.608Z] [0mimport os
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] from hsclient import HydroShare, Token
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] # Authentication method using username and password
+[2024-03-16T18:44:09.608Z] """
+[2024-03-16T18:44:09.608Z] username = 'XXXXX'
+[2024-03-16T18:44:09.608Z] password = 'XXXXX'
+[2024-03-16T18:44:09.608Z] hs = HydroShare(username=username, password=password)
+[2024-03-16T18:44:09.608Z] """
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] client_id = os.environ.get("HYDROSHARE_AUTH_CLIENT_ID", "<your_client_id>")
+[2024-03-16T18:44:09.608Z] access_token = os.environ.get("HYDROSHARE_AUTH_TOKEN", "<your_auth_token>")
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] token = Token(access_token=access_token, token_type="bearer")
+[2024-03-16T18:44:09.608Z] hs = HydroShare(client_id=client_id, token=token)
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.608Z] [0;31mValidationError[0m                           Traceback (most recent call last)
+[2024-03-16T18:44:09.608Z] Cell [0;32mIn[1], line 15[0m
+[2024-03-16T18:44:09.608Z] [1;32m     12[0m client_id [38;5;241m=[39m os[38;5;241m.[39menviron[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mHYDROSHARE_AUTH_CLIENT_ID[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m<your_client_id>[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.608Z] [1;32m     13[0m access_token [38;5;241m=[39m os[38;5;241m.[39menviron[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mHYDROSHARE_AUTH_TOKEN[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124m<your_auth_token>[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.608Z] [0;32m---> 15[0m token [38;5;241m=[39m [43mToken[49m[43m([49m[43maccess_token[49m[38;5;241;43m=[39;49m[43maccess_token[49m[43m,[49m[43m [49m[43mtoken_type[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mbearer[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[2024-03-16T18:44:09.608Z] [1;32m     16[0m hs [38;5;241m=[39m HydroShare(client_id[38;5;241m=[39mclient_id, token[38;5;241m=[39mtoken)
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/pydantic/main.py:171[0m, in [0;36mBaseModel.__init__[0;34m(self, **data)[0m
+[2024-03-16T18:44:09.608Z] [1;32m    169[0m [38;5;66;03m# `__tracebackhide__` tells pytest and some other tools to omit this function from tracebacks[39;00m
+[2024-03-16T18:44:09.608Z] [1;32m    170[0m __tracebackhide__ [38;5;241m=[39m [38;5;28;01mTrue[39;00m
+[2024-03-16T18:44:09.608Z] [0;32m--> 171[0m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m__pydantic_validator__[49m[38;5;241;43m.[39;49m[43mvalidate_python[49m[43m([49m[43mdata[49m[43m,[49m[43m [49m[43mself_instance[49m[38;5;241;43m=[39;49m[38;5;28;43mself[39;49m[43m)[49m
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [0;31mValidationError[0m: 4 validation errors for Token
+[2024-03-16T18:44:09.608Z] scope
+[2024-03-16T18:44:09.608Z]   Field required [type=missing, input_value={'access_token': '<your_a... 'token_type': 'bearer'}, input_type=dict]
+[2024-03-16T18:44:09.608Z]     For further information visit https://errors.pydantic.dev/2.6/v/missing
+[2024-03-16T18:44:09.608Z] state
+[2024-03-16T18:44:09.608Z]   Field required [type=missing, input_value={'access_token': '<your_a... 'token_type': 'bearer'}, input_type=dict]
+[2024-03-16T18:44:09.608Z]     For further information visit https://errors.pydantic.dev/2.6/v/missing
+[2024-03-16T18:44:09.608Z] expires_in
+[2024-03-16T18:44:09.608Z]   Field required [type=missing, input_value={'access_token': '<your_a... 'token_type': 'bearer'}, input_type=dict]
+[2024-03-16T18:44:09.608Z]     For further information visit https://errors.pydantic.dev/2.6/v/missing
+[2024-03-16T18:44:09.608Z] refresh_token
+[2024-03-16T18:44:09.608Z]   Field required [type=missing, input_value={'access_token': '<your_a... 'token_type': 'bearer'}, input_type=dict]
+[2024-03-16T18:44:09.608Z]     For further information visit https://errors.pydantic.dev/2.6/v/missing
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] ______ RavenPy-master/docs/notebooks/HydroShare_integration.ipynb::Cell 1 ______
+[2024-03-16T18:44:09.608Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.608Z] [94mCell 1: Cell execution caused an exception
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] Input:
+[2024-03-16T18:44:09.608Z] [0mresults = hs.search(subject=["Harvey"])
+[2024-03-16T18:44:09.608Z] for r in results:
+[2024-03-16T18:44:09.608Z]     print(r.resource_title, ": ", r.resource_id)
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.608Z] 
+[2024-03-16T18:44:09.608Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.608Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.608Z] Cell [0;32mIn[1], line 1[0m
+[2024-03-16T18:44:09.608Z] [0;32m----> 1[0m results [38;5;241m=[39m [43mhs[49m[38;5;241m.[39msearch(subject[38;5;241m=[39m[[38;5;124m"[39m[38;5;124mHarvey[39m[38;5;124m"[39m])
+[2024-03-16T18:44:09.608Z] [1;32m      2[0m [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m results:
+[2024-03-16T18:44:09.609Z] [1;32m      3[0m     [38;5;28mprint[39m(r[38;5;241m.[39mresource_title, [38;5;124m"[39m[38;5;124m: [39m[38;5;124m"[39m, r[38;5;241m.[39mresource_id)
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [0;31mNameError[0m: name 'hs' is not defined
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] ______ RavenPy-master/docs/notebooks/HydroShare_integration.ipynb::Cell 2 ______
+[2024-03-16T18:44:09.609Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.609Z] [94mCell 2: Cell execution caused an exception
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] Input:
+[2024-03-16T18:44:09.609Z] [0mres = hs.resource("51d1539bf6e94b15ac33f7631228118c", validate=False)
+[2024-03-16T18:44:09.609Z] res.files()
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.609Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.609Z] Cell [0;32mIn[1], line 1[0m
+[2024-03-16T18:44:09.609Z] [0;32m----> 1[0m res [38;5;241m=[39m [43mhs[49m[38;5;241m.[39mresource([38;5;124m"[39m[38;5;124m51d1539bf6e94b15ac33f7631228118c[39m[38;5;124m"[39m, validate[38;5;241m=[39m[38;5;28;01mFalse[39;00m)
+[2024-03-16T18:44:09.609Z] [1;32m      2[0m res[38;5;241m.[39mfiles()
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [0;31mNameError[0m: name 'hs' is not defined
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] ______ RavenPy-master/docs/notebooks/HydroShare_integration.ipynb::Cell 3 ______
+[2024-03-16T18:44:09.609Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.609Z] [94mCell 3: Cell execution caused an exception
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] Input:
+[2024-03-16T18:44:09.609Z] [0mres.file_download("USGS_Harvey_gages_TxLaMsAr.csv", save_path="/tmp")
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.609Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.609Z] Cell [0;32mIn[1], line 1[0m
+[2024-03-16T18:44:09.609Z] [0;32m----> 1[0m [43mres[49m[38;5;241m.[39mfile_download([38;5;124m"[39m[38;5;124mUSGS_Harvey_gages_TxLaMsAr.csv[39m[38;5;124m"[39m, save_path[38;5;241m=[39m[38;5;124m"[39m[38;5;124m/tmp[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [0;31mNameError[0m: name 'res' is not defined
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 10 _
+[2024-03-16T18:44:09.609Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.609Z] [94mCell 10: Cell execution caused an exception
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] Input:
+[2024-03-16T18:44:09.609Z] [0m# Get the ERA5 data from the Wasabi/Amazon S3 server.
+[2024-03-16T18:44:09.609Z] catalog_name = "https://raw.githubusercontent.com/hydrocloudservices/catalogs/main/catalogs/atmosphere.yaml"
+[2024-03-16T18:44:09.609Z] cat = intake.open_catalog(catalog_name)
+[2024-03-16T18:44:09.609Z] ds = cat.era5_reanalysis_single_levels.to_dask()
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] """
+[2024-03-16T18:44:09.609Z] Get the ERA5 data. We will rechunk it to a single chunck to make it compatible with other codes on the platform,
+[2024-03-16T18:44:09.609Z] especially bias-correction. We are also taking the daily min and max temperatures as well as the daily total
+[2024-03-16T18:44:09.609Z] precipitation.
+[2024-03-16T18:44:09.609Z] """
+[2024-03-16T18:44:09.609Z] # We will add a wrapper to ensure that the following operations will preserve the original data attributes,
+[2024-03-16T18:44:09.609Z] # such as units and variable names.
+[2024-03-16T18:44:09.609Z] with xr.set_options(keep_attrs=True):
+[2024-03-16T18:44:09.609Z]     ERA5_reference = subset.subset_shape(
+[2024-03-16T18:44:09.609Z]         ds.sel(time=slice(reference_start_day, reference_end_day)), basin_contour
+[2024-03-16T18:44:09.609Z]     )
+[2024-03-16T18:44:09.609Z]     ERA5_tmin = ERA5_reference["t2m"].resample(time="1D").min().chunk(-1, -1, -1)
+[2024-03-16T18:44:09.609Z]     ERA5_tmax = ERA5_reference["t2m"].resample(time="1D").max().chunk(-1, -1, -1)
+[2024-03-16T18:44:09.609Z]     ERA5_pr = ERA5_reference["tp"].resample(time="1D").sum().chunk(-1, -1, -1)
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z]     # Change the units
+[2024-03-16T18:44:09.609Z]     ERA5_tmin = ERA5_tmin - 273.15  # K to ��C
+[2024-03-16T18:44:09.609Z]     ERA5_tmin.attrs["units"] = "degC"
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z]     ERA5_tmax = ERA5_tmax - 273.15  # K to ��C
+[2024-03-16T18:44:09.609Z]     ERA5_tmax.attrs["units"] = "degC"
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z]     ERA5_pr = ERA5_pr * 1000  # m to mm
+[2024-03-16T18:44:09.609Z]     ERA5_pr.attrs["units"] = "mm"
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z]     # Average the variables spatially
+[2024-03-16T18:44:09.609Z]     ERA5_tmin = ERA5_tmin.mean({"latitude", "longitude"})
+[2024-03-16T18:44:09.609Z]     ERA5_tmax = ERA5_tmax.mean({"latitude", "longitude"})
+[2024-03-16T18:44:09.609Z]     ERA5_pr = ERA5_pr.mean({"latitude", "longitude"})
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z]     # Ensure that the precipitation is non-negative, which can happen with some reanalysis models.
+[2024-03-16T18:44:09.609Z]     ERA5_pr[ERA5_pr < 0] = 0
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z]     # Transform them to a dataset such that they can be written with attributes to netcdf
+[2024-03-16T18:44:09.609Z]     ERA5_tmin = ERA5_tmin.to_dataset(name="tmin", promote_attrs=True)
+[2024-03-16T18:44:09.609Z]     ERA5_tmax = ERA5_tmax.to_dataset(name="tmax", promote_attrs=True)
+[2024-03-16T18:44:09.609Z]     ERA5_pr = ERA5_pr.to_dataset(name="pr", promote_attrs=True)
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z]     # Write to disk. Here is where we write to disk and where the notebook will fail if running it from the
+[2024-03-16T18:44:09.609Z]     # original location on the server (which is read-only). Please move the notebooks to your writable-workspace.
+[2024-03-16T18:44:09.609Z]     ERA5_weather = xr.merge([ERA5_tmin, ERA5_tmax, ERA5_pr])
+[2024-03-16T18:44:09.609Z]     ERA5_weather.to_netcdf(tmp / "ERA5_meteo_data.nc")
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.609Z] [0;31mKeyError[0m                                  Traceback (most recent call last)
+[2024-03-16T18:44:09.609Z] Cell [0;32mIn[1], line 37[0m
+[2024-03-16T18:44:09.609Z] [1;32m     34[0m ERA5_pr [38;5;241m=[39m ERA5_pr[38;5;241m.[39mmean({[38;5;124m"[39m[38;5;124mlatitude[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mlongitude[39m[38;5;124m"[39m})
+[2024-03-16T18:44:09.609Z] [1;32m     36[0m [38;5;66;03m# Ensure that the precipitation is non-negative, which can happen with some reanalysis models.[39;00m
+[2024-03-16T18:44:09.609Z] [0;32m---> 37[0m [43mERA5_pr[49m[43m[[49m[43mERA5_pr[49m[43m [49m[38;5;241;43m<[39;49m[43m [49m[38;5;241;43m0[39;49m[43m][49m [38;5;241m=[39m [38;5;241m0[39m
+[2024-03-16T18:44:09.609Z] [1;32m     39[0m [38;5;66;03m# Transform them to a dataset such that they can be written with attributes to netcdf[39;00m
+[2024-03-16T18:44:09.609Z] [1;32m     40[0m ERA5_tmin [38;5;241m=[39m ERA5_tmin[38;5;241m.[39mto_dataset(name[38;5;241m=[39m[38;5;124m"[39m[38;5;124mtmin[39m[38;5;124m"[39m, promote_attrs[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
+[2024-03-16T18:44:09.609Z] 
+[2024-03-16T18:44:09.609Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/dataarray.py:856[0m, in [0;36mDataArray.__setitem__[0;34m(self, key, value)[0m
+[2024-03-16T18:44:09.609Z] [1;32m    851[0m     [38;5;28mself[39m[38;5;241m.[39mcoords[key] [38;5;241m=[39m value
+[2024-03-16T18:44:09.609Z] [1;32m    852[0m [38;5;28;01melse[39;00m:
+[2024-03-16T18:44:09.609Z] [1;32m    853[0m     [38;5;66;03m# Coordinates in key, value and self[key] should be consistent.[39;00m
+[2024-03-16T18:44:09.609Z] [1;32m    854[0m     [38;5;66;03m# TODO Coordinate consistency in key is checked here, but it[39;00m
+[2024-03-16T18:44:09.610Z] [1;32m    855[0m     [38;5;66;03m# causes unnecessary indexing. It should be optimized.[39;00m
+[2024-03-16T18:44:09.610Z] [0;32m--> 856[0m     obj [38;5;241m=[39m [38;5;28;43mself[39;49m[43m[[49m[43mkey[49m[43m][49m
+[2024-03-16T18:44:09.610Z] [1;32m    857[0m     [38;5;28;01mif[39;00m [38;5;28misinstance[39m(value, DataArray):
+[2024-03-16T18:44:09.610Z] [1;32m    858[0m         assert_coordinate_consistent(value, obj[38;5;241m.[39mcoords[38;5;241m.[39mvariables)
+[2024-03-16T18:44:09.610Z] 
+[2024-03-16T18:44:09.610Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/dataarray.py:847[0m, in [0;36mDataArray.__getitem__[0;34m(self, key)[0m
+[2024-03-16T18:44:09.610Z] [1;32m    844[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_getitem_coord(key)
+[2024-03-16T18:44:09.610Z] [1;32m    845[0m [38;5;28;01melse[39;00m:
+[2024-03-16T18:44:09.610Z] [1;32m    846[0m     [38;5;66;03m# xarray-style array indexing[39;00m
+[2024-03-16T18:44:09.610Z] [0;32m--> 847[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43misel[49m[43m([49m[43mindexers[49m[38;5;241;43m=[39;49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_item_key_to_dict[49m[43m([49m[43mkey[49m[43m)[49m[43m)[49m
+[2024-03-16T18:44:09.610Z] 
+[2024-03-16T18:44:09.610Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/dataarray.py:1445[0m, in [0;36mDataArray.isel[0;34m(self, indexers, drop, missing_dims, **indexers_kwargs)[0m
+[2024-03-16T18:44:09.610Z] [1;32m   1442[0m indexers [38;5;241m=[39m either_dict_or_kwargs(indexers, indexers_kwargs, [38;5;124m"[39m[38;5;124misel[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.610Z] [1;32m   1444[0m [38;5;28;01mif[39;00m [38;5;28many[39m(is_fancy_indexer(idx) [38;5;28;01mfor[39;00m idx [38;5;129;01min[39;00m indexers[38;5;241m.[39mvalues()):
+[2024-03-16T18:44:09.610Z] [0;32m-> 1445[0m     ds [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_to_temp_dataset[49m[43m([49m[43m)[49m[38;5;241;43m.[39;49m[43m_isel_fancy[49m[43m([49m
+[2024-03-16T18:44:09.610Z] [1;32m   1446[0m [43m        [49m[43mindexers[49m[43m,[49m[43m [49m[43mdrop[49m[38;5;241;43m=[39;49m[43mdrop[49m[43m,[49m[43m [49m[43mmissing_dims[49m[38;5;241;43m=[39;49m[43mmissing_dims[49m
+[2024-03-16T18:44:09.610Z] [1;32m   1447[0m [43m    [49m[43m)[49m
+[2024-03-16T18:44:09.610Z] [1;32m   1448[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_from_temp_dataset(ds)
+[2024-03-16T18:44:09.610Z] [1;32m   1450[0m [38;5;66;03m# Much faster algorithm for when all indexers are ints, slices, one-dimensional[39;00m
+[2024-03-16T18:44:09.610Z] [1;32m   1451[0m [38;5;66;03m# lists, or zero or one-dimensional np.ndarray's[39;00m
+[2024-03-16T18:44:09.610Z] 
+[2024-03-16T18:44:09.610Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/dataset.py:2930[0m, in [0;36mDataset._isel_fancy[0;34m(self, indexers, drop, missing_dims)[0m
+[2024-03-16T18:44:09.610Z] [1;32m   2926[0m var_indexers [38;5;241m=[39m {
+[2024-03-16T18:44:09.610Z] [1;32m   2927[0m     k: v [38;5;28;01mfor[39;00m k, v [38;5;129;01min[39;00m valid_indexers[38;5;241m.[39mitems() [38;5;28;01mif[39;00m k [38;5;129;01min[39;00m var[38;5;241m.[39mdims
+[2024-03-16T18:44:09.610Z] [1;32m   2928[0m }
+[2024-03-16T18:44:09.610Z] [1;32m   2929[0m [38;5;28;01mif[39;00m var_indexers:
+[2024-03-16T18:44:09.610Z] [0;32m-> 2930[0m     new_var [38;5;241m=[39m [43mvar[49m[38;5;241;43m.[39;49m[43misel[49m[43m([49m[43mindexers[49m[38;5;241;43m=[39;49m[43mvar_indexers[49m[43m)[49m
+[2024-03-16T18:44:09.610Z] [1;32m   2931[0m     [38;5;66;03m# drop scalar coordinates[39;00m
+[2024-03-16T18:44:09.610Z] [1;32m   2932[0m     [38;5;66;03m# https://github.com/pydata/xarray/issues/6554[39;00m
+[2024-03-16T18:44:09.610Z] [1;32m   2933[0m     [38;5;28;01mif[39;00m name [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39mcoords [38;5;129;01mand[39;00m drop [38;5;129;01mand[39;00m new_var[38;5;241m.[39mndim [38;5;241m==[39m [38;5;241m0[39m:
+[2024-03-16T18:44:09.610Z] 
+[2024-03-16T18:44:09.610Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/variable.py:1368[0m, in [0;36mVariable.isel[0;34m(self, indexers, missing_dims, **indexers_kwargs)[0m
+[2024-03-16T18:44:09.610Z] [1;32m   1365[0m indexers [38;5;241m=[39m drop_dims_from_indexers(indexers, [38;5;28mself[39m[38;5;241m.[39mdims, missing_dims)
+[2024-03-16T18:44:09.612Z] [1;32m   1367[0m key [38;5;241m=[39m [38;5;28mtuple[39m(indexers[38;5;241m.[39mget(dim, [38;5;28mslice[39m([38;5;28;01mNone[39;00m)) [38;5;28;01mfor[39;00m dim [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39mdims)
+[2024-03-16T18:44:09.612Z] [0;32m-> 1368[0m [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[43m[[49m[43mkey[49m[43m][49m
+[2024-03-16T18:44:09.612Z] 
+[2024-03-16T18:44:09.612Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/variable.py:891[0m, in [0;36mVariable.__getitem__[0;34m(self, key)[0m
+[2024-03-16T18:44:09.612Z] [1;32m    878[0m [38;5;28;01mdef[39;00m [38;5;21m__getitem__[39m([38;5;28mself[39m: T_Variable, key) [38;5;241m-[39m[38;5;241m>[39m T_Variable:
+[2024-03-16T18:44:09.612Z] [1;32m    879[0m [38;5;250m    [39m[38;5;124;03m"""Return a new Variable object whose contents are consistent with[39;00m
+[2024-03-16T18:44:09.612Z] [1;32m    880[0m [38;5;124;03m    getting the provided key from the underlying data.[39;00m
+[2024-03-16T18:44:09.612Z] [1;32m    881[0m 
+[2024-03-16T18:44:09.612Z] [0;32m   (...)[0m
+[2024-03-16T18:44:09.612Z] [1;32m    889[0m [38;5;124;03m    array `x.values` directly.[39;00m
+[2024-03-16T18:44:09.612Z] [1;32m    890[0m [38;5;124;03m    """[39;00m
+[2024-03-16T18:44:09.612Z] [0;32m--> 891[0m     dims, indexer, new_order [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_broadcast_indexes[49m[43m([49m[43mkey[49m[43m)[49m
+[2024-03-16T18:44:09.612Z] [1;32m    892[0m     data [38;5;241m=[39m as_indexable([38;5;28mself[39m[38;5;241m.[39m_data)[indexer]
+[2024-03-16T18:44:09.612Z] [1;32m    893[0m     [38;5;28;01mif[39;00m new_order:
+[2024-03-16T18:44:09.612Z] 
+[2024-03-16T18:44:09.612Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/variable.py:724[0m, in [0;36mVariable._broadcast_indexes[0;34m(self, key)[0m
+[2024-03-16T18:44:09.612Z] [1;32m    721[0m [38;5;28;01mif[39;00m [38;5;28mall[39m([38;5;28misinstance[39m(k, BASIC_INDEXING_TYPES) [38;5;28;01mfor[39;00m k [38;5;129;01min[39;00m key):
+[2024-03-16T18:44:09.612Z] [1;32m    722[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_broadcast_indexes_basic(key)
+[2024-03-16T18:44:09.613Z] [0;32m--> 724[0m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_validate_indexers[49m[43m([49m[43mkey[49m[43m)[49m
+[2024-03-16T18:44:09.613Z] [1;32m    725[0m [38;5;66;03m# Detect it can be mapped as an outer indexer[39;00m
+[2024-03-16T18:44:09.613Z] [1;32m    726[0m [38;5;66;03m# If all key is unlabeled, or[39;00m
+[2024-03-16T18:44:09.613Z] [1;32m    727[0m [38;5;66;03m# key can be mapped as an OuterIndexer.[39;00m
+[2024-03-16T18:44:09.613Z] [1;32m    728[0m [38;5;28;01mif[39;00m [38;5;28mall[39m([38;5;129;01mnot[39;00m [38;5;28misinstance[39m(k, Variable) [38;5;28;01mfor[39;00m k [38;5;129;01min[39;00m key):
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xarray/core/variable.py:776[0m, in [0;36mVariable._validate_indexers[0;34m(self, key)[0m
+[2024-03-16T18:44:09.613Z] [1;32m    771[0m     [38;5;28;01mraise[39;00m [38;5;167;01mIndexError[39;00m(
+[2024-03-16T18:44:09.613Z] [1;32m    772[0m         [38;5;124m"[39m[38;5;132;01m{}[39;00m[38;5;124m-dimensional boolean indexing is [39m[38;5;124m"[39m
+[2024-03-16T18:44:09.613Z] [1;32m    773[0m         [38;5;124m"[39m[38;5;124mnot supported. [39m[38;5;124m"[39m[38;5;241m.[39mformat(k[38;5;241m.[39mndim)
+[2024-03-16T18:44:09.613Z] [1;32m    774[0m     )
+[2024-03-16T18:44:09.613Z] [1;32m    775[0m [38;5;28;01mif[39;00m is_duck_dask_array(k[38;5;241m.[39mdata):
+[2024-03-16T18:44:09.613Z] [0;32m--> 776[0m     [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m(
+[2024-03-16T18:44:09.613Z] [1;32m    777[0m         [38;5;124m"[39m[38;5;124mIndexing with a boolean dask array is not allowed. [39m[38;5;124m"[39m
+[2024-03-16T18:44:09.613Z] [1;32m    778[0m         [38;5;124m"[39m[38;5;124mThis will result in a dask array of unknown shape. [39m[38;5;124m"[39m
+[2024-03-16T18:44:09.613Z] [1;32m    779[0m         [38;5;124m"[39m[38;5;124mSuch arrays are unsupported by Xarray.[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.613Z] [1;32m    780[0m         [38;5;124m"[39m[38;5;124mPlease compute the indexer first using .compute()[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.613Z] [1;32m    781[0m     )
+[2024-03-16T18:44:09.613Z] [1;32m    782[0m [38;5;28;01mif[39;00m [38;5;28mgetattr[39m(k, [38;5;124m"[39m[38;5;124mdims[39m[38;5;124m"[39m, (dim,)) [38;5;241m!=[39m (dim,):
+[2024-03-16T18:44:09.613Z] [1;32m    783[0m     [38;5;28;01mraise[39;00m [38;5;167;01mIndexError[39;00m(
+[2024-03-16T18:44:09.613Z] [1;32m    784[0m         [38;5;124m"[39m[38;5;124mBoolean indexer should be unlabeled or on the [39m[38;5;124m"[39m
+[2024-03-16T18:44:09.613Z] [1;32m    785[0m         [38;5;124m"[39m[38;5;124msame dimension to the indexed array. Indexer is [39m[38;5;124m"[39m
+[2024-03-16T18:44:09.613Z] [0;32m   (...)[0m
+[2024-03-16T18:44:09.613Z] [1;32m    788[0m         )
+[2024-03-16T18:44:09.613Z] [1;32m    789[0m     )
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] [0;31mKeyError[0m: 'Indexing with a boolean dask array is not allowed. This will result in a dask array of unknown shape. Such arrays are unsupported by Xarray.Please compute the indexer first using .compute()'
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 11 _
+[2024-03-16T18:44:09.613Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.613Z] [94mCell 11: Cell execution caused an exception
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] Input:
+[2024-03-16T18:44:09.613Z] [0m# Climate model to use
+[2024-03-16T18:44:09.613Z] climate_model = "MIROC6"
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] # Get the catalog info from the pangeo dataset, which basically is a list of links to the various products.
+[2024-03-16T18:44:09.613Z] fsCMIP = gcsfs.GCSFileSystem(token="anon", access="read_only")
+[2024-03-16T18:44:09.613Z] col = intake.open_esm_datastore(
+[2024-03-16T18:44:09.613Z]     "https://storage.googleapis.com/cmip6/pangeo-cmip6.json"
+[2024-03-16T18:44:09.613Z] )
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] # We will add a wrapper to ensure that the following operations will preserve the original data attributes, such as units and variable names.
+[2024-03-16T18:44:09.613Z] with xr.set_options(keep_attrs=True):
+[2024-03-16T18:44:09.613Z]     # Load the files from the PanGEO catalogs, for reference and future variables of temperature and precipitation.
+[2024-03-16T18:44:09.613Z]     out = {}
+[2024-03-16T18:44:09.613Z]     for exp in ["historical", "ssp585"]:
+[2024-03-16T18:44:09.613Z]         if exp == "historical":
+[2024-03-16T18:44:09.613Z]             period_start = reference_start_day
+[2024-03-16T18:44:09.613Z]             period_end = reference_end_day
+[2024-03-16T18:44:09.613Z]         else:
+[2024-03-16T18:44:09.613Z]             period_start = future_start_day
+[2024-03-16T18:44:09.613Z]             period_end = future_end_day
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z]         out[exp] = {}
+[2024-03-16T18:44:09.613Z]         for variable in ["tasmin", "tasmax", "pr"]:
+[2024-03-16T18:44:09.613Z]             print(exp, variable)
+[2024-03-16T18:44:09.613Z]             query = dict(
+[2024-03-16T18:44:09.613Z]                 experiment_id=exp,
+[2024-03-16T18:44:09.613Z]                 table_id="day",
+[2024-03-16T18:44:09.613Z]                 variable_id=variable,
+[2024-03-16T18:44:09.613Z]                 member_id="r1i1p1f1",
+[2024-03-16T18:44:09.613Z]                 source_id=climate_model,
+[2024-03-16T18:44:09.613Z]             )
+[2024-03-16T18:44:09.613Z]             col_subset = col.search(require_all_on=["source_id"], **query)
+[2024-03-16T18:44:09.613Z]             mapper = fsCMIP.get_mapper(col_subset.df.zstore[0])
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z]             # special case for precipitation, which does not have the "height" variable that we need to discard as for tasmax and tasmin.
+[2024-03-16T18:44:09.613Z]             if variable == "pr":
+[2024-03-16T18:44:09.613Z]                 out[exp][variable] = average.average_shape(
+[2024-03-16T18:44:09.613Z]                     xr.open_zarr(mapper, consolidated=True).sel(
+[2024-03-16T18:44:09.613Z]                         time=slice(period_start, period_end)
+[2024-03-16T18:44:09.613Z]                     )[variable],
+[2024-03-16T18:44:09.613Z]                     basin_contour,
+[2024-03-16T18:44:09.613Z]                 ).chunk(-1)
+[2024-03-16T18:44:09.613Z]             else:
+[2024-03-16T18:44:09.613Z]                 out[exp][variable] = average.average_shape(
+[2024-03-16T18:44:09.613Z]                     xr.open_zarr(mapper, consolidated=True)
+[2024-03-16T18:44:09.613Z]                     .sel(time=slice(period_start, period_end))
+[2024-03-16T18:44:09.613Z]                     .reset_coords("height", drop=True)[variable],
+[2024-03-16T18:44:09.613Z]                     basin_contour,
+[2024-03-16T18:44:09.613Z]                 ).chunk(-1)
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] # We can now extract the variables that we will need later:
+[2024-03-16T18:44:09.613Z] historical_tasmax = out["historical"]["tasmax"]
+[2024-03-16T18:44:09.613Z] historical_tasmin = out["historical"]["tasmin"]
+[2024-03-16T18:44:09.613Z] historical_pr = out["historical"]["pr"]
+[2024-03-16T18:44:09.613Z] future_tasmax = out["ssp585"]["tasmax"]
+[2024-03-16T18:44:09.613Z] future_tasmin = out["ssp585"]["tasmin"]
+[2024-03-16T18:44:09.613Z] future_pr = out["ssp585"]["pr"]
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.613Z] 
+[2024-03-16T18:44:09.613Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.613Z] [0;31mKeyError[0m                                  Traceback (most recent call last)
+[2024-03-16T18:44:09.613Z] Cell [0;32mIn[1], line 44[0m
+[2024-03-16T18:44:09.613Z] [1;32m     37[0m                 out[exp][variable] [38;5;241m=[39m average[38;5;241m.[39maverage_shape(
+[2024-03-16T18:44:09.613Z] [1;32m     38[0m                     xr[38;5;241m.[39mopen_zarr(mapper, consolidated[38;5;241m=[39m[38;5;28;01mTrue[39;00m)[38;5;241m.[39msel(
+[2024-03-16T18:44:09.613Z] [1;32m     39[0m                         time[38;5;241m=[39m[38;5;28mslice[39m(period_start, period_end)
+[2024-03-16T18:44:09.614Z] [1;32m     40[0m                     )[variable],
+[2024-03-16T18:44:09.614Z] [1;32m     41[0m                     basin_contour,
+[2024-03-16T18:44:09.614Z] [1;32m     42[0m                 )[38;5;241m.[39mchunk([38;5;241m-[39m[38;5;241m1[39m)
+[2024-03-16T18:44:09.614Z] [1;32m     43[0m             [38;5;28;01melse[39;00m:
+[2024-03-16T18:44:09.614Z] [0;32m---> 44[0m                 out[exp][variable] [38;5;241m=[39m [43maverage[49m[38;5;241;43m.[39;49m[43maverage_shape[49m[43m([49m
+[2024-03-16T18:44:09.614Z] [1;32m     45[0m [43m                    [49m[43mxr[49m[38;5;241;43m.[39;49m[43mopen_zarr[49m[43m([49m[43mmapper[49m[43m,[49m[43m [49m[43mconsolidated[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[2024-03-16T18:44:09.614Z] [1;32m     46[0m [43m                    [49m[38;5;241;43m.[39;49m[43msel[49m[43m([49m[43mtime[49m[38;5;241;43m=[39;49m[38;5;28;43mslice[39;49m[43m([49m[43mperiod_start[49m[43m,[49m[43m [49m[43mperiod_end[49m[43m)[49m[43m)[49m
+[2024-03-16T18:44:09.614Z] [1;32m     47[0m [43m                    [49m[38;5;241;43m.[39;49m[43mreset_coords[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mheight[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[43mdrop[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m[43m[[49m[43mvariable[49m[43m][49m[43m,[49m
+[2024-03-16T18:44:09.614Z] [1;32m     48[0m [43m                    [49m[43mbasin_contour[49m[43m,[49m
+[2024-03-16T18:44:09.614Z] [1;32m     49[0m [43m                [49m[43m)[49m[38;5;241m.[39mchunk([38;5;241m-[39m[38;5;241m1[39m)
+[2024-03-16T18:44:09.614Z] [1;32m     51[0m [38;5;66;03m# We can now extract the variables that we will need later:[39;00m
+[2024-03-16T18:44:09.614Z] [1;32m     52[0m historical_tasmax [38;5;241m=[39m out[[38;5;124m"[39m[38;5;124mhistorical[39m[38;5;124m"[39m][[38;5;124m"[39m[38;5;124mtasmax[39m[38;5;124m"[39m]
+[2024-03-16T18:44:09.614Z] 
+[2024-03-16T18:44:09.614Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/clisops/core/average.py:108[0m, in [0;36maverage_shape[0;34m(ds, shape, variable)[0m
+[2024-03-16T18:44:09.614Z] [1;32m    105[0m ds_sub [38;5;241m=[39m ds_copy[38;5;241m.[39misel(indexer)
+[2024-03-16T18:44:09.614Z] [1;32m    107[0m [38;5;66;03m# Compute the weights[39;00m
+[2024-03-16T18:44:09.614Z] [0;32m--> 108[0m savger [38;5;241m=[39m [43mSpatialAverager[49m[43m([49m[43mds_sub[49m[43m,[49m[43m [49m[43mpoly[49m[38;5;241;43m.[39;49m[43mgeometry[49m[43m)[49m
+[2024-03-16T18:44:09.614Z] [1;32m    110[0m [38;5;66;03m# Check that some weights are not null. Handle both sparse and scipy weights.[39;00m
+[2024-03-16T18:44:09.614Z] [1;32m    111[0m nonnull [38;5;241m=[39m (
+[2024-03-16T18:44:09.614Z] [1;32m    112[0m     savger[38;5;241m.[39mweights[38;5;241m.[39mdata[38;5;241m.[39mnnz
+[2024-03-16T18:44:09.614Z] [1;32m    113[0m     [38;5;28;01mif[39;00m [38;5;28misinstance[39m(savger[38;5;241m.[39mweights, xr[38;5;241m.[39mDataArray)
+[2024-03-16T18:44:09.614Z] [1;32m    114[0m     [38;5;28;01melse[39;00m savger[38;5;241m.[39mweights[38;5;241m.[39mnnz
+[2024-03-16T18:44:09.614Z] [1;32m    115[0m )
+[2024-03-16T18:44:09.614Z] 
+[2024-03-16T18:44:09.614Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xesmf/frontend.py:1185[0m, in [0;36mSpatialAverager.__init__[0;34m(self, ds_in, polys, ignore_holes, periodic, filename, reuse_weights, weights, ignore_degenerate, geom_dim_name)[0m
+[2024-03-16T18:44:09.614Z] [1;32m   1182[0m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(ds_in, xr[38;5;241m.[39mDataArray):
+[2024-03-16T18:44:09.614Z] [1;32m   1183[0m     ds_in [38;5;241m=[39m ds_in[38;5;241m.[39m_to_temp_dataset()
+[2024-03-16T18:44:09.614Z] [0;32m-> 1185[0m grid_in, shape_in, input_dims [38;5;241m=[39m [43mds_to_ESMFgrid[49m[43m([49m[43mds_in[49m[43m,[49m[43m [49m[43mneed_bounds[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m,[49m[43m [49m[43mperiodic[49m[38;5;241;43m=[39;49m[43mperiodic[49m[43m)[49m
+[2024-03-16T18:44:09.614Z] [1;32m   1187[0m [38;5;66;03m# Create an output locstream so that the regridder knows the output shape and coords.[39;00m
+[2024-03-16T18:44:09.614Z] [1;32m   1188[0m [38;5;66;03m# Latitude and longitude coordinates are the polygon centroid.[39;00m
+[2024-03-16T18:44:09.614Z] [1;32m   1189[0m lon_out, lat_out [38;5;241m=[39m _get_lon_lat(ds_in)
+[2024-03-16T18:44:09.614Z] 
+[2024-03-16T18:44:09.614Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xesmf/frontend.py:167[0m, in [0;36mds_to_ESMFgrid[0;34m(ds, need_bounds, periodic, append)[0m
+[2024-03-16T18:44:09.614Z] [1;32m    164[0m     grid [38;5;241m=[39m Grid[38;5;241m.[39mfrom_xarray(lon[38;5;241m.[39mT, lat[38;5;241m.[39mT, periodic[38;5;241m=[39mperiodic, mask[38;5;241m=[39m[38;5;28;01mNone[39;00m)
+[2024-03-16T18:44:09.614Z] [1;32m    166[0m [38;5;28;01mif[39;00m need_bounds:
+[2024-03-16T18:44:09.614Z] [0;32m--> 167[0m     lon_b, lat_b [38;5;241m=[39m [43m_get_lon_lat_bounds[49m[43m([49m[43mds[49m[43m)[49m
+[2024-03-16T18:44:09.614Z] [1;32m    168[0m     lon_b, lat_b [38;5;241m=[39m as_2d_mesh(np[38;5;241m.[39masarray(lon_b), np[38;5;241m.[39masarray(lat_b))
+[2024-03-16T18:44:09.614Z] [1;32m    169[0m     add_corner(grid, lon_b[38;5;241m.[39mT, lat_b[38;5;241m.[39mT)
+[2024-03-16T18:44:09.614Z] 
+[2024-03-16T18:44:09.614Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/xesmf/frontend.py:109[0m, in [0;36m_get_lon_lat_bounds[0;34m(ds)[0m
+[2024-03-16T18:44:09.614Z] [1;32m    105[0m     lat_bnds [38;5;241m=[39m ds[38;5;241m.[39mcf[38;5;241m.[39mget_bounds([38;5;124m'[39m[38;5;124mlatitude[39m[38;5;124m'[39m)
+[2024-03-16T18:44:09.614Z] [1;32m    107[0m [38;5;66;03m# Convert from CF bounds to xESMF bounds.[39;00m
+[2024-03-16T18:44:09.614Z] [1;32m    108[0m [38;5;66;03m# order=None is because we don't want to assume the dimension order for 2D bounds.[39;00m
+[2024-03-16T18:44:09.614Z] [0;32m--> 109[0m lon_b [38;5;241m=[39m cfxr[38;5;241m.[39mbounds_to_vertices(lon_bnds, [43mds[49m[38;5;241;43m.[39;49m[43mcf[49m[38;5;241;43m.[39;49m[43mget_bounds_dim_name[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mlongitude[39;49m[38;5;124;43m'[39;49m[43m)[49m, order[38;5;241m=[39m[38;5;28;01mNone[39;00m)
+[2024-03-16T18:44:09.614Z] [1;32m    110[0m lat_b [38;5;241m=[39m cfxr[38;5;241m.[39mbounds_to_vertices(lat_bnds, ds[38;5;241m.[39mcf[38;5;241m.[39mget_bounds_dim_name([38;5;124m'[39m[38;5;124mlatitude[39m[38;5;124m'[39m), order[38;5;241m=[39m[38;5;28;01mNone[39;00m)
+[2024-03-16T18:44:09.614Z] [1;32m    111[0m [38;5;28;01mreturn[39;00m lon_b, lat_b
+[2024-03-16T18:44:09.614Z] 
+[2024-03-16T18:44:09.614Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/cf_xarray/accessor.py:2404[0m, in [0;36mCFDatasetAccessor.get_bounds_dim_name[0;34m(self, key)[0m
+[2024-03-16T18:44:09.614Z] [1;32m   2400[0m filtered [38;5;241m=[39m [
+[2024-03-16T18:44:09.614Z] [1;32m   2401[0m     crd_name [38;5;28;01mfor[39;00m crd_name [38;5;129;01min[39;00m crd_names [38;5;28;01mif[39;00m [38;5;124m"[39m[38;5;124mbounds[39m[38;5;124m"[39m [38;5;129;01min[39;00m variables[crd_name][38;5;241m.[39mattrs
+[2024-03-16T18:44:09.614Z] [1;32m   2402[0m ]
+[2024-03-16T18:44:09.614Z] [1;32m   2403[0m [38;5;28;01mif[39;00m [38;5;28mlen[39m(filtered) [38;5;241m>[39m [38;5;241m1[39m:
+[2024-03-16T18:44:09.614Z] [0;32m-> 2404[0m     [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m(
+[2024-03-16T18:44:09.615Z] [1;32m   2405[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;124mReceived multiple matches for [39m[38;5;132;01m{[39;00mkey[38;5;132;01m!r}[39;00m[38;5;124m that have a bounds attribute: [39m[38;5;132;01m{[39;00mfiltered[38;5;132;01m!r}[39;00m[38;5;124m [39m[38;5;124m"[39m
+[2024-03-16T18:44:09.615Z] [1;32m   2406[0m     )
+[2024-03-16T18:44:09.615Z] [1;32m   2408[0m (crd_name,) [38;5;241m=[39m filtered
+[2024-03-16T18:44:09.615Z] [1;32m   2409[0m crd [38;5;241m=[39m variables[crd_name]
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] [0;31mKeyError[0m: "Received multiple matches for 'longitude' that have a bounds attribute: ['lon', 'lon_bounds'] "
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 12 _
+[2024-03-16T18:44:09.615Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.615Z] [94mCell 12: Cell execution caused an exception
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] Input:
+[2024-03-16T18:44:09.615Z] [0m# Here we need to make sure that our units are all in the correct format. You can play around with the tools we've seen thus far to explore the units
+[2024-03-16T18:44:09.615Z] # and make sure everything is consistent.
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Let's start with precipitation:
+[2024-03-16T18:44:09.615Z] # The CMIP data is a rate rather than an absolute value, so let's get the absolute values:
+[2024-03-16T18:44:09.615Z] historical_pr = xclim.core.units.rate2amount(historical_pr)
+[2024-03-16T18:44:09.615Z] future_pr = xclim.core.units.rate2amount(future_pr)
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Now we can actually convert units in absolute terms.
+[2024-03-16T18:44:09.615Z] historical_pr = xclim.core.units.convert_units_to(historical_pr, "mm", context="hydro")
+[2024-03-16T18:44:09.615Z] future_pr = xclim.core.units.convert_units_to(future_pr, "mm", context="hydro")
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Now let's do temperature:
+[2024-03-16T18:44:09.615Z] historical_tasmin = xclim.core.units.convert_units_to(historical_tasmin, "degC")
+[2024-03-16T18:44:09.615Z] historical_tasmax = xclim.core.units.convert_units_to(historical_tasmax, "degC")
+[2024-03-16T18:44:09.615Z] future_tasmin = xclim.core.units.convert_units_to(future_tasmin, "degC")
+[2024-03-16T18:44:09.615Z] future_tasmax = xclim.core.units.convert_units_to(future_tasmax, "degC")
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.615Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.615Z] Cell [0;32mIn[1], line 6[0m
+[2024-03-16T18:44:09.615Z] [1;32m      1[0m [38;5;66;03m# Here we need to make sure that our units are all in the correct format. You can play around with the tools we've seen thus far to explore the units[39;00m
+[2024-03-16T18:44:09.615Z] [1;32m      2[0m [38;5;66;03m# and make sure everything is consistent.[39;00m
+[2024-03-16T18:44:09.615Z] [1;32m      3[0m 
+[2024-03-16T18:44:09.615Z] [1;32m      4[0m [38;5;66;03m# Let's start with precipitation:[39;00m
+[2024-03-16T18:44:09.615Z] [1;32m      5[0m [38;5;66;03m# The CMIP data is a rate rather than an absolute value, so let's get the absolute values:[39;00m
+[2024-03-16T18:44:09.615Z] [0;32m----> 6[0m historical_pr [38;5;241m=[39m xclim[38;5;241m.[39mcore[38;5;241m.[39munits[38;5;241m.[39mrate2amount([43mhistorical_pr[49m)
+[2024-03-16T18:44:09.615Z] [1;32m      7[0m future_pr [38;5;241m=[39m xclim[38;5;241m.[39mcore[38;5;241m.[39munits[38;5;241m.[39mrate2amount(future_pr)
+[2024-03-16T18:44:09.615Z] [1;32m      9[0m [38;5;66;03m# Now we can actually convert units in absolute terms.[39;00m
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] [0;31mNameError[0m: name 'historical_pr' is not defined
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 13 _
+[2024-03-16T18:44:09.615Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.615Z] [94mCell 13: Cell execution caused an exception
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] Input:
+[2024-03-16T18:44:09.615Z] [0m# Use xclim utilities (sbda) to give information on the type of window used for the bias correction.
+[2024-03-16T18:44:09.615Z] group_month_window = sdba.utils.Grouper("time.dayofyear", window=15)
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # This is an adjusting function. It builds the tool that will perform the corrections.
+[2024-03-16T18:44:09.615Z] Adjustment = sdba.DetrendedQuantileMapping.train(
+[2024-03-16T18:44:09.615Z]     ref=ERA5_weather.pr,
+[2024-03-16T18:44:09.615Z]     hist=historical_pr,
+[2024-03-16T18:44:09.615Z]     nquantiles=50,
+[2024-03-16T18:44:09.615Z]     kind="+",
+[2024-03-16T18:44:09.615Z]     group=group_month_window,
+[2024-03-16T18:44:09.615Z] )
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Apply the correction factors on the reference period
+[2024-03-16T18:44:09.615Z] corrected_ref_precip = Adjustment.adjust(historical_pr, interp="linear")
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Apply the correction factors on the future period
+[2024-03-16T18:44:09.615Z] corrected_fut_precip = Adjustment.adjust(future_pr, interp="linear")
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Ensure that the precipitation is non-negative, which can happen with some climate models
+[2024-03-16T18:44:09.615Z] corrected_ref_precip = corrected_ref_precip.where(corrected_ref_precip > 0, 0)
+[2024-03-16T18:44:09.615Z] corrected_fut_precip = corrected_fut_precip.where(corrected_fut_precip > 0, 0)
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Train the model to find the correction factors for the maximum temperature (tasmax) data
+[2024-03-16T18:44:09.615Z] Adjustment = sdba.DetrendedQuantileMapping.train(
+[2024-03-16T18:44:09.615Z]     ref=ERA5_weather.tmax,
+[2024-03-16T18:44:09.615Z]     hist=historical_tasmax,
+[2024-03-16T18:44:09.615Z]     nquantiles=50,
+[2024-03-16T18:44:09.615Z]     kind="+",
+[2024-03-16T18:44:09.615Z]     group=group_month_window,
+[2024-03-16T18:44:09.615Z] )
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Apply the correction factors on the reference period
+[2024-03-16T18:44:09.615Z] corrected_ref_tasmax = Adjustment.adjust(historical_tasmax, interp="linear")
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Apply the correction factors on the future period
+[2024-03-16T18:44:09.615Z] corrected_fut_tasmax = Adjustment.adjust(future_tasmax, interp="linear")
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Train the model to find the correction factors for the minimum temperature (tasmin) data
+[2024-03-16T18:44:09.615Z] Adjustment = sdba.DetrendedQuantileMapping.train(
+[2024-03-16T18:44:09.615Z]     ref=ERA5_weather.tmin,
+[2024-03-16T18:44:09.615Z]     hist=historical_tasmin,
+[2024-03-16T18:44:09.615Z]     nquantiles=50,
+[2024-03-16T18:44:09.615Z]     kind="+",
+[2024-03-16T18:44:09.615Z]     group=group_month_window,
+[2024-03-16T18:44:09.615Z] )
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Apply the correction factors on the reference period
+[2024-03-16T18:44:09.615Z] corrected_ref_tasmin = Adjustment.adjust(historical_tasmin, interp="linear")
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] # Apply the correction factors on the future period
+[2024-03-16T18:44:09.615Z] corrected_fut_tasmin = Adjustment.adjust(future_tasmin, interp="linear")
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.615Z] 
+[2024-03-16T18:44:09.615Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.615Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.615Z] Cell [0;32mIn[1], line 6[0m
+[2024-03-16T18:44:09.615Z] [1;32m      2[0m group_month_window [38;5;241m=[39m sdba[38;5;241m.[39mutils[38;5;241m.[39mGrouper([38;5;124m"[39m[38;5;124mtime.dayofyear[39m[38;5;124m"[39m, window[38;5;241m=[39m[38;5;241m15[39m)
+[2024-03-16T18:44:09.615Z] [1;32m      4[0m [38;5;66;03m# This is an adjusting function. It builds the tool that will perform the corrections.[39;00m
+[2024-03-16T18:44:09.615Z] [1;32m      5[0m Adjustment [38;5;241m=[39m sdba[38;5;241m.[39mDetrendedQuantileMapping[38;5;241m.[39mtrain(
+[2024-03-16T18:44:09.615Z] [0;32m----> 6[0m     ref[38;5;241m=[39m[43mERA5_weather[49m[38;5;241m.[39mpr,
+[2024-03-16T18:44:09.615Z] [1;32m      7[0m     hist[38;5;241m=[39mhistorical_pr,
+[2024-03-16T18:44:09.615Z] [1;32m      8[0m     nquantiles[38;5;241m=[39m[38;5;241m50[39m,
+[2024-03-16T18:44:09.615Z] [1;32m      9[0m     kind[38;5;241m=[39m[38;5;124m"[39m[38;5;124m+[39m[38;5;124m"[39m,
+[2024-03-16T18:44:09.615Z] [1;32m     10[0m     group[38;5;241m=[39mgroup_month_window,
+[2024-03-16T18:44:09.615Z] [1;32m     11[0m )
+[2024-03-16T18:44:09.615Z] [1;32m     13[0m [38;5;66;03m# Apply the correction factors on the reference period[39;00m
+[2024-03-16T18:44:09.616Z] [1;32m     14[0m corrected_ref_precip [38;5;241m=[39m Adjustment[38;5;241m.[39madjust(historical_pr, interp[38;5;241m=[39m[38;5;124m"[39m[38;5;124mlinear[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] [0;31mNameError[0m: name 'ERA5_weather' is not defined
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 14 _
+[2024-03-16T18:44:09.616Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.616Z] [94mCell 14: Cell execution caused an exception
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] Input:
+[2024-03-16T18:44:09.616Z] [0m# Convert the reference corrected data into netCDF file. We will then apply a special code to remove a dimension in the dataset to make it applicable to the RAVEN models.
+[2024-03-16T18:44:09.616Z] ref_dataset = xr.merge(
+[2024-03-16T18:44:09.616Z]     [
+[2024-03-16T18:44:09.616Z]         corrected_ref_precip.to_dataset(name="pr"),
+[2024-03-16T18:44:09.616Z]         corrected_ref_tasmax.to_dataset(name="tasmax"),
+[2024-03-16T18:44:09.616Z]         corrected_ref_tasmin.to_dataset(name="tasmin"),
+[2024-03-16T18:44:09.616Z]     ]
+[2024-03-16T18:44:09.616Z] )
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Write to temporary folder
+[2024-03-16T18:44:09.616Z] fn_tmp_ref = tmp / "reference_dataset_tmp.nc"
+[2024-03-16T18:44:09.616Z] ref_dataset.to_netcdf(fn_tmp_ref)
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Convert the future corrected data into netCDF file
+[2024-03-16T18:44:09.616Z] fut_dataset = xr.merge(
+[2024-03-16T18:44:09.616Z]     [
+[2024-03-16T18:44:09.616Z]         corrected_fut_precip.to_dataset(name="pr"),
+[2024-03-16T18:44:09.616Z]         corrected_fut_tasmax.to_dataset(name="tasmax"),
+[2024-03-16T18:44:09.616Z]         corrected_fut_tasmin.to_dataset(name="tasmin"),
+[2024-03-16T18:44:09.616Z]     ]
+[2024-03-16T18:44:09.616Z] )
+[2024-03-16T18:44:09.616Z] # Write to temporary folder
+[2024-03-16T18:44:09.616Z] fn_tmp_fut = tmp / "future_dataset_tmp.nc"
+[2024-03-16T18:44:09.616Z] fut_dataset.to_netcdf(fn_tmp_fut)
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Write the data to disk to a temporary location for future use.
+[2024-03-16T18:44:09.616Z] ref_dataset = xr.open_dataset(fn_tmp_ref)
+[2024-03-16T18:44:09.616Z] ref_dataset.isel(geom=0).squeeze().to_netcdf(tmp / "reference_dataset.nc")
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] fut_dataset = xr.open_dataset(fn_tmp_fut)
+[2024-03-16T18:44:09.616Z] fut_dataset.isel(geom=0).squeeze().to_netcdf(tmp / "future_dataset.nc")
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.616Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.616Z] Cell [0;32mIn[1], line 4[0m
+[2024-03-16T18:44:09.616Z] [1;32m      1[0m [38;5;66;03m# Convert the reference corrected data into netCDF file. We will then apply a special code to remove a dimension in the dataset to make it applicable to the RAVEN models.[39;00m
+[2024-03-16T18:44:09.616Z] [1;32m      2[0m ref_dataset [38;5;241m=[39m xr[38;5;241m.[39mmerge(
+[2024-03-16T18:44:09.616Z] [1;32m      3[0m     [
+[2024-03-16T18:44:09.616Z] [0;32m----> 4[0m         [43mcorrected_ref_precip[49m[38;5;241m.[39mto_dataset(name[38;5;241m=[39m[38;5;124m"[39m[38;5;124mpr[39m[38;5;124m"[39m),
+[2024-03-16T18:44:09.616Z] [1;32m      5[0m         corrected_ref_tasmax[38;5;241m.[39mto_dataset(name[38;5;241m=[39m[38;5;124m"[39m[38;5;124mtasmax[39m[38;5;124m"[39m),
+[2024-03-16T18:44:09.616Z] [1;32m      6[0m         corrected_ref_tasmin[38;5;241m.[39mto_dataset(name[38;5;241m=[39m[38;5;124m"[39m[38;5;124mtasmin[39m[38;5;124m"[39m),
+[2024-03-16T18:44:09.616Z] [1;32m      7[0m     ]
+[2024-03-16T18:44:09.616Z] [1;32m      8[0m )
+[2024-03-16T18:44:09.616Z] [1;32m     10[0m [38;5;66;03m# Write to temporary folder[39;00m
+[2024-03-16T18:44:09.616Z] [1;32m     11[0m fn_tmp_ref [38;5;241m=[39m tmp [38;5;241m/[39m [38;5;124m"[39m[38;5;124mreference_dataset_tmp.nc[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] [0;31mNameError[0m: name 'corrected_ref_precip' is not defined
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 15 _
+[2024-03-16T18:44:09.616Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.616Z] [94mCell 15: Cell execution caused an exception
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] Input:
+[2024-03-16T18:44:09.616Z] [0m# Define the hydrological response unit. We can use the geographic information we gathered previously to
+[2024-03-16T18:44:09.616Z] # populate the fields for the HRU.
+[2024-03-16T18:44:09.616Z] hru = {}
+[2024-03-16T18:44:09.616Z] hru = dict(
+[2024-03-16T18:44:09.616Z]     area=all_properties["area"],
+[2024-03-16T18:44:09.616Z]     elevation=all_properties["elevation"],
+[2024-03-16T18:44:09.616Z]     latitude=all_properties["latitude"],
+[2024-03-16T18:44:09.616Z]     longitude=all_properties["longitude"],
+[2024-03-16T18:44:09.616Z]     hru_type="land",
+[2024-03-16T18:44:09.616Z] )
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Establish the start date for the calibration. This is set in the model configuration, so the calibrator
+[2024-03-16T18:44:09.616Z] # will simply execute the model which has been pre-configured to run on this period.
+[2024-03-16T18:44:09.616Z] start_date = dt.datetime(1981, 1, 1)
+[2024-03-16T18:44:09.616Z] end_date = dt.datetime(1985, 12, 31)
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # The data types available in the forcing netcdf file from ERA5, as per the tutorials.
+[2024-03-16T18:44:09.616Z] data_type = ["TEMP_MAX", "TEMP_MIN", "PRECIP"]
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Alternative variable names as described in the tutorial.
+[2024-03-16T18:44:09.616Z] alt_names = {
+[2024-03-16T18:44:09.616Z]     "TEMP_MIN": "tmin",
+[2024-03-16T18:44:09.616Z]     "TEMP_MAX": "tmax",
+[2024-03-16T18:44:09.616Z]     "PRECIP": "pr",
+[2024-03-16T18:44:09.616Z] }
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # The data keywords necessary to indicate the elevation, latitude and longitude of the ERA5 forcing data. Here
+[2024-03-16T18:44:09.616Z] # we use the information for the basin average as the ERA5 data is averaged on the watershed.
+[2024-03-16T18:44:09.616Z] data_kwds = {
+[2024-03-16T18:44:09.616Z]     "ALL": {
+[2024-03-16T18:44:09.616Z]         "elevation": hru["elevation"],
+[2024-03-16T18:44:09.616Z]         "latitude": hru["latitude"],
+[2024-03-16T18:44:09.616Z]         "longitude": hru["longitude"],
+[2024-03-16T18:44:09.616Z]     }
+[2024-03-16T18:44:09.616Z] }
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Give a name to the simulation
+[2024-03-16T18:44:09.616Z] run_name = "Paper_example_simulation"
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Setup the gauge object that includes meteorological data from ERA5
+[2024-03-16T18:44:09.616Z] gauge = [
+[2024-03-16T18:44:09.616Z]     rc.Gauge.from_nc(
+[2024-03-16T18:44:09.616Z]         tmp
+[2024-03-16T18:44:09.616Z]         / "ERA5_meteo_data.nc",  # Path to the ERA5 file containing all three meteorological variables
+[2024-03-16T18:44:09.616Z]         data_type=data_type,  # Note that this is the list of all the variables
+[2024-03-16T18:44:09.616Z]         alt_names=alt_names,  # Note that all variables here are mapped to their names in the netcdf file.
+[2024-03-16T18:44:09.616Z]         data_kwds=data_kwds,
+[2024-03-16T18:44:09.616Z]     )
+[2024-03-16T18:44:09.616Z] ]
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Read the streamflow from the HYSETS catchment data for this basin
+[2024-03-16T18:44:09.616Z] discharge_data = [rc.ObservationData.from_nc(streamflow_file, alt_names="discharge")]
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Which evaluation metric do we want to use for calibration. Raven will return this by default after each run,
+[2024-03-16T18:44:09.616Z] # and the optimizer will read it directly to calibrate.
+[2024-03-16T18:44:09.616Z] eval_metrics = ("NASH_SUTCLIFFE",)
+[2024-03-16T18:44:09.616Z] 
+[2024-03-16T18:44:09.616Z] # Build the model configuration according to user preferences and inputs
+[2024-03-16T18:44:09.616Z] model_config = GR4JCN(
+[2024-03-16T18:44:09.616Z]     ObservationData=discharge_data,
+[2024-03-16T18:44:09.616Z]     Gauge=gauge,
+[2024-03-16T18:44:09.616Z]     HRUs=[hru],
+[2024-03-16T18:44:09.616Z]     StartDate=start_date,
+[2024-03-16T18:44:09.616Z]     EndDate=end_date,
+[2024-03-16T18:44:09.617Z]     RunName=run_name,
+[2024-03-16T18:44:09.617Z]     EvaluationMetrics=eval_metrics,  # We add this code to tell Raven which objective function we want to pass.
+[2024-03-16T18:44:09.617Z]     SuppressOutput=True,  # This stops Raven from generating the output .nc files at each iteration.
+[2024-03-16T18:44:09.617Z] )
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.617Z] [0;31mValueError[0m                                Traceback (most recent call last)
+[2024-03-16T18:44:09.617Z] Cell [0;32mIn[1], line 42[0m
+[2024-03-16T18:44:09.617Z] [1;32m     38[0m run_name [38;5;241m=[39m [38;5;124m"[39m[38;5;124mPaper_example_simulation[39m[38;5;124m"[39m
+[2024-03-16T18:44:09.617Z] [1;32m     40[0m [38;5;66;03m# Setup the gauge object that includes meteorological data from ERA5[39;00m
+[2024-03-16T18:44:09.617Z] [1;32m     41[0m gauge [38;5;241m=[39m [
+[2024-03-16T18:44:09.617Z] [0;32m---> 42[0m     [43mrc[49m[38;5;241;43m.[39;49m[43mGauge[49m[38;5;241;43m.[39;49m[43mfrom_nc[49m[43m([49m
+[2024-03-16T18:44:09.617Z] [1;32m     43[0m [43m        [49m[43mtmp[49m
+[2024-03-16T18:44:09.617Z] [1;32m     44[0m [43m        [49m[38;5;241;43m/[39;49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mERA5_meteo_data.nc[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m  [49m[38;5;66;43;03m# Path to the ERA5 file containing all three meteorological variables[39;49;00m
+[2024-03-16T18:44:09.617Z] [1;32m     45[0m [43m        [49m[43mdata_type[49m[38;5;241;43m=[39;49m[43mdata_type[49m[43m,[49m[43m  [49m[38;5;66;43;03m# Note that this is the list of all the variables[39;49;00m
+[2024-03-16T18:44:09.617Z] [1;32m     46[0m [43m        [49m[43malt_names[49m[38;5;241;43m=[39;49m[43malt_names[49m[43m,[49m[43m  [49m[38;5;66;43;03m# Note that all variables here are mapped to their names in the netcdf file.[39;49;00m
+[2024-03-16T18:44:09.617Z] [1;32m     47[0m [43m        [49m[43mdata_kwds[49m[38;5;241;43m=[39;49m[43mdata_kwds[49m[43m,[49m
+[2024-03-16T18:44:09.617Z] [1;32m     48[0m [43m    [49m[43m)[49m
+[2024-03-16T18:44:09.617Z] [1;32m     49[0m ]
+[2024-03-16T18:44:09.617Z] [1;32m     51[0m [38;5;66;03m# Read the streamflow from the HYSETS catchment data for this basin[39;00m
+[2024-03-16T18:44:09.617Z] [1;32m     52[0m discharge_data [38;5;241m=[39m [rc[38;5;241m.[39mObservationData[38;5;241m.[39mfrom_nc(streamflow_file, alt_names[38;5;241m=[39m[38;5;124m"[39m[38;5;124mdischarge[39m[38;5;124m"[39m)]
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/ravenpy/config/commands.py:754[0m, in [0;36mGauge.from_nc[0;34m(cls, fn, data_type, station_idx, alt_names, mon_ave, data_kwds, **kwds)[0m
+[2024-03-16T18:44:09.617Z] [1;32m    751[0m     forcings[38;5;241m.[39mdifference_update(data)
+[2024-03-16T18:44:09.617Z] [1;32m    753[0m [38;5;28;01mif[39;00m [38;5;28mlen[39m(data) [38;5;241m==[39m [38;5;241m0[39m:
+[2024-03-16T18:44:09.617Z] [0;32m--> 754[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([38;5;124m"[39m[38;5;124mNo data found in netCDF files.[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.617Z] [1;32m    756[0m [38;5;66;03m# Default Gauge name[39;00m
+[2024-03-16T18:44:09.617Z] [1;32m    757[0m attrs[[38;5;124m"[39m[38;5;124mname[39m[38;5;124m"[39m] [38;5;241m=[39m attrs[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mname[39m[38;5;124m"[39m, [38;5;124mf[39m[38;5;124m"[39m[38;5;124mGauge_[39m[38;5;132;01m{[39;00midx[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] [0;31mValueError[0m: No data found in netCDF files.
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 16 _
+[2024-03-16T18:44:09.617Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.617Z] [94mCell 16: Cell execution caused an exception
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] Input:
+[2024-03-16T18:44:09.617Z] [0m# In order to calibrate your model, you need to give the lower and higher bounds of the model. In this case,
+[2024-03-16T18:44:09.617Z] # we are passing the boundaries for a GR4JCN, but it's important to change them, if you are using another model.
+[2024-03-16T18:44:09.617Z] low = (0.01, -15.0, 10.0, 0.0, 1.0, 0.0)
+[2024-03-16T18:44:09.617Z] high = (2.5, 10.0, 700.0, 7.0, 30.0, 1.0)
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Random seed. We will provide one for consistency purposes, but operationnaly this should not be provided.
+[2024-03-16T18:44:09.617Z] random_seed = 42
+[2024-03-16T18:44:09.617Z] np.random.seed(random_seed)
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Build the optimizer object
+[2024-03-16T18:44:09.617Z] spot_setup = SpotSetup(
+[2024-03-16T18:44:09.617Z]     config=model_config,
+[2024-03-16T18:44:09.617Z]     low=low,
+[2024-03-16T18:44:09.617Z]     high=high,
+[2024-03-16T18:44:09.617Z] )
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Maximum number of model evaluations. We only use 200 here to keep the computation time as low as possible,
+[2024-03-16T18:44:09.617Z] # but you will want to increase this for operational use, perhaps to 2000-5000 depending on the model.
+[2024-03-16T18:44:09.617Z] max_iterations = 200
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Setup the spotpy sampler with the method, the setup configuration, a run name and other options. Please refer
+[2024-03-16T18:44:09.617Z] # to the spotpy documentation for more options. We recommend sticking to this format for efficiency of most
+[2024-03-16T18:44:09.617Z] # applications. Here we use DDS as the optimization algorithm. More are available: see the Spotpy documentation
+[2024-03-16T18:44:09.617Z] # for more information. Here, DDS is used as it is powerful and particularly useful for optimizations with small
+[2024-03-16T18:44:09.617Z] # evaluation budgets. For more details on DDS, see:
+[2024-03-16T18:44:09.617Z] #
+[2024-03-16T18:44:09.617Z] # Tolson, B.A. and Shoemaker, C.A., 2007. Dynamically dimensioned search algorithm for computationally efficient watershed model calibration. Water
+[2024-03-16T18:44:09.617Z] # Resources Research, 43(1)
+[2024-03-16T18:44:09.617Z] sampler = spotpy.algorithms.dds(
+[2024-03-16T18:44:09.617Z]     spot_setup, dbname="RAVEN_model_run", dbformat="ram", save_sim=False
+[2024-03-16T18:44:09.617Z] )
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Launch the actual optimization. Multiple trials can be launched, where the entire process is repeated and
+[2024-03-16T18:44:09.617Z] # the best overall value from all trials is returned.
+[2024-03-16T18:44:09.617Z] sampler.sample(max_iterations, trials=1)
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Get the model diagnostics
+[2024-03-16T18:44:09.617Z] diag = spot_setup.diagnostics
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Get all the values of each iteration
+[2024-03-16T18:44:09.617Z] results = sampler.getdata()
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Get the raw resutlts directly in an array
+[2024-03-16T18:44:09.617Z] bestindex, bestobjfun = spotpy.analyser.get_maxlikeindex(
+[2024-03-16T18:44:09.617Z]     results
+[2024-03-16T18:44:09.617Z] )  # Want to get the MAX NSE (change for min for RMSE)
+[2024-03-16T18:44:09.617Z] best_model_run = list(
+[2024-03-16T18:44:09.617Z]     results[bestindex][0]
+[2024-03-16T18:44:09.617Z] )  # Get the parameter set returning the best NSE
+[2024-03-16T18:44:09.617Z] optimized_parameters = best_model_run[
+[2024-03-16T18:44:09.617Z]     1:-1
+[2024-03-16T18:44:09.617Z] ]  # Remove the NSE value (position 0) and the ID at the last position to get the actual parameter set.
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] # Display the parameter set ready to use in a future run:
+[2024-03-16T18:44:09.617Z] print(optimized_parameters)
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.617Z] 
+[2024-03-16T18:44:09.617Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.617Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.617Z] Cell [0;32mIn[1], line 12[0m
+[2024-03-16T18:44:09.617Z] [1;32m      8[0m np[38;5;241m.[39mrandom[38;5;241m.[39mseed(random_seed)
+[2024-03-16T18:44:09.617Z] [1;32m     10[0m [38;5;66;03m# Build the optimizer object[39;00m
+[2024-03-16T18:44:09.617Z] [1;32m     11[0m spot_setup [38;5;241m=[39m SpotSetup(
+[2024-03-16T18:44:09.617Z] [0;32m---> 12[0m     config[38;5;241m=[39m[43mmodel_config[49m,
+[2024-03-16T18:44:09.617Z] [1;32m     13[0m     low[38;5;241m=[39mlow,
+[2024-03-16T18:44:09.617Z] [1;32m     14[0m     high[38;5;241m=[39mhigh,
+[2024-03-16T18:44:09.618Z] [1;32m     15[0m )
+[2024-03-16T18:44:09.618Z] [1;32m     17[0m [38;5;66;03m# Maximum number of model evaluations. We only use 200 here to keep the computation time as low as possible,[39;00m
+[2024-03-16T18:44:09.618Z] [1;32m     18[0m [38;5;66;03m# but you will want to increase this for operational use, perhaps to 2000-5000 depending on the model.[39;00m
+[2024-03-16T18:44:09.618Z] [1;32m     19[0m max_iterations [38;5;241m=[39m [38;5;241m200[39m
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] [0;31mNameError[0m: name 'model_config' is not defined
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 17 _
+[2024-03-16T18:44:09.618Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.618Z] [94mCell 17: Cell execution caused an exception
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] Input:
+[2024-03-16T18:44:09.618Z] [0m# Copy the configuration of the previous model that we will modify for our validation:
+[2024-03-16T18:44:09.618Z] model_validation = model_config.duplicate(
+[2024-03-16T18:44:09.618Z]     params=optimized_parameters,
+[2024-03-16T18:44:09.618Z]     StartDate=dt.datetime(1986, 1, 1),
+[2024-03-16T18:44:09.618Z]     EndDate=dt.datetime(1990, 12, 31),
+[2024-03-16T18:44:09.618Z]     SuppressOutput=False,
+[2024-03-16T18:44:09.618Z] )
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] sim_output = Emulator(config=model_validation).run()
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] # Get validation NSE (note we are counting the first year without warm-up)
+[2024-03-16T18:44:09.618Z] NSE = sim_output.diagnostics["DIAG_NASH_SUTCLIFFE"]
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] # Plot the model output
+[2024-03-16T18:44:09.618Z] sim_output.hydrograph.q_sim.plot(color="blue", label="Simulation")
+[2024-03-16T18:44:09.618Z] sim_output.hydrograph.q_obs.plot(color="black", label="Observation")
+[2024-03-16T18:44:09.618Z] plt.legend()
+[2024-03-16T18:44:09.618Z] plt.title("Validation period - NSE=" + str(NSE[0]))
+[2024-03-16T18:44:09.618Z] plt.ylabel("Streamflow (m��/s)")
+[2024-03-16T18:44:09.618Z] plt.grid()
+[2024-03-16T18:44:09.618Z] plt.show()
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.618Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.618Z] Cell [0;32mIn[1], line 2[0m
+[2024-03-16T18:44:09.618Z] [1;32m      1[0m [38;5;66;03m# Copy the configuration of the previous model that we will modify for our validation:[39;00m
+[2024-03-16T18:44:09.618Z] [0;32m----> 2[0m model_validation [38;5;241m=[39m [43mmodel_config[49m[38;5;241m.[39mduplicate(
+[2024-03-16T18:44:09.618Z] [1;32m      3[0m     params[38;5;241m=[39moptimized_parameters,
+[2024-03-16T18:44:09.618Z] [1;32m      4[0m     StartDate[38;5;241m=[39mdt[38;5;241m.[39mdatetime([38;5;241m1986[39m, [38;5;241m1[39m, [38;5;241m1[39m),
+[2024-03-16T18:44:09.618Z] [1;32m      5[0m     EndDate[38;5;241m=[39mdt[38;5;241m.[39mdatetime([38;5;241m1990[39m, [38;5;241m12[39m, [38;5;241m31[39m),
+[2024-03-16T18:44:09.618Z] [1;32m      6[0m     SuppressOutput[38;5;241m=[39m[38;5;28;01mFalse[39;00m,
+[2024-03-16T18:44:09.618Z] [1;32m      7[0m )
+[2024-03-16T18:44:09.618Z] [1;32m      9[0m sim_output [38;5;241m=[39m Emulator(config[38;5;241m=[39mmodel_validation)[38;5;241m.[39mrun()
+[2024-03-16T18:44:09.618Z] [1;32m     11[0m [38;5;66;03m# Get validation NSE (note we are counting the first year without warm-up)[39;00m
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] [0;31mNameError[0m: name 'model_config' is not defined
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 18 _
+[2024-03-16T18:44:09.618Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.618Z] [94mCell 18: Cell execution caused an exception
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] Input:
+[2024-03-16T18:44:09.618Z] [0m# Setup a gauge for Raven to read-in the reference climate data, just like for ERA5
+[2024-03-16T18:44:09.618Z] gauge_ref = [
+[2024-03-16T18:44:09.618Z]     rc.Gauge.from_nc(
+[2024-03-16T18:44:09.618Z]         tmp
+[2024-03-16T18:44:09.618Z]         / "reference_dataset.nc",  # Path to the CMIP6 model reference data netcdf file
+[2024-03-16T18:44:09.618Z]         data_type=data_type,
+[2024-03-16T18:44:09.618Z]         alt_names=alt_names,
+[2024-03-16T18:44:09.618Z]         data_kwds=data_kwds,
+[2024-03-16T18:44:09.618Z]     )
+[2024-03-16T18:44:09.618Z] ]
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] # Copy the configuration of the previous model that we will modify for our simulation on the reference period.
+[2024-03-16T18:44:09.618Z] model_config_reference = model_validation.duplicate(
+[2024-03-16T18:44:09.618Z]     Gauge=gauge_ref,
+[2024-03-16T18:44:09.618Z]     StartDate=reference_start_day
+[2024-03-16T18:44:09.618Z]     + dt.timedelta(days=1),  # Add a day here to account for the UTC lag in ERA5
+[2024-03-16T18:44:09.618Z]     EndDate=reference_end_day,
+[2024-03-16T18:44:09.618Z] )
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] # Run the model from the configuration and get the outputs.
+[2024-03-16T18:44:09.618Z] ref_output = Emulator(config=model_config_reference).run()
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] # Plot the model output. Note that both simulations should have similar hydrological
+[2024-03-16T18:44:09.618Z] # regime but day-to-day variability is not expected to match.
+[2024-03-16T18:44:09.618Z] ref_output.hydrograph.q_sim.plot(color="blue", label="Reference period simulation")
+[2024-03-16T18:44:09.618Z] ref_output.hydrograph.q_obs.plot(color="black", label="Observation")
+[2024-03-16T18:44:09.618Z] plt.legend()
+[2024-03-16T18:44:09.618Z] plt.title("Reference period")
+[2024-03-16T18:44:09.618Z] plt.ylabel("Streamflow (m��/s)")
+[2024-03-16T18:44:09.618Z] plt.grid()
+[2024-03-16T18:44:09.618Z] plt.show()
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.618Z] [0;31mValueError[0m                                Traceback (most recent call last)
+[2024-03-16T18:44:09.618Z] Cell [0;32mIn[1], line 3[0m
+[2024-03-16T18:44:09.618Z] [1;32m      1[0m [38;5;66;03m# Setup a gauge for Raven to read-in the reference climate data, just like for ERA5[39;00m
+[2024-03-16T18:44:09.618Z] [1;32m      2[0m gauge_ref [38;5;241m=[39m [
+[2024-03-16T18:44:09.618Z] [0;32m----> 3[0m     [43mrc[49m[38;5;241;43m.[39;49m[43mGauge[49m[38;5;241;43m.[39;49m[43mfrom_nc[49m[43m([49m
+[2024-03-16T18:44:09.618Z] [1;32m      4[0m [43m        [49m[43mtmp[49m
+[2024-03-16T18:44:09.618Z] [1;32m      5[0m [43m        [49m[38;5;241;43m/[39;49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mreference_dataset.nc[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m  [49m[38;5;66;43;03m# Path to the CMIP6 model reference data netcdf file[39;49;00m
+[2024-03-16T18:44:09.618Z] [1;32m      6[0m [43m        [49m[43mdata_type[49m[38;5;241;43m=[39;49m[43mdata_type[49m[43m,[49m
+[2024-03-16T18:44:09.618Z] [1;32m      7[0m [43m        [49m[43malt_names[49m[38;5;241;43m=[39;49m[43malt_names[49m[43m,[49m
+[2024-03-16T18:44:09.618Z] [1;32m      8[0m [43m        [49m[43mdata_kwds[49m[38;5;241;43m=[39;49m[43mdata_kwds[49m[43m,[49m
+[2024-03-16T18:44:09.618Z] [1;32m      9[0m [43m    [49m[43m)[49m
+[2024-03-16T18:44:09.618Z] [1;32m     10[0m ]
+[2024-03-16T18:44:09.618Z] [1;32m     12[0m [38;5;66;03m# Copy the configuration of the previous model that we will modify for our simulation on the reference period.[39;00m
+[2024-03-16T18:44:09.618Z] [1;32m     13[0m model_config_reference [38;5;241m=[39m model_validation[38;5;241m.[39mduplicate(
+[2024-03-16T18:44:09.618Z] [1;32m     14[0m     Gauge[38;5;241m=[39mgauge_ref,
+[2024-03-16T18:44:09.618Z] [1;32m     15[0m     StartDate[38;5;241m=[39mreference_start_day
+[2024-03-16T18:44:09.618Z] [1;32m     16[0m     [38;5;241m+[39m dt[38;5;241m.[39mtimedelta(days[38;5;241m=[39m[38;5;241m1[39m),  [38;5;66;03m# Add a day here to account for the UTC lag in ERA5[39;00m
+[2024-03-16T18:44:09.618Z] [1;32m     17[0m     EndDate[38;5;241m=[39mreference_end_day,
+[2024-03-16T18:44:09.618Z] [1;32m     18[0m )
+[2024-03-16T18:44:09.618Z] 
+[2024-03-16T18:44:09.618Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/ravenpy/config/commands.py:754[0m, in [0;36mGauge.from_nc[0;34m(cls, fn, data_type, station_idx, alt_names, mon_ave, data_kwds, **kwds)[0m
+[2024-03-16T18:44:09.618Z] [1;32m    751[0m     forcings[38;5;241m.[39mdifference_update(data)
+[2024-03-16T18:44:09.618Z] [1;32m    753[0m [38;5;28;01mif[39;00m [38;5;28mlen[39m(data) [38;5;241m==[39m [38;5;241m0[39m:
+[2024-03-16T18:44:09.618Z] [0;32m--> 754[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([38;5;124m"[39m[38;5;124mNo data found in netCDF files.[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.618Z] [1;32m    756[0m [38;5;66;03m# Default Gauge name[39;00m
+[2024-03-16T18:44:09.619Z] [1;32m    757[0m attrs[[38;5;124m"[39m[38;5;124mname[39m[38;5;124m"[39m] [38;5;241m=[39m attrs[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mname[39m[38;5;124m"[39m, [38;5;124mf[39m[38;5;124m"[39m[38;5;124mGauge_[39m[38;5;132;01m{[39;00midx[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] [0;31mValueError[0m: No data found in netCDF files.
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 19 _
+[2024-03-16T18:44:09.619Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.619Z] [94mCell 19: Cell execution caused an exception
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] Input:
+[2024-03-16T18:44:09.619Z] [0m# Setup a gauge for Raven to read-in the future climate data, just like for the reference data
+[2024-03-16T18:44:09.619Z] gauge_fut = [
+[2024-03-16T18:44:09.619Z]     rc.Gauge.from_nc(
+[2024-03-16T18:44:09.619Z]         tmp / "future_dataset.nc",  # Path to the CMIP6 model reference data netcdf file
+[2024-03-16T18:44:09.619Z]         data_type=data_type,
+[2024-03-16T18:44:09.619Z]         alt_names=alt_names,
+[2024-03-16T18:44:09.619Z]         data_kwds=data_kwds,
+[2024-03-16T18:44:09.619Z]     )
+[2024-03-16T18:44:09.619Z] ]
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] # Copy the configuration of the previous model that we will modify for our simulation on the reference period.
+[2024-03-16T18:44:09.619Z] model_config_future = model_validation.duplicate(
+[2024-03-16T18:44:09.619Z]     Gauge=gauge_fut,
+[2024-03-16T18:44:09.619Z]     StartDate=future_start_day + dt.timedelta(days=1),
+[2024-03-16T18:44:09.619Z]     EndDate=future_end_day,
+[2024-03-16T18:44:09.619Z]     ObservationData=None,  # There are no observations for the future period.
+[2024-03-16T18:44:09.619Z] )
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] # Run the model and get the outputs and hydrographs.
+[2024-03-16T18:44:09.619Z] fut_output = Emulator(config=model_config_future).run()
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] # Plot the model output
+[2024-03-16T18:44:09.619Z] fut_output.hydrograph.q_sim.plot(color="blue", label="Future simulation")
+[2024-03-16T18:44:09.619Z] plt.legend()
+[2024-03-16T18:44:09.619Z] plt.title("Future period")
+[2024-03-16T18:44:09.619Z] plt.ylabel("Streamflow (m��/s)")
+[2024-03-16T18:44:09.619Z] plt.grid()
+[2024-03-16T18:44:09.619Z] plt.show()
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.619Z] [0;31mValueError[0m                                Traceback (most recent call last)
+[2024-03-16T18:44:09.619Z] Cell [0;32mIn[1], line 3[0m
+[2024-03-16T18:44:09.619Z] [1;32m      1[0m [38;5;66;03m# Setup a gauge for Raven to read-in the future climate data, just like for the reference data[39;00m
+[2024-03-16T18:44:09.619Z] [1;32m      2[0m gauge_fut [38;5;241m=[39m [
+[2024-03-16T18:44:09.619Z] [0;32m----> 3[0m     [43mrc[49m[38;5;241;43m.[39;49m[43mGauge[49m[38;5;241;43m.[39;49m[43mfrom_nc[49m[43m([49m
+[2024-03-16T18:44:09.619Z] [1;32m      4[0m [43m        [49m[43mtmp[49m[43m [49m[38;5;241;43m/[39;49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mfuture_dataset.nc[39;49m[38;5;124;43m"[39;49m[43m,[49m[43m  [49m[38;5;66;43;03m# Path to the CMIP6 model reference data netcdf file[39;49;00m
+[2024-03-16T18:44:09.619Z] [1;32m      5[0m [43m        [49m[43mdata_type[49m[38;5;241;43m=[39;49m[43mdata_type[49m[43m,[49m
+[2024-03-16T18:44:09.619Z] [1;32m      6[0m [43m        [49m[43malt_names[49m[38;5;241;43m=[39;49m[43malt_names[49m[43m,[49m
+[2024-03-16T18:44:09.619Z] [1;32m      7[0m [43m        [49m[43mdata_kwds[49m[38;5;241;43m=[39;49m[43mdata_kwds[49m[43m,[49m
+[2024-03-16T18:44:09.619Z] [1;32m      8[0m [43m    [49m[43m)[49m
+[2024-03-16T18:44:09.619Z] [1;32m      9[0m ]
+[2024-03-16T18:44:09.619Z] [1;32m     11[0m [38;5;66;03m# Copy the configuration of the previous model that we will modify for our simulation on the reference period.[39;00m
+[2024-03-16T18:44:09.619Z] [1;32m     12[0m model_config_future [38;5;241m=[39m model_validation[38;5;241m.[39mduplicate(
+[2024-03-16T18:44:09.619Z] [1;32m     13[0m     Gauge[38;5;241m=[39mgauge_fut,
+[2024-03-16T18:44:09.619Z] [1;32m     14[0m     StartDate[38;5;241m=[39mfuture_start_day [38;5;241m+[39m dt[38;5;241m.[39mtimedelta(days[38;5;241m=[39m[38;5;241m1[39m),
+[2024-03-16T18:44:09.619Z] [1;32m     15[0m     EndDate[38;5;241m=[39mfuture_end_day,
+[2024-03-16T18:44:09.619Z] [1;32m     16[0m     ObservationData[38;5;241m=[39m[38;5;28;01mNone[39;00m,  [38;5;66;03m# There are no observations for the future period.[39;00m
+[2024-03-16T18:44:09.619Z] [1;32m     17[0m )
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] File [0;32m/opt/conda/envs/birdy/lib/python3.10/site-packages/ravenpy/config/commands.py:754[0m, in [0;36mGauge.from_nc[0;34m(cls, fn, data_type, station_idx, alt_names, mon_ave, data_kwds, **kwds)[0m
+[2024-03-16T18:44:09.619Z] [1;32m    751[0m     forcings[38;5;241m.[39mdifference_update(data)
+[2024-03-16T18:44:09.619Z] [1;32m    753[0m [38;5;28;01mif[39;00m [38;5;28mlen[39m(data) [38;5;241m==[39m [38;5;241m0[39m:
+[2024-03-16T18:44:09.619Z] [0;32m--> 754[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([38;5;124m"[39m[38;5;124mNo data found in netCDF files.[39m[38;5;124m"[39m)
+[2024-03-16T18:44:09.619Z] [1;32m    756[0m [38;5;66;03m# Default Gauge name[39;00m
+[2024-03-16T18:44:09.619Z] [1;32m    757[0m attrs[[38;5;124m"[39m[38;5;124mname[39m[38;5;124m"[39m] [38;5;241m=[39m attrs[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mname[39m[38;5;124m"[39m, [38;5;124mf[39m[38;5;124m"[39m[38;5;124mGauge_[39m[38;5;132;01m{[39;00midx[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] [0;31mValueError[0m: No data found in netCDF files.
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] _ RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 20 _
+[2024-03-16T18:44:09.619Z] [91mNotebook cell execution failed[0m
+[2024-03-16T18:44:09.619Z] [94mCell 20: Cell execution caused an exception
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] Input:
+[2024-03-16T18:44:09.619Z] [0m# Extract the mean annual hydrograph for each simulation.
+[2024-03-16T18:44:09.619Z] observed_flows = ref_output.hydrograph.q_obs.groupby("time.dayofyear").mean()
+[2024-03-16T18:44:09.619Z] simulated_flows = sim_output.hydrograph.q_obs.groupby("time.dayofyear").mean()
+[2024-03-16T18:44:09.619Z] reference_flows = ref_output.hydrograph.q_sim.groupby("time.dayofyear").mean()
+[2024-03-16T18:44:09.619Z] future_flows = fut_output.hydrograph.q_sim.groupby("time.dayofyear").mean()
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] # Plot the model output
+[2024-03-16T18:44:09.619Z] observed_flows.plot(color="black", label="Observation", x="dayofyear")
+[2024-03-16T18:44:09.619Z] simulated_flows.plot(color="green", label="Simulation", x="dayofyear")
+[2024-03-16T18:44:09.619Z] reference_flows.plot(color="blue", label="Reference", x="dayofyear")
+[2024-03-16T18:44:09.619Z] future_flows.plot(color="red", label="Future", x="dayofyear")
+[2024-03-16T18:44:09.619Z] plt.legend()
+[2024-03-16T18:44:09.619Z] plt.ylabel("Streamflow (m��/s)")
+[2024-03-16T18:44:09.619Z] plt.xlabel("Day of year")
+[2024-03-16T18:44:09.619Z] plt.xlim([0, 365])
+[2024-03-16T18:44:09.619Z] plt.title("Comparison of mean annual hydrographs")
+[2024-03-16T18:44:09.619Z] plt.grid()
+[2024-03-16T18:44:09.619Z] plt.show()
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] [94mTraceback:[0m
+[2024-03-16T18:44:09.619Z] 
+[2024-03-16T18:44:09.619Z] [0;31m---------------------------------------------------------------------------[0m
+[2024-03-16T18:44:09.619Z] [0;31mNameError[0m                                 Traceback (most recent call last)
+[2024-03-16T18:44:09.620Z] Cell [0;32mIn[1], line 2[0m
+[2024-03-16T18:44:09.620Z] [1;32m      1[0m [38;5;66;03m# Extract the mean annual hydrograph for each simulation.[39;00m
+[2024-03-16T18:44:09.620Z] [0;32m----> 2[0m observed_flows [38;5;241m=[39m [43mref_output[49m[38;5;241m.[39mhydrograph[38;5;241m.[39mq_obs[38;5;241m.[39mgroupby([38;5;124m"[39m[38;5;124mtime.dayofyear[39m[38;5;124m"[39m)[38;5;241m.[39mmean()
+[2024-03-16T18:44:09.620Z] [1;32m      3[0m simulated_flows [38;5;241m=[39m sim_output[38;5;241m.[39mhydrograph[38;5;241m.[39mq_obs[38;5;241m.[39mgroupby([38;5;124m"[39m[38;5;124mtime.dayofyear[39m[38;5;124m"[39m)[38;5;241m.[39mmean()
+[2024-03-16T18:44:09.620Z] [1;32m      4[0m reference_flows [38;5;241m=[39m ref_output[38;5;241m.[39mhydrograph[38;5;241m.[39mq_sim[38;5;241m.[39mgroupby([38;5;124m"[39m[38;5;124mtime.dayofyear[39m[38;5;124m"[39m)[38;5;241m.[39mmean()
+[2024-03-16T18:44:09.620Z] 
+[2024-03-16T18:44:09.620Z] [0;31mNameError[0m: name 'ref_output' is not defined
+[2024-03-16T18:44:09.620Z] 
+[2024-03-16T18:44:09.620Z] =========================== short test summary info ============================
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb::Cell 5
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb::Cell 7
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb::Cell 8
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb::Cell 11
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 5
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 6
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 7
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 8
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 9
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 10
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 11
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb::Cell 12
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/HydroShare_integration.ipynb::Cell 0
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/HydroShare_integration.ipynb::Cell 1
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/HydroShare_integration.ipynb::Cell 2
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/HydroShare_integration.ipynb::Cell 3
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 10
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 11
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 12
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 13
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 14
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 15
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 16
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 17
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 18
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 19
+[2024-03-16T18:44:09.620Z] FAILED RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb::Cell 20
+[2024-03-16T18:44:09.620Z] ================= 27 failed, 215 passed in 1625.68s (0:27:05) ==================
+[2024-03-16T18:44:09.620Z] + EXIT_CODE=1
+[2024-03-16T18:44:09.620Z] + echo true
+[2024-03-16T18:44:09.620Z] + tr [:upper:] [:lower:]
+[2024-03-16T18:44:09.620Z] + SAVE_RESULTING_NOTEBOOK=true
+[2024-03-16T18:44:09.620Z] + [ xtrue = xtrue ]
+[2024-03-16T18:44:09.620Z] + mkdir -p buildout
+[2024-03-16T18:44:09.620Z] + basename raven-main/docs/source/notebooks/Region_selection.ipynb
+[2024-03-16T18:44:09.620Z] + filename=Region_selection.ipynb
+[2024-03-16T18:44:09.620Z] + echo Region_selection.ipynb
+[2024-03-16T18:44:09.620Z] + sed s/.ipynb$//
+[2024-03-16T18:44:09.620Z] + filename=Region_selection
+[2024-03-16T18:44:09.620Z] + [ -e buildout/Region_selection.output.ipynb ]
+[2024-03-16T18:44:09.620Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Region_selection.output.ipynb raven-main/docs/source/notebooks/Region_selection.ipynb
+[2024-03-16T18:44:09.620Z] [NbConvertApp] Converting notebook raven-main/docs/source/notebooks/Region_selection.ipynb to notebook
+[2024-03-16T18:44:19.581Z] [NbConvertApp] Writing 107224 bytes to buildout/Region_selection.output.ipynb
+[2024-03-16T18:44:19.581Z] + basename raven-main/docs/source/notebooks/Subset_climate_data_over_watershed.ipynb
+[2024-03-16T18:44:19.581Z] + filename=Subset_climate_data_over_watershed.ipynb
+[2024-03-16T18:44:19.581Z] + echo Subset_climate_data_over_watershed.ipynb
+[2024-03-16T18:44:19.581Z] + sed s/.ipynb$//
+[2024-03-16T18:44:19.581Z] + filename=Subset_climate_data_over_watershed
+[2024-03-16T18:44:19.581Z] + [ -e buildout/Subset_climate_data_over_watershed.output.ipynb ]
+[2024-03-16T18:44:19.581Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Subset_climate_data_over_watershed.output.ipynb raven-main/docs/source/notebooks/Subset_climate_data_over_watershed.ipynb
+[2024-03-16T18:44:20.150Z] [NbConvertApp] Converting notebook raven-main/docs/source/notebooks/Subset_climate_data_over_watershed.ipynb to notebook
+[2024-03-16T18:44:38.244Z] [NbConvertApp] Writing 97070 bytes to buildout/Subset_climate_data_over_watershed.output.ipynb
+[2024-03-16T18:44:38.244Z] + basename RavenPy-master/docs/notebooks/00_Introduction_to_JupyterLab.ipynb
+[2024-03-16T18:44:38.244Z] + filename=00_Introduction_to_JupyterLab.ipynb
+[2024-03-16T18:44:38.244Z] + sed s/.ipynb$//
+[2024-03-16T18:44:38.244Z] + echo 00_Introduction_to_JupyterLab.ipynb
+[2024-03-16T18:44:38.244Z] + filename=00_Introduction_to_JupyterLab
+[2024-03-16T18:44:38.244Z] + [ -e buildout/00_Introduction_to_JupyterLab.output.ipynb ]
+[2024-03-16T18:44:38.245Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 00_Introduction_to_JupyterLab.output.ipynb RavenPy-master/docs/notebooks/00_Introduction_to_JupyterLab.ipynb
+[2024-03-16T18:44:38.245Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/00_Introduction_to_JupyterLab.ipynb to notebook
+[2024-03-16T18:44:43.510Z] [NbConvertApp] Writing 13179 bytes to buildout/00_Introduction_to_JupyterLab.output.ipynb
+[2024-03-16T18:44:43.510Z] + basename RavenPy-master/docs/notebooks/01_Getting_watershed_boundaries.ipynb
+[2024-03-16T18:44:43.510Z] + filename=01_Getting_watershed_boundaries.ipynb
+[2024-03-16T18:44:43.510Z] + echo 01_Getting_watershed_boundaries.ipynb
+[2024-03-16T18:44:43.510Z] + sed s/.ipynb$//
+[2024-03-16T18:44:43.510Z] + filename=01_Getting_watershed_boundaries
+[2024-03-16T18:44:43.510Z] + [ -e buildout/01_Getting_watershed_boundaries.output.ipynb ]
+[2024-03-16T18:44:43.510Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 01_Getting_watershed_boundaries.output.ipynb RavenPy-master/docs/notebooks/01_Getting_watershed_boundaries.ipynb
+[2024-03-16T18:44:45.413Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/01_Getting_watershed_boundaries.ipynb to notebook
+[2024-03-16T18:44:57.632Z] [NbConvertApp] Writing 109427 bytes to buildout/01_Getting_watershed_boundaries.output.ipynb
+[2024-03-16T18:44:57.632Z] + basename RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb
+[2024-03-16T18:44:57.632Z] + filename=02_Extract_geographical_watershed_properties.ipynb
+[2024-03-16T18:44:57.632Z] + echo 02_Extract_geographical_watershed_properties.ipynb
+[2024-03-16T18:44:57.632Z] + sed s/.ipynb$//
+[2024-03-16T18:44:57.632Z] + filename=02_Extract_geographical_watershed_properties
+[2024-03-16T18:44:57.632Z] + [ -e buildout/02_Extract_geographical_watershed_properties.output.ipynb ]
+[2024-03-16T18:44:57.632Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 02_Extract_geographical_watershed_properties.output.ipynb RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb
+[2024-03-16T18:44:57.891Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/02_Extract_geographical_watershed_properties.ipynb to notebook
+[2024-03-16T18:45:15.995Z] [NbConvertApp] Writing 91031 bytes to buildout/02_Extract_geographical_watershed_properties.output.ipynb
+[2024-03-16T18:45:15.995Z] + basename RavenPy-master/docs/notebooks/03_Extracting_forcing_data.ipynb
+[2024-03-16T18:45:15.995Z] + filename=03_Extracting_forcing_data.ipynb
+[2024-03-16T18:45:15.995Z] + echo 03_Extracting_forcing_data.ipynb
+[2024-03-16T18:45:15.995Z] + sed s/.ipynb$//
+[2024-03-16T18:45:15.995Z] + filename=03_Extracting_forcing_data
+[2024-03-16T18:45:15.995Z] + [ -e buildout/03_Extracting_forcing_data.output.ipynb ]
+[2024-03-16T18:45:15.995Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 03_Extracting_forcing_data.output.ipynb RavenPy-master/docs/notebooks/03_Extracting_forcing_data.ipynb
+[2024-03-16T18:45:16.257Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/03_Extracting_forcing_data.ipynb to notebook
+[2024-03-16T18:47:22.777Z] [NbConvertApp] Writing 110377 bytes to buildout/03_Extracting_forcing_data.output.ipynb
+[2024-03-16T18:47:22.777Z] + basename RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb
+[2024-03-16T18:47:22.777Z] + filename=04_Emulating_hydrological_models.ipynb
+[2024-03-16T18:47:22.777Z] + echo 04_Emulating_hydrological_models.ipynb
+[2024-03-16T18:47:22.777Z] + sed s/.ipynb$//
+[2024-03-16T18:47:22.777Z] + filename=04_Emulating_hydrological_models
+[2024-03-16T18:47:22.777Z] + [ -e buildout/04_Emulating_hydrological_models.output.ipynb ]
+[2024-03-16T18:47:22.778Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 04_Emulating_hydrological_models.output.ipynb RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb
+[2024-03-16T18:47:22.778Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/04_Emulating_hydrological_models.ipynb to notebook
+[2024-03-16T18:47:40.890Z] [NbConvertApp] Writing 158077 bytes to buildout/04_Emulating_hydrological_models.output.ipynb
+[2024-03-16T18:47:40.890Z] + basename RavenPy-master/docs/notebooks/05_Advanced_RavenPy_configuration.ipynb
+[2024-03-16T18:47:40.890Z] + filename=05_Advanced_RavenPy_configuration.ipynb
+[2024-03-16T18:47:40.890Z] + echo 05_Advanced_RavenPy_configuration.ipynb
+[2024-03-16T18:47:40.890Z] + sed s/.ipynb$//
+[2024-03-16T18:47:40.890Z] + filename=05_Advanced_RavenPy_configuration
+[2024-03-16T18:47:40.890Z] + [ -e buildout/05_Advanced_RavenPy_configuration.output.ipynb ]
+[2024-03-16T18:47:40.890Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 05_Advanced_RavenPy_configuration.output.ipynb RavenPy-master/docs/notebooks/05_Advanced_RavenPy_configuration.ipynb
+[2024-03-16T18:47:40.890Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/05_Advanced_RavenPy_configuration.ipynb to notebook
+[2024-03-16T18:48:02.848Z] [NbConvertApp] Writing 340428 bytes to buildout/05_Advanced_RavenPy_configuration.output.ipynb
+[2024-03-16T18:48:02.848Z] + basename RavenPy-master/docs/notebooks/06_Raven_calibration.ipynb
+[2024-03-16T18:48:02.848Z] + filename=06_Raven_calibration.ipynb
+[2024-03-16T18:48:02.848Z] + echo 06_Raven_calibration.ipynb
+[2024-03-16T18:48:02.848Z] + sed s/.ipynb$//
+[2024-03-16T18:48:02.848Z] + filename=06_Raven_calibration
+[2024-03-16T18:48:02.848Z] + [ -e buildout/06_Raven_calibration.output.ipynb ]
+[2024-03-16T18:48:02.848Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 06_Raven_calibration.output.ipynb RavenPy-master/docs/notebooks/06_Raven_calibration.ipynb
+[2024-03-16T18:48:04.770Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/06_Raven_calibration.ipynb to notebook
+[2024-03-16T18:48:19.668Z] [NbConvertApp] Writing 24094 bytes to buildout/06_Raven_calibration.output.ipynb
+[2024-03-16T18:48:19.668Z] + basename RavenPy-master/docs/notebooks/07_Making_and_using_hotstart_files.ipynb
+[2024-03-16T18:48:19.668Z] + filename=07_Making_and_using_hotstart_files.ipynb
+[2024-03-16T18:48:19.668Z] + echo 07_Making_and_using_hotstart_files.ipynb
+[2024-03-16T18:48:19.668Z] + sed s/.ipynb$//
+[2024-03-16T18:48:19.668Z] + filename=07_Making_and_using_hotstart_files
+[2024-03-16T18:48:19.668Z] + [ -e buildout/07_Making_and_using_hotstart_files.output.ipynb ]
+[2024-03-16T18:48:19.668Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 07_Making_and_using_hotstart_files.output.ipynb RavenPy-master/docs/notebooks/07_Making_and_using_hotstart_files.ipynb
+[2024-03-16T18:48:19.668Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/07_Making_and_using_hotstart_files.ipynb to notebook
+[2024-03-16T18:48:34.696Z] [NbConvertApp] Writing 226139 bytes to buildout/07_Making_and_using_hotstart_files.output.ipynb
+[2024-03-16T18:48:34.696Z] + basename RavenPy-master/docs/notebooks/08_Getting_and_bias_correcting_CMIP6_data.ipynb
+[2024-03-16T18:48:34.696Z] + filename=08_Getting_and_bias_correcting_CMIP6_data.ipynb
+[2024-03-16T18:48:34.696Z] + echo 08_Getting_and_bias_correcting_CMIP6_data.ipynb
+[2024-03-16T18:48:34.696Z] + sed s/.ipynb$//
+[2024-03-16T18:48:34.696Z] + filename=08_Getting_and_bias_correcting_CMIP6_data
+[2024-03-16T18:48:34.696Z] + [ -e buildout/08_Getting_and_bias_correcting_CMIP6_data.output.ipynb ]
+[2024-03-16T18:48:34.696Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 08_Getting_and_bias_correcting_CMIP6_data.output.ipynb RavenPy-master/docs/notebooks/08_Getting_and_bias_correcting_CMIP6_data.ipynb
+[2024-03-16T18:48:36.616Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/08_Getting_and_bias_correcting_CMIP6_data.ipynb to notebook
+[2024-03-16T18:53:43.348Z] [NbConvertApp] ERROR | Timeout waiting for execute reply (240s).
+[2024-03-16T18:53:44.720Z] Traceback (most recent call last):
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbclient/client.py", line 778, in _async_poll_for_reply
+[2024-03-16T18:53:44.720Z]     msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 198, in ensure_async
+[2024-03-16T18:53:44.720Z]     result = await obj
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/jupyter_client/channels.py", line 230, in get_msg
+[2024-03-16T18:53:44.720Z]     raise Empty
+[2024-03-16T18:53:44.720Z] _queue.Empty
+[2024-03-16T18:53:44.720Z] 
+[2024-03-16T18:53:44.720Z] During handling of the above exception, another exception occurred:
+[2024-03-16T18:53:44.720Z] 
+[2024-03-16T18:53:44.720Z] Traceback (most recent call last):
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/bin/jupyter-nbconvert", line 10, in <module>
+[2024-03-16T18:53:44.720Z]     sys.exit(main())
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/jupyter_core/application.py", line 283, in launch_instance
+[2024-03-16T18:53:44.720Z]     super().launch_instance(argv=argv, **kwargs)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+[2024-03-16T18:53:44.720Z]     app.start()
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 420, in start
+[2024-03-16T18:53:44.720Z]     self.convert_notebooks()
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 597, in convert_notebooks
+[2024-03-16T18:53:44.720Z]     self.convert_single_notebook(notebook_filename)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 563, in convert_single_notebook
+[2024-03-16T18:53:44.720Z]     output, resources = self.export_single_notebook(
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/nbconvertapp.py", line 487, in export_single_notebook
+[2024-03-16T18:53:44.720Z]     output, resources = self.exporter.from_filename(
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+[2024-03-16T18:53:44.720Z]     return self.from_file(f, resources=resources, **kw)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+[2024-03-16T18:53:44.720Z]     return self.from_notebook_node(
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+[2024-03-16T18:53:44.720Z]     nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+[2024-03-16T18:53:44.720Z]     nb_copy, resources = self._preprocess(nb_copy, resources)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/exporters/exporter.py", line 353, in _preprocess
+[2024-03-16T18:53:44.720Z]     nbc, resc = preprocessor(nbc, resc)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+[2024-03-16T18:53:44.720Z]     return self.preprocess(nb, resources)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+[2024-03-16T18:53:44.720Z]     self.preprocess_cell(cell, resources, index)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+[2024-03-16T18:53:44.720Z]     cell = self.execute_cell(cell, index, store_history=True)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+[2024-03-16T18:53:44.720Z]     return loop.run_until_complete(inner)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+[2024-03-16T18:53:44.720Z]     return future.result()
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbclient/client.py", line 1001, in async_execute_cell
+[2024-03-16T18:53:44.720Z]     exec_reply = await self.task_poll_for_reply
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbclient/client.py", line 802, in _async_poll_for_reply
+[2024-03-16T18:53:44.720Z]     error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
+[2024-03-16T18:53:44.720Z]   File "/opt/conda/envs/birdy/lib/python3.10/site-packages/nbclient/client.py", line 852, in _async_handle_timeout
+[2024-03-16T18:53:44.720Z]     raise CellTimeoutError.error_from_timeout_and_cell(
+[2024-03-16T18:53:44.720Z] nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 240 seconds.
+[2024-03-16T18:53:44.720Z] The message was: Cell execution timed out.
+[2024-03-16T18:53:44.720Z] Here is a preview of the cell contents:
+[2024-03-16T18:53:44.720Z] -------------------
+[2024-03-16T18:53:44.720Z] ['# Convert the reference corrected data into netCDF file. We will then apply a special code to remove a dimension in the dataset to make it applicable to the RAVEN models.', 'ref_dataset = xr.merge(', '    [', '        corrected_ref_precip.to_dataset(name="pr"),', '        corrected_ref_tasmax.to_dataset(name="tasmax"),']
+[2024-03-16T18:53:44.720Z] ...
+[2024-03-16T18:53:44.720Z] ['    ]', ')', '', 'fn_fut = tmp / "future_dataset.nc"', 'fut_dataset.to_netcdf(fn_fut)']
+[2024-03-16T18:53:44.720Z] -------------------
+[2024-03-16T18:53:44.720Z] 
+[2024-03-16T18:53:44.982Z] + basename RavenPy-master/docs/notebooks/09_Hydrological_impacts_of_climate_change.ipynb
+[2024-03-16T18:53:44.982Z] + filename=09_Hydrological_impacts_of_climate_change.ipynb
+[2024-03-16T18:53:44.982Z] + sed s/.ipynb$//
+[2024-03-16T18:53:44.982Z] + echo 09_Hydrological_impacts_of_climate_change.ipynb
+[2024-03-16T18:53:44.982Z] + filename=09_Hydrological_impacts_of_climate_change
+[2024-03-16T18:53:44.982Z] + [ -e buildout/09_Hydrological_impacts_of_climate_change.output.ipynb ]
+[2024-03-16T18:53:44.982Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 09_Hydrological_impacts_of_climate_change.output.ipynb RavenPy-master/docs/notebooks/09_Hydrological_impacts_of_climate_change.ipynb
+[2024-03-16T18:53:47.509Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/09_Hydrological_impacts_of_climate_change.ipynb to notebook
+[2024-03-16T18:54:05.595Z] [NbConvertApp] Writing 128175 bytes to buildout/09_Hydrological_impacts_of_climate_change.output.ipynb
+[2024-03-16T18:54:05.595Z] + basename RavenPy-master/docs/notebooks/10_Data_assimilation.ipynb
+[2024-03-16T18:54:05.595Z] + filename=10_Data_assimilation.ipynb
+[2024-03-16T18:54:05.595Z] + echo 10_Data_assimilation.ipynb
+[2024-03-16T18:54:05.595Z] + sed s/.ipynb$//
+[2024-03-16T18:54:05.595Z] + filename=10_Data_assimilation
+[2024-03-16T18:54:05.595Z] + [ -e buildout/10_Data_assimilation.output.ipynb ]
+[2024-03-16T18:54:05.595Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 10_Data_assimilation.output.ipynb RavenPy-master/docs/notebooks/10_Data_assimilation.ipynb
+[2024-03-16T18:54:07.495Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/10_Data_assimilation.ipynb to notebook
+[2024-03-16T18:54:54.173Z] [NbConvertApp] Writing 689843 bytes to buildout/10_Data_assimilation.output.ipynb
+[2024-03-16T18:54:54.173Z] + basename RavenPy-master/docs/notebooks/11_Climatological_ESP_forecasting.ipynb
+[2024-03-16T18:54:54.173Z] + filename=11_Climatological_ESP_forecasting.ipynb
+[2024-03-16T18:54:54.173Z] + echo 11_Climatological_ESP_forecasting.ipynb
+[2024-03-16T18:54:54.173Z] + sed s/.ipynb$//
+[2024-03-16T18:54:54.173Z] + filename=11_Climatological_ESP_forecasting
+[2024-03-16T18:54:54.173Z] + [ -e buildout/11_Climatological_ESP_forecasting.output.ipynb ]
+[2024-03-16T18:54:54.173Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 11_Climatological_ESP_forecasting.output.ipynb RavenPy-master/docs/notebooks/11_Climatological_ESP_forecasting.ipynb
+[2024-03-16T18:54:54.173Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/11_Climatological_ESP_forecasting.ipynb to notebook
+[2024-03-16T18:55:32.873Z] [NbConvertApp] Writing 556695 bytes to buildout/11_Climatological_ESP_forecasting.output.ipynb
+[2024-03-16T18:55:32.873Z] + basename RavenPy-master/docs/notebooks/12_Performing_hindcasting_experiments.ipynb
+[2024-03-16T18:55:32.873Z] + filename=12_Performing_hindcasting_experiments.ipynb
+[2024-03-16T18:55:32.873Z] + + sed s/.ipynb$//
+[2024-03-16T18:55:32.873Z] echo 12_Performing_hindcasting_experiments.ipynb
+[2024-03-16T18:55:32.873Z] + filename=12_Performing_hindcasting_experiments
+[2024-03-16T18:55:32.873Z] + [ -e buildout/12_Performing_hindcasting_experiments.output.ipynb ]
+[2024-03-16T18:55:32.873Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output 12_Performing_hindcasting_experiments.output.ipynb RavenPy-master/docs/notebooks/12_Performing_hindcasting_experiments.ipynb
+[2024-03-16T18:55:34.778Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/12_Performing_hindcasting_experiments.ipynb to notebook
+[2024-03-16T18:55:56.767Z] [NbConvertApp] Writing 298402 bytes to buildout/12_Performing_hindcasting_experiments.output.ipynb
+[2024-03-16T18:55:56.768Z] + basename RavenPy-master/docs/notebooks/Assess_probabilistic_flood_risk.ipynb
+[2024-03-16T18:55:56.768Z] + filename=Assess_probabilistic_flood_risk.ipynb
+[2024-03-16T18:55:56.768Z] + echo Assess_probabilistic_flood_risk.ipynb
+[2024-03-16T18:55:56.768Z] + sed s/.ipynb$//
+[2024-03-16T18:55:56.768Z] + filename=Assess_probabilistic_flood_risk
+[2024-03-16T18:55:56.768Z] + [ -e buildout/Assess_probabilistic_flood_risk.output.ipynb ]
+[2024-03-16T18:55:56.768Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Assess_probabilistic_flood_risk.output.ipynb RavenPy-master/docs/notebooks/Assess_probabilistic_flood_risk.ipynb
+[2024-03-16T18:55:56.768Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/Assess_probabilistic_flood_risk.ipynb to notebook
+[2024-03-16T18:56:28.853Z] [NbConvertApp] Writing 549251 bytes to buildout/Assess_probabilistic_flood_risk.output.ipynb
+[2024-03-16T18:56:28.853Z] + basename RavenPy-master/docs/notebooks/Comparing_hindcasts_and_ESP_forecasts.ipynb
+[2024-03-16T18:56:28.853Z] + filename=Comparing_hindcasts_and_ESP_forecasts.ipynb
+[2024-03-16T18:56:28.853Z] + echo Comparing_hindcasts_and_ESP_forecasts.ipynb
+[2024-03-16T18:56:28.853Z] + sed s/.ipynb$//
+[2024-03-16T18:56:28.853Z] + filename=Comparing_hindcasts_and_ESP_forecasts
+[2024-03-16T18:56:28.853Z] + [ -e buildout/Comparing_hindcasts_and_ESP_forecasts.output.ipynb ]
+[2024-03-16T18:56:28.853Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Comparing_hindcasts_and_ESP_forecasts.output.ipynb RavenPy-master/docs/notebooks/Comparing_hindcasts_and_ESP_forecasts.ipynb
+[2024-03-16T18:56:28.853Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/Comparing_hindcasts_and_ESP_forecasts.ipynb to notebook
+[2024-03-16T18:57:00.961Z] [NbConvertApp] Writing 747757 bytes to buildout/Comparing_hindcasts_and_ESP_forecasts.output.ipynb
+[2024-03-16T18:57:00.961Z] + basename RavenPy-master/docs/notebooks/Distributed_hydrological_modelling.ipynb
+[2024-03-16T18:57:00.961Z] + filename=Distributed_hydrological_modelling.ipynb
+[2024-03-16T18:57:00.961Z] + + sed s/.ipynb$//
+[2024-03-16T18:57:00.961Z] echo Distributed_hydrological_modelling.ipynb
+[2024-03-16T18:57:00.961Z] + filename=Distributed_hydrological_modelling
+[2024-03-16T18:57:00.961Z] + [ -e buildout/Distributed_hydrological_modelling.output.ipynb ]
+[2024-03-16T18:57:00.961Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Distributed_hydrological_modelling.output.ipynb RavenPy-master/docs/notebooks/Distributed_hydrological_modelling.ipynb
+[2024-03-16T18:57:00.961Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/Distributed_hydrological_modelling.ipynb to notebook
+[2024-03-16T18:57:33.048Z] [NbConvertApp] Writing 111408 bytes to buildout/Distributed_hydrological_modelling.output.ipynb
+[2024-03-16T18:57:33.048Z] + basename RavenPy-master/docs/notebooks/HydroShare_integration.ipynb
+[2024-03-16T18:57:33.048Z] + filename=HydroShare_integration.ipynb
+[2024-03-16T18:57:33.048Z] + sed s/.ipynb$//
+[2024-03-16T18:57:33.048Z] + echo HydroShare_integration.ipynb
+[2024-03-16T18:57:33.048Z] + filename=HydroShare_integration
+[2024-03-16T18:57:33.048Z] + [ -e buildout/HydroShare_integration.output.ipynb ]
+[2024-03-16T18:57:33.048Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output HydroShare_integration.output.ipynb RavenPy-master/docs/notebooks/HydroShare_integration.ipynb
+[2024-03-16T18:57:34.436Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/HydroShare_integration.ipynb to notebook
+[2024-03-16T18:57:42.552Z] [NbConvertApp] Writing 11584 bytes to buildout/HydroShare_integration.output.ipynb
+[2024-03-16T18:57:42.552Z] + basename RavenPy-master/docs/notebooks/Hydrological_realtime_forecasting.ipynb
+[2024-03-16T18:57:42.552Z] + filename=Hydrological_realtime_forecasting.ipynb
+[2024-03-16T18:57:42.552Z] + echo Hydrological_realtime_forecasting.ipynb
+[2024-03-16T18:57:42.552Z] + sed s/.ipynb$//
+[2024-03-16T18:57:42.552Z] + filename=Hydrological_realtime_forecasting
+[2024-03-16T18:57:42.552Z] + [ -e buildout/Hydrological_realtime_forecasting.output.ipynb ]
+[2024-03-16T18:57:42.552Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Hydrological_realtime_forecasting.output.ipynb RavenPy-master/docs/notebooks/Hydrological_realtime_forecasting.ipynb
+[2024-03-16T18:57:42.815Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/Hydrological_realtime_forecasting.ipynb to notebook
+[2024-03-16T18:58:04.756Z] [NbConvertApp] Writing 281445 bytes to buildout/Hydrological_realtime_forecasting.output.ipynb
+[2024-03-16T18:58:04.756Z] + basename RavenPy-master/docs/notebooks/Managing_Jupyter_Environments.ipynb
+[2024-03-16T18:58:04.756Z] + filename=Managing_Jupyter_Environments.ipynb
+[2024-03-16T18:58:04.756Z] + + sed s/.ipynb$//
+[2024-03-16T18:58:04.756Z] echo Managing_Jupyter_Environments.ipynb
+[2024-03-16T18:58:04.756Z] + filename=Managing_Jupyter_Environments
+[2024-03-16T18:58:04.756Z] + [ -e buildout/Managing_Jupyter_Environments.output.ipynb ]
+[2024-03-16T18:58:04.756Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Managing_Jupyter_Environments.output.ipynb RavenPy-master/docs/notebooks/Managing_Jupyter_Environments.ipynb
+[2024-03-16T18:58:05.705Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/Managing_Jupyter_Environments.ipynb to notebook
+[2024-03-16T18:58:15.678Z] [NbConvertApp] Writing 9577 bytes to buildout/Managing_Jupyter_Environments.output.ipynb
+[2024-03-16T18:58:15.678Z] + basename RavenPy-master/docs/notebooks/Perform_Regionalization.ipynb
+[2024-03-16T18:58:15.678Z] + filename=Perform_Regionalization.ipynb
+[2024-03-16T18:58:15.678Z] + echo Perform_Regionalization.ipynb
+[2024-03-16T18:58:15.678Z] + sed s/.ipynb$//
+[2024-03-16T18:58:15.678Z] + filename=Perform_Regionalization
+[2024-03-16T18:58:15.678Z] + [ -e buildout/Perform_Regionalization.output.ipynb ]
+[2024-03-16T18:58:15.678Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Perform_Regionalization.output.ipynb RavenPy-master/docs/notebooks/Perform_Regionalization.ipynb
+[2024-03-16T18:58:17.588Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/Perform_Regionalization.ipynb to notebook
+[2024-03-16T18:58:49.677Z] [NbConvertApp] Writing 127609 bytes to buildout/Perform_Regionalization.output.ipynb
+[2024-03-16T18:58:49.677Z] + basename RavenPy-master/docs/notebooks/Running_HMETS_with_CANOPEX_dataset.ipynb
+[2024-03-16T18:58:49.677Z] + filename=Running_HMETS_with_CANOPEX_dataset.ipynb
+[2024-03-16T18:58:49.677Z] + sed s/.ipynb$//
+[2024-03-16T18:58:49.677Z] + echo Running_HMETS_with_CANOPEX_dataset.ipynb
+[2024-03-16T18:58:49.677Z] + filename=Running_HMETS_with_CANOPEX_dataset
+[2024-03-16T18:58:49.677Z] + [ -e buildout/Running_HMETS_with_CANOPEX_dataset.output.ipynb ]
+[2024-03-16T18:58:49.677Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Running_HMETS_with_CANOPEX_dataset.output.ipynb RavenPy-master/docs/notebooks/Running_HMETS_with_CANOPEX_dataset.ipynb
+[2024-03-16T18:58:49.677Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/Running_HMETS_with_CANOPEX_dataset.ipynb to notebook
+[2024-03-16T18:59:07.771Z] [NbConvertApp] Writing 109086 bytes to buildout/Running_HMETS_with_CANOPEX_dataset.output.ipynb
+[2024-03-16T18:59:07.771Z] + basename RavenPy-master/docs/notebooks/Sensitivity_analysis.ipynb
+[2024-03-16T18:59:07.771Z] + filename=Sensitivity_analysis.ipynb
+[2024-03-16T18:59:07.771Z] + + sed s/.ipynb$//
+[2024-03-16T18:59:07.771Z] echo Sensitivity_analysis.ipynb
+[2024-03-16T18:59:07.771Z] + filename=Sensitivity_analysis
+[2024-03-16T18:59:07.771Z] + [ -e buildout/Sensitivity_analysis.output.ipynb ]
+[2024-03-16T18:59:07.771Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Sensitivity_analysis.output.ipynb RavenPy-master/docs/notebooks/Sensitivity_analysis.ipynb
+[2024-03-16T18:59:07.771Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/Sensitivity_analysis.ipynb to notebook
+[2024-03-16T18:59:29.730Z] [NbConvertApp] Writing 35133 bytes to buildout/Sensitivity_analysis.output.ipynb
+[2024-03-16T18:59:29.730Z] + basename RavenPy-master/docs/notebooks/time_series_analysis.ipynb
+[2024-03-16T18:59:29.730Z] + filename=time_series_analysis.ipynb
+[2024-03-16T18:59:29.730Z] + echo time_series_analysis.ipynb
+[2024-03-16T18:59:29.730Z] + sed s/.ipynb$//
+[2024-03-16T18:59:29.730Z] + filename=time_series_analysis
+[2024-03-16T18:59:29.730Z] + [ -e buildout/time_series_analysis.output.ipynb ]
+[2024-03-16T18:59:29.730Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output time_series_analysis.output.ipynb RavenPy-master/docs/notebooks/time_series_analysis.ipynb
+[2024-03-16T18:59:29.730Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/time_series_analysis.ipynb to notebook
+[2024-03-16T18:59:39.725Z] [NbConvertApp] Writing 190847 bytes to buildout/time_series_analysis.output.ipynb
+[2024-03-16T18:59:39.725Z] + basename RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb
+[2024-03-16T18:59:39.725Z] + filename=Perform_a_climate_change_impact_study_on_a_watershed.ipynb
+[2024-03-16T18:59:39.725Z] + echo Perform_a_climate_change_impact_study_on_a_watershed.ipynb
+[2024-03-16T18:59:39.725Z] + sed s/.ipynb$//
+[2024-03-16T18:59:39.725Z] + filename=Perform_a_climate_change_impact_study_on_a_watershed
+[2024-03-16T18:59:39.725Z] + [ -e buildout/Perform_a_climate_change_impact_study_on_a_watershed.output.ipynb ]
+[2024-03-16T18:59:39.725Z] + jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=240 --allow-errors --output-dir buildout --output Perform_a_climate_change_impact_study_on_a_watershed.output.ipynb RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb
+[2024-03-16T18:59:39.987Z] [NbConvertApp] Converting notebook RavenPy-master/docs/notebooks/paper/Perform_a_climate_change_impact_study_on_a_watershed.ipynb to notebook
+[2024-03-16T19:01:46.477Z] [NbConvertApp] Writing 119909 bytes to buildout/Perform_a_climate_change_impact_study_on_a_watershed.output.ipynb
+[2024-03-16T19:01:46.477Z] + exit 1
+[2024-03-16T19:01:46.477Z] + EXIT_CODE=1
+[2024-03-16T19:01:46.477Z] + ENV_DUMP_DIR=buildout/env-dump
+[2024-03-16T19:01:46.477Z] + mkdir -p buildout/env-dump
+[2024-03-16T19:01:46.477Z] + ENV_EXPORT_FILE=buildout/env-dump/environment-export-birdy.yml
+[2024-03-16T19:01:46.477Z] + rm -fv buildout/env-dump/environment-export-birdy.yml
+[2024-03-16T19:01:46.477Z] + conda env export -n birdy
+[2024-03-16T19:01:54.575Z] + LIST_EXPLICIT_FILE=buildout/env-dump/conda-list-explicit-birdy.txt
+[2024-03-16T19:01:54.575Z] + rm -fv buildout/env-dump/conda-list-explicit-birdy.txt
+[2024-03-16T19:01:54.575Z] + conda list -n birdy --explicit
+[2024-03-16T19:02:04.545Z] + PIP_FREEZE_FILE=buildout/env-dump/pip-freeze-birdy-requirements.txt
+[2024-03-16T19:02:04.545Z] + rm -fv buildout/env-dump/pip-freeze-birdy-requirements.txt
+[2024-03-16T19:02:04.545Z] + pip freeze
+[2024-03-16T19:02:04.545Z] + exit 1
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:04.973Z] Archiving artifacts
+[2024-03-16T19:02:05.023Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:05.057Z] Archiving artifacts
+[2024-03-16T19:02:07.325Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:07.717Z] Archiving artifacts
+[2024-03-16T19:02:07.765Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:07.856Z] Archiving artifacts
+[2024-03-16T19:02:07.903Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:07.956Z] Archiving artifacts
+[2024-03-16T19:02:07.995Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:08.022Z] Archiving artifacts
+[2024-03-16T19:02:08.231Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:08.530Z] Archiving artifacts
+[2024-03-16T19:02:08.564Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:08.631Z] Archiving artifacts
+[2024-03-16T19:02:08.677Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:08.792Z] Archiving artifacts
+[2024-03-16T19:02:09.262Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:09.378Z] Archiving artifacts
+[2024-03-16T19:02:09.710Z] Recording fingerprints
+[Pipeline] archiveArtifacts
+[2024-03-16T19:02:10.157Z] Archiving artifacts
+[2024-03-16T19:02:10.179Z] Recording fingerprints
+[Pipeline] emailextrecipients
+[Pipeline] step
+[2024-03-16T19:02:10.293Z] Sending e-mails to: vu.long@ouranos.ca
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // ansiColor
+[Pipeline] }
+$ docker stop --time=1 7c83b119fa591b77c96fbb1844a5b1e12a65c7feabd647b27ba0948bace7a2f1
+$ docker rm -f 7c83b119fa591b77c96fbb1844a5b1e12a65c7feabd647b27ba0948bace7a2f1
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
