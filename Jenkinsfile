@@ -144,16 +144,7 @@ Note this is another run, will double the time and no guaranty to have same erro
 
     post {
         always {
-            archiveArtifacts(artifacts: 'notebooks/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'pavics-sdi-*/docs/source/notebooks/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'pavics-sdi-*/docs/source/notebook-components/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'finch-*/docs/source/notebooks/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'raven-*/docs/source/notebooks/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'RavenPy-*/docs/notebooks/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'RavenPy-*/docs/notebooks/paper/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'esgf-compute-api-*/examples/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'PAVICS-landing-*/content/notebooks/climate_indicators/*.ipynb', fingerprint: true)
-            archiveArtifacts(artifacts: 'buildout/*.output.ipynb', fingerprint: true, allowEmptyArchive: true)
+            archiveArtifacts(artifacts: 'buildout/*.ipynb', fingerprint: true, allowEmptyArchive: true)
             archiveArtifacts(artifacts: 'buildout/env-dump/', fingerprint: true)
         }
 	unsuccessful {  // Run if the current builds status is "Aborted", "Failure" or "Unstable"
