@@ -19,13 +19,12 @@ dependencies:
 
   # Pin latest xclim and ravenpy to avoid downgrading during the second installation phase.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
-  - xclim >= 0.47.0
-  - ravenpy >= 0.13.0
+  - xclim >= 0.49.0
+  - ravenpy >= 0.14.1
 
   # https://anaconda.org/conda-forge/xscen
   # A climate change scenario-building analysis framework, built with xclim/xarray.
-  # PIN to 0.8.2 for xclim 0.47.0 compat
-  - xscen == 0.8.2
+  - xscen >= 0.9.0
 
     #- dask  # from xclim and ravenpy
     #- distributed
@@ -178,7 +177,7 @@ dependencies:
   - jupyterlab-git >= 0.44.0
   # Voilà turns Jupyter notebooks into standalone web applications
   - voila
-  # PIN jupyter-archive due to
+  # TODO: UNPIN jupyter-archive due to
   # https://github.com/jupyterlab-contrib/jupyter-archive/issues/132
   - jupyter-archive <= 3.3.4
   # https://github.com/jtpio/jupyterlab-topbar
