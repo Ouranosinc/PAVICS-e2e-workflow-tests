@@ -106,7 +106,7 @@ dependencies:
   - aiohttp
     # - pydantic  # from ravenpy
   # Intake is a lightweight set of tools for loading and sharing data in data science projects
-  - intake
+  - intake >= 2.0.0
   # https://intake.readthedocs.io/en/latest/plugin-directory.html
   # Plugin for building and loading intake catalogs for earth system data sets
   # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM
@@ -114,7 +114,7 @@ dependencies:
   - intake-esm >= 2023.6.14
   # load netCDF, Zarr and other multi-dimensional data (xarray_image, netcdf,
   # grib, opendap, rasterio, remote-xarray, zarr)
-  - intake-xarray
+  - intake-xarray >= 2.0.0
   # load from ESRI Shape Files, GeoJSON, and geospatial databases with
   # geopandas (geojson, postgis, shapefile, spatialite) and regionmask for
   # opening shapefiles into regionmask.
