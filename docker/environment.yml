@@ -19,15 +19,15 @@ dependencies:
 
   # Pin latest xclim and ravenpy to avoid downgrading during the second installation phase.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
-  - xclim >= 0.47.0
-  - ravenpy >= 0.13.0
+  - xclim >= 0.53.2
+  - ravenpy >= 0.16.0
 
   # https://anaconda.org/conda-forge/xscen
   # A climate change scenario-building analysis framework, built with xclim/xarray.
-  # PIN to 0.8.2 for xclim 0.47.0 compat
-  - xscen == 0.8.2
+  - xscen >= 0.10.1
 
     #- dask  # from xclim and ravenpy
+  - dask != 2024.11.0  # bug in this specific version broke Raven nb
     #- distributed
 
   # flox: fast & furious GroupBy reductions for dask.array
@@ -43,8 +43,7 @@ dependencies:
   - birdy >= 0.8.7
     # - owslib>=0.23.0  # from ravenpy
     # - netcdf4  # from ravenpy
-  # TODO: remove libnetcdf PIN because https://github.com/Ouranosinc/PAVICS-landing/issues/66
-  - libnetcdf <= 4.8.1
+  - libnetcdf
   # https://github.com/ecmwf/cfgrib
   # Python interface to map GRIB files to the Unidata's Common Data Model v4
   # following the CF Conventions.
@@ -178,7 +177,7 @@ dependencies:
   - jupyterlab-git >= 0.44.0
   # Voilà turns Jupyter notebooks into standalone web applications
   - voila
-  # PIN jupyter-archive due to
+  # TODO: UNPIN jupyter-archive due to
   # https://github.com/jupyterlab-contrib/jupyter-archive/issues/132
   - jupyter-archive <= 3.3.4
   # https://github.com/jtpio/jupyterlab-topbar
