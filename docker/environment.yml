@@ -126,7 +126,9 @@ dependencies:
   # Intake interface to THREDDS data catalogs (thredds_cat, thredds_merged_source)
   - intake-thredds
   - gcsfs
-  - zarr
+  # TODO: Unpin zarr
+  # https://github.com/Ouranosinc/pavics-jupyter-env-issues/issues/18
+  - zarr < 3.0.0
   # https://github.com/dask/s3fs/
   - s3fs
     # - shapely  # from ravenpy
