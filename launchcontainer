@@ -8,6 +8,12 @@ if [ -z "$CONTAINER_NAME" ]; then
     CONTAINER_NAME="birdy"
 fi
 
+# allow directly running another command with the launched docker (eg: CONTAINER_CMD=testall launchcontainer)
+# otherwise, start interactive shell
+if [ -z "${CONTAINER_CMD}" ]; then
+  CONTAINER_CMD=/bin/bash
+fi
+
 UID="`id -u`"
 GID="`id -g`"
 
@@ -19,4 +25,4 @@ docker run -it --rm --name $CONTAINER_NAME \
     bash -c "groupmod -g $GID jenkins; \
              usermod -u $UID jenkins; \
              echo 'ENV_PATH PATH=/usr/local/envs/birdy/bin:/opt/conda/bin:/usr/local/bin:/usr/bin:/bin' >> /etc/login.defs; \
-             su jenkins -s /bin/bash"
+             su jenkins -s ${CONTAINER_CMD}"

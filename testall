@@ -34,7 +34,9 @@ if [ -n "$CONFIG_PARAMETERS_SCRIPT_URL" ]; then
 fi
 
 # emulate "clean after checkout" of single branch pipeline
-git clean -fdx
+if [ x"${TEST_ALL_SKIP_CLEANUP}" != x"true" ]; then
+  git clean -fdx
+fi
 
 # download all additional repos containing extra notebooks to test
 ./downloadrepos

@@ -31,7 +31,9 @@ if [ ! -z "$PAVICS_HOST" ]; then
         sed -i "s/$DEFAULT_PRODUCTION_HOST/$PAVICS_HOST/g" $NOTEBOOKS
     fi
 
-    git diff  # not working for notebooks from other repos
+    if [ x"${RUN_TEST_SKIP_DIFF}" != x"true" ]; then
+      git diff  # not working for notebooks from other repos
+    fi
 fi
 
 # suppress "InsecureRequestWarning: Unverified HTTPS request is being made"
