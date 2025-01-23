@@ -2,7 +2,14 @@
 
 . ./default_build_params
 
+# Load shared functions, make available to CONFIG_PARAMETERS_SCRIPT_URL.
+DOWNLOADREPOS_AS_LIB=1
+. ./downloadrepos
+
 set -x
+
+# emulate "clean after checkout" of single branch pipeline
+git clean -fdx
 
 # Allow full override of ALL Jenkins params before running test suite.
 # Intended to overrride all params in Jenkinsfile.
@@ -33,40 +40,33 @@ if [ -n "$CONFIG_PARAMETERS_SCRIPT_URL" ]; then
     . "$TMP_PARAMS_OVERRIDE"
 fi
 
-# emulate "clean after checkout" of single branch pipeline
-git clean -fdx
-
 # download all additional repos containing extra notebooks to test
-./downloadrepos
+DOWNLOAD_ALL_DEFAULT_REPOS=false
+downloadrepos_main
 
 # 'export' useful vars so they can be used by the CONFIG_OVERRIDE_SCRIPT_URL in runtest.
+export PAVICS_SDI_BRANCH="$(sanitize_branch_name "$PAVICS_SDI_BRANCH")"
+export PAVICS_SDI_REPO_NAME="$(extract_repo_name "$PAVICS_SDI_REPO")"
+export FINCH_BRANCH="$(sanitize_branch_name "$FINCH_BRANCH")"
+export FINCH_REPO_NAME="$(extract_repo_name "$FINCH_REPO")"
+export PAVICS_LANDING_BRANCH="$(sanitize_branch_name "$PAVICS_LANDING_BRANCH")"
+export PAVICS_LANDING_REPO_NAME="$(extract_repo_name "$PAVICS_LANDING_REPO")"
+export RAVEN_BRANCH="$(sanitize_branch_name "$RAVEN_BRANCH")"
+export RAVEN_REPO_NAME="$(extract_repo_name "$RAVEN_REPO")"
+export RAVENPY_BRANCH="$(sanitize_branch_name "$RAVENPY_BRANCH")"
+export RAVENPY_REPO_NAME="$(extract_repo_name "$RAVENPY_REPO")"
+export ESGF_COMPUTE_API_BRANCH="$(sanitize_branch_name "$ESGF_COMPUTE_API_BRANCH")"
+export ESGF_COMPUTE_API_REPO_NAME="$(extract_repo_name "$ESGF_COMPUTE_API_REPO")"
 
-# replace all slash (/) by dash (-) because (/) is illegal in folder name
-# for branch name of the format "feature/my_wizbang-feature"
-# github does the same when downloading repo archive by downloadrepos above
-export PAVICS_SDI_BRANCH="`echo "$PAVICS_SDI_BRANCH" | sed "s@/@-@g"`"
-export PAVICS_SDI_REPO_NAME="`echo "$PAVICS_SDI_REPO" | sed "s@^.*/@@g"`"
-export FINCH_BRANCH="`echo "$FINCH_BRANCH" | sed "s@/@-@g"`"
-export FINCH_REPO_NAME="`echo "$FINCH_REPO" | sed "s@^.*/@@g"`"
-export PAVICS_LANDING_BRANCH="`echo "$PAVICS_LANDING_BRANCH" | sed "s@/@-@g"`"
-export PAVICS_LANDING_REPO_NAME="`echo "$PAVICS_LANDING_REPO" | sed "s@^.*/@@g"`"
-export RAVEN_BRANCH="`echo "$RAVEN_BRANCH" | sed "s@/@-@g"`"
-export RAVEN_REPO_NAME="`echo "$RAVEN_REPO" | sed "s@^.*/@@g"`"
-export RAVENPY_BRANCH="`echo "$RAVENPY_BRANCH" | sed "s@/@-@g"`"
-export RAVENPY_REPO_NAME="`echo "$RAVENPY_REPO" | sed "s@^.*/@@g"`"
-export ESGF_COMPUTE_API_BRANCH="`echo "$ESGF_COMPUTE_API_BRANCH" | sed "s@/@-@g"`"
-export ESGF_COMPUTE_API_REPO_NAME="`echo "$ESGF_COMPUTE_API_REPO" | sed "s@^.*/@@g"`"
-
-# branches that have allowed characters such as '+' other than alphanum, '-' and '_' are converted to '-' in archives
-export PAVICS_SDI_DIR=`echo "${PAVICS_SDI_REPO_NAME}-${PAVICS_SDI_BRANCH}" | sed "s@[^a-zA-Z0-9_\-\.]@-@g"`
-export FINCH_DIR=`echo "${FINCH_REPO_NAME}-${FINCH_BRANCH}" | sed "s@[^a-zA-Z0-9_\-\.]@-@g"`
-export PAVICS_LANDING_DIR=`echo "${PAVICS_LANDING_REPO_NAME}-${PAVICS_LANDING_BRANCH}" | sed "s@[^a-zA-Z0-9_\-\.]@-@g"`
-export RAVEN_DIR=`echo "${RAVEN_REPO_NAME}-${RAVEN_BRANCH}" | sed "s@[^a-zA-Z0-9_\-\.]@-@g"`
-export RAVENPY_DIR=`echo "${RAVENPY_REPO_NAME}-${RAVENPY_BRANCH}" | sed "s@[^a-zA-Z0-9_\-\.]@-@g"`
-export ESGF_COMPUTE_API_DIR=`echo "${ESGF_COMPUTE_API_REPO_NAME}-${ESGF_COMPUTE_API_BRANCH}" | sed "s@[^a-zA-Z0-9_\-\.]@-@g"`
+export PAVICS_SDI_DIR="$(sanitize_extracted_folder_name "${PAVICS_SDI_REPO_NAME}-${PAVICS_SDI_BRANCH}")"
+export FINCH_DIR="$(sanitize_extracted_folder_name "${FINCH_REPO_NAME}-${FINCH_BRANCH}")"
+export PAVICS_LANDING_DIR="$(sanitize_extracted_folder_name "${PAVICS_LANDING_REPO_NAME}-${PAVICS_LANDING_BRANCH}")"
+export RAVEN_DIR="$(sanitize_extracted_folder_name "${RAVEN_REPO_NAME}-${RAVEN_BRANCH}")"
+export RAVENPY_DIR="$(sanitize_extracted_folder_name "${RAVENPY_REPO_NAME}-${RAVENPY_BRANCH}")"
+export ESGF_COMPUTE_API_DIR="$(sanitize_extracted_folder_name "${ESGF_COMPUTE_API_REPO_NAME}-${ESGF_COMPUTE_API_BRANCH}")"
 
 # lowercase VERIFY_SSL string
-VERIFY_SSL="`echo "$VERIFY_SSL" | tr '[:upper:]' '[:lower:]'`"
+VERIFY_SSL="$(lowercase "$VERIFY_SSL")"
 if [ x"$VERIFY_SSL" = xfalse ]; then
     # if Env var DISABLE_VERIFY_SSL is present, notebook should disable ssl
     # cert verification
@@ -76,26 +76,6 @@ if [ x"$VERIFY_SSL" = xfalse ]; then
     echo "setting env var DISABLE_VERIFY_SSL for notebooks"
 fi
 
-# presence of setup.cfg, tox.ini, pyproject.toml files confuse py.test execution rootdir discovery
-rm -v $FINCH_REPO_NAME-$FINCH_BRANCH/setup.cfg
-rm -v $RAVEN_REPO_NAME-$RAVEN_BRANCH/setup.cfg
-rm -v $RAVEN_REPO_NAME-$RAVEN_BRANCH/pyproject.toml
-rm -v $RAVENPY_REPO_NAME-$RAVENPY_BRANCH/setup.cfg
-rm -v $RAVENPY_REPO_NAME-$RAVENPY_BRANCH/tox.ini
-rm -v $RAVENPY_REPO_NAME-$RAVENPY_BRANCH/pyproject.toml
-rm -v $ESGF_COMPUTE_API_REPO_NAME-$ESGF_COMPUTE_API_BRANCH/setup.cfg
-rm -v $ESGF_COMPUTE_API_REPO_NAME-$ESGF_COMPUTE_API_BRANCH/tox.ini
-
-# lowercase
-TEST_MAGPIE_AUTH="`echo "$TEST_MAGPIE_AUTH" | tr '[:upper:]' '[:lower:]'`"
-TEST_PAVICS_SDI_REPO="`echo "$TEST_PAVICS_SDI_REPO" | tr '[:upper:]' '[:lower:]'`"
-TEST_PAVICS_SDI_WEAVER="`echo "$TEST_PAVICS_SDI_WEAVER" | tr '[:upper:]' '[:lower:]'`"
-TEST_FINCH_REPO="`echo "$TEST_FINCH_REPO" | tr '[:upper:]' '[:lower:]'`"
-TEST_PAVICS_LANDING_REPO="`echo "$TEST_PAVICS_LANDING_REPO" | tr '[:upper:]' '[:lower:]'`"
-TEST_RAVEN_REPO="`echo "$TEST_RAVEN_REPO" | tr '[:upper:]' '[:lower:]'`"
-TEST_RAVENPY_REPO="`echo "$TEST_RAVENPY_REPO" | tr '[:upper:]' '[:lower:]'`"
-TEST_ESGF_COMPUTE_API_REPO="`echo "$TEST_ESGF_COMPUTE_API_REPO" | tr '[:upper:]' '[:lower:]'`"
-TEST_LOCAL_NOTEBOOKS="`echo "$TEST_LOCAL_NOTEBOOKS" | tr '[:upper:]' '[:lower:]'`"
 
 NOTEBOOKS_TO_TEST=""
 if [ x"$TEST_MAGPIE_AUTH" = xtrue ]; then

@@ -1,6 +1,11 @@
 #!/bin/sh
 
-DEFAULT_PRODUCTION_HOST="pavics.ouranos.ca"
+# Load shared functions, make available to CONFIG_OVERRIDE_SCRIPT_URL.
+DOWNLOADREPOS_AS_LIB=1
+. ./downloadrepos
+
+# CONFIG_PARAMETERS_SCRIPT_URL can override DEFAULT_PRODUCTION_HOST.
+DEFAULT_PRODUCTION_HOST="${DEFAULT_PRODUCTION_HOST:=pavics.ouranos.ca}"
 
 NOTEBOOKS="$1"
 if [ -z "$NOTEBOOKS" ]; then
@@ -63,11 +68,12 @@ if [ -n "$CONFIG_OVERRIDE_SCRIPT_URL" ]; then
     fi
 fi
 
-py.test --nbval $NOTEBOOKS --nbval-sanitize-with notebooks/output-sanitize.cfg $PYTEST_EXTRA_OPTS
+# CONFIG_OVERRIDE_SCRIPT_URL can override NBVAL_SANITIZE_CFG_FILE.
+py.test --rootdir=. --nbval $NOTEBOOKS --nbval-sanitize-with "${NBVAL_SANITIZE_CFG_FILE:=notebooks/output-sanitize.cfg}" $PYTEST_EXTRA_OPTS
 EXIT_CODE="$?"
 
 # lowercase SAVE_RESULTING_NOTEBOOK string
-SAVE_RESULTING_NOTEBOOK="`echo "$SAVE_RESULTING_NOTEBOOK" | tr '[:upper:]' '[:lower:]'`"
+SAVE_RESULTING_NOTEBOOK="$(lowercase "$SAVE_RESULTING_NOTEBOOK")"
 
 
 # save notebooks resulting from the run
@@ -79,24 +85,39 @@ SAVE_RESULTING_NOTEBOOK="`echo "$SAVE_RESULTING_NOTEBOOK" | tr '[:upper:]' '[:lo
 # work-around as nbval can not save the result of the run
 # see https://github.com/computationalmodelling/nbval/issues/112
 
-if [ x"$SAVE_RESULTING_NOTEBOOK" = xtrue ]; then
-    mkdir -p buildout
-    for nb in $NOTEBOOKS; do
-        filename="`basename "$nb"`"
-        filename="`echo "$filename" | sed "s/.ipynb$//"`"  # remove .ipynb ext
-        if [ -e "buildout/${filename}.output.ipynb" ]; then
-            # prevent name clash
-            filename="${filename}_`date '+%s'`"
-        fi
+BUILDOUT_DIR="buildout"  # hardcode in Jenkinsfile, can not be override.
+
+mkdir -p "$BUILDOUT_DIR/"
+for nb in $NOTEBOOKS; do
+    filename="$(choose_artifact_filename "$nb")"
+    filename="$(echo "$filename" | sed "s/.ipynb$//")"  # remove .ipynb ext
+    if [ -e "${BUILDOUT_DIR}/${filename}.ipynb" ]; then
+        # prevent name clash
+        filename="${filename}_$(date '+%s')"
+    fi
+
+    # Save original notebooks that we sed replace the PAVICS_HOST.
+    dir_filename="$(dirname "${filename}")"
+    if [ -n "${dir_filename}" ]; then
+        mkdir -p "${BUILDOUT_DIR}/${dir_filename}"
+    fi
+    cp "$nb" "$BUILDOUT_DIR/${filename}.ipynb"
+
+    if [ x"$SAVE_RESULTING_NOTEBOOK" = xtrue ]; then
         # Timeout must not be more than 240s (4 mins). Default in Jenkinsfile.
         # Tutorial notebooks should be fast so user do not lose patience waiting
         # for them to run.  If more than 4 mins, in addition to simplifying the
         # notebook, should also check machine performance.
         jupyter nbconvert --to notebook --execute \
             --ExecutePreprocessor.timeout=${SAVE_RESULTING_NOTEBOOK_TIMEOUT:=240} --allow-errors \
-            --output-dir buildout --output "${filename}.output.ipynb" "$nb"
-    done
-fi
+            --output-dir "${BUILDOUT_DIR}" --output "${filename}.output.ipynb" "$nb"
+    fi
+done
+
+
+# Post-processing steps override in CONFIG_OVERRIDE_SCRIPT_URL.
+post_runtest
+
 
 # exit with return code from py.test
 exit $EXIT_CODE
