@@ -1,4 +1,6 @@
 #!/bin/sh
+# This file can be used both as executable script or library to be sourced.
+# To use as library to be sourced, set DOWNLOADREPOS_AS_LIB=1 env var.
 
 downloadrepos() {
     github_repo="$1"; shift
@@ -13,25 +15,115 @@ downloadgithubrepos() {
     repo_owner="`echo "$owner_and_repo_name" | sed "s@/.*\\$@@g"`"
     repo_name="`echo "$owner_and_repo_name" | sed "s@^.*/@@g"`"
     repo_branch="$1"; shift
-    set -x
     # clean up other previously downloaded branches of the same repo as well
     rm -rf ${repo_name}-*
     ls | grep $repo_name
     downloadrepos https://github.com/$repo_owner/$repo_name "$repo_branch"
     ls | grep $repo_name
-    set +x
 }
 
-. ./default_build_params
+# USAGE: VAR_TO_LOWER="$(lowercase "$VAR_TO_LOWER")"
+lowercase() {
+    echo "$1" | tr '[:upper:]' '[:lower:]'
+}
 
-if [ -z "$1" ]; then
-    downloadgithubrepos $PAVICS_SDI_REPO $PAVICS_SDI_BRANCH
-    downloadgithubrepos $FINCH_REPO $FINCH_BRANCH
-    downloadgithubrepos $PAVICS_LANDING_REPO $PAVICS_LANDING_BRANCH
-    downloadgithubrepos $RAVEN_REPO $RAVEN_BRANCH
-    downloadgithubrepos $RAVENPY_REPO $RAVENPY_BRANCH
-    downloadgithubrepos $ESGF_COMPUTE_API_REPO $ESGF_COMPUTE_API_BRANCH
-else
-    set -x
-    downloadrepos "$@"
+lowercase_boolean_build_params() {
+    TEST_MAGPIE_AUTH="$(lowercase "$TEST_MAGPIE_AUTH")"
+    TEST_PAVICS_SDI_REPO="$(lowercase "$TEST_PAVICS_SDI_REPO")"
+    TEST_PAVICS_SDI_WEAVER="$(lowercase "$TEST_PAVICS_SDI_WEAVER")"
+    TEST_FINCH_REPO="$(lowercase "$TEST_FINCH_REPO")"
+    TEST_PAVICS_LANDING_REPO="$(lowercase "$TEST_PAVICS_LANDING_REPO")"
+    TEST_RAVEN_REPO="$(lowercase "$TEST_RAVEN_REPO")"
+    TEST_RAVENPY_REPO="$(lowercase "$TEST_RAVENPY_REPO")"
+    TEST_ESGF_COMPUTE_API_REPO="$(lowercase "$TEST_ESGF_COMPUTE_API_REPO")"
+    TEST_LOCAL_NOTEBOOKS="$(lowercase "$TEST_LOCAL_NOTEBOOKS")"
+}
+
+# Replace all slash (/) by dash (-) because (/) is illegal in folder name
+# for branch name of the format "feature/my_wizbang-feature".
+# Github does the same when downloading repo archive by downloadrepos above.
+# USAGE: export BRANCH_NAME="$(sanitize_branch_name "$BRANCH_NAME")"
+sanitize_branch_name() {
+    echo "$1" | sed "s@/@-@g"
+}
+
+# Ex: extract 'pavics-sdi' from 'Ouranosinc/pavics-sdi'.
+# USAGE: REPO_NAME_ONLY="$(extract_repo_name "$REPO_NAME")"
+extract_repo_name() {
+    echo "$1" | sed "s@^.*/@@g"
+}
+
+# Branches that have allowed characters such as '+' other than alphanum, '-', '_' and '.' are converted to '-' in archives.
+# USAGE: FOLDER_NAME="$(sanitize_extracted_folder_name "$FOLDER_NAME")"
+sanitize_extracted_folder_name() {
+    echo "$1" | sed "s@[^a-zA-Z0-9_\-\.]@-@g"
+}
+
+downloadrepos_main() {
+    . ./default_build_params
+
+    lowercase_boolean_build_params
+
+    if [ -z "$DOWNLOAD_ALL_DEFAULT_REPOS" ]; then
+        # Back-compat with old default behavior, used in binder/reorg-notebook
+        # and other external scripts that autodeploy tutorial notebooks (see
+        # https://github.com/bird-house/birdhouse-deploy/blob/444a7c35a31aa8ad351e47f659383ba5c2919705/birdhouse/deployment/trigger-deploy-notebook#L64-L75)
+        DOWNLOAD_ALL_DEFAULT_REPOS=true
+    fi
+
+    if [ -z "$1" ]; then
+        if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_PAVICS_SDI_REPO" = xtrue ]; then
+            downloadgithubrepos $PAVICS_SDI_REPO $PAVICS_SDI_BRANCH
+        fi
+        if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_FINCH_REPO" = xtrue ]; then
+            downloadgithubrepos $FINCH_REPO $FINCH_BRANCH
+        fi
+        if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_PAVICS_LANDING_REPO" = xtrue ]; then
+            downloadgithubrepos $PAVICS_LANDING_REPO $PAVICS_LANDING_BRANCH
+        fi
+        if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_RAVEN_REPO" = xtrue ]; then
+            downloadgithubrepos $RAVEN_REPO $RAVEN_BRANCH
+        fi
+        if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_RAVENPY_REPO" = xtrue ]; then
+            downloadgithubrepos $RAVENPY_REPO $RAVENPY_BRANCH
+        fi
+        if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_ESGF_COMPUTE_API_REPO" = xtrue ]; then
+            downloadgithubrepos $ESGF_COMPUTE_API_REPO $ESGF_COMPUTE_API_BRANCH
+        fi
+    else
+        set -x
+        downloadrepos "$@"
+    fi
+}
+
+
+# Choose artifact filename format under buildout/ dir that is archived by Jenkins.
+#
+# The corresponding .output.ipynb will also have the same filename format.
+#
+# Override this function in CONFIG_OVERRIDE_SCRIPT_URL to choose another
+# format, see demo in test-override/jenkins-params-external-repos.include.sh.
+#
+# Default implemenation: keep original file hierarchy.
+#
+# USAGE: artifact_filename="$(choose_artifact_filename "$original_nb_filename")"
+choose_artifact_filename() {
+    echo "$1"
+}
+
+
+# Any post-processing steps at the end of runtest.
+#
+# Override this function in CONFIG_OVERRIDE_SCRIPT_URL to add extra steps,
+# see demo in test-override/jenkins-params-external-repos.include.sh.
+#
+post_runtest() {
+    # Can not have empty function, have to put something here.
+    echo "Default: no post_runtest() override."
+}
+
+
+if [ -z "$DOWNLOADREPOS_AS_LIB" ]; then
+    # Script mode, not library mode.
+    downloadrepos_main "$@"
 fi
