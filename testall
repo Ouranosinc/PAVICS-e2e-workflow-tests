@@ -5,7 +5,7 @@
 set -x
 
 # Allow full override of ALL Jenkins params before running test suite.
-# Intended to overrride all params in Jenkinsfile.
+# Intended to override all params in Jenkinsfile.
 #
 # This `CONFIG_PARAMETERS_SCRIPT_URL` is different than the
 # `CONFIG_OVERRIDE_SCRIPT_URL` in that it overrides all the

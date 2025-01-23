@@ -8,7 +8,8 @@ if [ -z "$CONTAINER_NAME" ]; then
     CONTAINER_NAME="birdy"
 fi
 
-# allow directly running another command with the launched docker (eg: CONTAINER_CMD=testall launchcontainer)
+# allow directly running another command with the launched docker
+# (eg: CONTAINER_CMD=testall launchcontainer)
 # otherwise, start interactive shell
 if [ -z "${CONTAINER_CMD}" ]; then
   CONTAINER_CMD=/bin/bash

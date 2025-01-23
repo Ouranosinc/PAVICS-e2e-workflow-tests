@@ -21,11 +21,10 @@ downloadgithubrepos() {
     #  otherwise, contents are reset early when running 'testall'
     if [ x"${DOWNLOAD_REPOS_SKIP_CLEANUP}" != x"true" ]; then
       rm -rf ${repo_name}-*
-      ls | grep $repo_name
     else
       echo "Skip cleanup of [${repo_name}] local archives."
     fi
-    ls .
+    ls | grep $repo_name
     if [ x"${DOWNLOAD_REPOS_SKIP_EXISTS}" = x"true" ] && [ -d "./${repo_name}-${repo_branch}" ]; then
       echo "Skip download [https://github.com/$repo_owner/$repo_name] [$repo_branch], already exists."
     else
