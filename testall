@@ -42,14 +42,6 @@ if [ -n "$CONFIG_PARAMETERS_SCRIPT_URL" ]; then
     . "$TMP_PARAMS_OVERRIDE"
 fi
 
-<<<<<<< HEAD
-# emulate "clean after checkout" of single branch pipeline
-if [ x"${TEST_ALL_SKIP_CLEANUP}" != x"true" ]; then
-  git clean -fdx
-fi
-
-=======
->>>>>>> origin/master
 # download all additional repos containing extra notebooks to test
 DOWNLOAD_ALL_DEFAULT_REPOS=false
 downloadrepos_main
