@@ -104,17 +104,11 @@ downloadrepos_main() {
 # Override this function in CONFIG_OVERRIDE_SCRIPT_URL to choose another
 # format, see demo in test-override/jenkins-params-external-repos.include.sh.
 #
-# Ex: when given 'pavics-sdi-master/docs/source/notebooks/regridding.ipynb',
-# the current implementation will return
-# 'pavics-sdi-master--regridding.ipynb', which means
-# there will be
-# "buildout/pavics-sdi-master--regridding.ipynb" and
-# "buildout/pavics-sdi-master--regridding.output.ipynb"
+# Default implemenation: keep original file hierarchy.
 #
 # USAGE: artifact_filename="$(choose_artifact_filename "$original_nb_filename")"
 choose_artifact_filename() {
-    repo_branch="$(echo "$1" | sed "s@/.*@@")"
-    echo "${repo_branch}--$(basename "$1")"
+    echo "$1"
 }
 
 

@@ -43,9 +43,17 @@ ROOK_DIR="$(sanitize_extracted_folder_name "${ROOK_REPO_NAME}-${ROOK_BRANCH}")"
 # Set new nbs as nb list to test.
 NOTEBOOKS="$ROOK_DIR/notebooks/*.ipynb"
 
-# Sample demo override choose_artifact_filename: keep the original file path hierarchy.
+# Sample demo override choose_artifact_filename: flat hierarchy
+#
+# Ex: when given 'pavics-sdi-master/docs/source/notebooks/regridding.ipynb',
+# the current implementation will return
+# 'pavics-sdi-master--regridding.ipynb', which means
+# there will be
+# "buildout/pavics-sdi-master--regridding.ipynb" and
+# "buildout/pavics-sdi-master--regridding.output.ipynb"
 choose_artifact_filename() {
-    echo "$1"
+    repo_branch="$(echo "$1" | sed "s@/.*@@")"
+    echo "${repo_branch}--$(basename "$1")"
 }
 
 # Sample demo override post_runtest: create lots of artifacts for Jenkins to
