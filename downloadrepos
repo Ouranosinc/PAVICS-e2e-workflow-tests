@@ -16,9 +16,21 @@ downloadgithubrepos() {
     repo_name="`echo "$owner_and_repo_name" | sed "s@^.*/@@g"`"
     repo_branch="$1"; shift
     # clean up other previously downloaded branches of the same repo as well
-    rm -rf ${repo_name}-*
+    # NOTE:
+    #  if DOWNLOAD_REPOS_SKIP_CLEANUP=true is used,
+    #  you most probably need TEST_ALL_SKIP_CLEANUP=true as well
+    #  otherwise, contents are reset early when running 'testall'
+    if [ x"${DOWNLOAD_REPOS_SKIP_CLEANUP}" != x"true" ]; then
+      rm -rf ${repo_name}-*
+    else
+      echo "Skip cleanup of [${repo_name}] local archives."
+    fi
     ls | grep $repo_name
-    downloadrepos https://github.com/$repo_owner/$repo_name "$repo_branch"
+    if [ x"${DOWNLOAD_REPOS_SKIP_EXISTS}" = x"true" ] && [ -d "./${repo_name}-${repo_branch}" ]; then
+      echo "Skip download [https://github.com/$repo_owner/$repo_name] [$repo_branch], already exists."
+    else
+      downloadrepos "https://github.com/$repo_owner/$repo_name" "$repo_branch"
+    fi
     ls | grep $repo_name
 }
 
