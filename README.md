@@ -48,7 +48,7 @@ cloud to test out all the notebooks in this test suite.
 
 ## Run locally
 
-```
+```shell
 ./launchcontainer  # get inside the container providing the runtime environment
 
 ./runtest  # run all notebooks under folder notebooks/

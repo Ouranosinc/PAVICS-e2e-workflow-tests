@@ -9,10 +9,12 @@ DOWNLOADREPOS_AS_LIB=1
 set -x
 
 # emulate "clean after checkout" of single branch pipeline
-git clean -fdx
+if [ x"${TEST_ALL_SKIP_CLEANUP}" != x"true" ]; then
+  git clean -fdx
+fi
 
 # Allow full override of ALL Jenkins params before running test suite.
-# Intended to overrride all params in Jenkinsfile.
+# Intended to override all params in Jenkinsfile.
 #
 # This `CONFIG_PARAMETERS_SCRIPT_URL` is different than the
 # `CONFIG_OVERRIDE_SCRIPT_URL` in that it overrides all the
