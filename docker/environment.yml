@@ -20,11 +20,11 @@ dependencies:
   # Pin latest xclim and ravenpy to avoid downgrading during the second installation phase.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
   - xclim >= 0.53.2
-  - ravenpy >= 0.17.0
+  - ravenpy >= 0.16.0
 
   # https://anaconda.org/conda-forge/xscen
   # A climate change scenario-building analysis framework, built with xclim/xarray.
-  - xscen >= 0.11.0
+  - xscen >= 0.10.1
 
     #- dask  # from xclim and ravenpy
   - dask != 2024.11.0  # bug in this specific version broke Raven nb
