@@ -127,7 +127,7 @@ dependencies:
   - gcsfs
   # TODO: Unpin zarr
   # https://github.com/Ouranosinc/pavics-jupyter-env-issues/issues/18
-  - zarr < 3.0.0  # from xscen
+    #- zarr < 3.0.0  # from xscen
   # https://github.com/dask/s3fs/
   - s3fs
     # - shapely  # from ravenpy and xscen
