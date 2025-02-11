@@ -13,6 +13,22 @@ if [ x"${TEST_ALL_SKIP_CLEANUP}" != x"true" ]; then
   git clean -fdx
 fi
 
+
+# Allow full override of ALL Jenkins params before running test suite.
+# Same as CONFIG_PARAMETERS_SCRIPT_URL below but this allow to specify default
+# behavior that CONFIG_PARAMETERS_SCRIPT_URL below can override.
+if [ -n "$DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL" ]; then
+    DEFAULT_TMP_PARAMS_OVERRIDE="/tmp/default_jenkins_params_override"
+    rm -vf "$DEFAULT_TMP_PARAMS_OVERRIDE"
+
+    # Use tee to log content of override script for traceability.
+    curl --silent "$DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL" | tee "$DEFAULT_TMP_PARAMS_OVERRIDE"
+
+    # Source script so it can alter ALL existing variables in the current context.
+    . "$DEFAULT_TMP_PARAMS_OVERRIDE"
+fi
+
+
 # Allow full override of ALL Jenkins params before running test suite.
 # Intended to override all params in Jenkinsfile.
 #
