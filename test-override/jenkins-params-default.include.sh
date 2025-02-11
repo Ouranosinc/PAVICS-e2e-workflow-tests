@@ -35,7 +35,7 @@ pre_saving_resulting_nb() {
     for nb in $RESULTING_NOTEBOOKS; do
         if [ x"$nb" != x"$PAVICS_SDI_DIR/docs/source/notebooks/FAQ_dask_parallel.ipynb" ] &&
            [ x"$nb" != x"$PAVICS_LANDING_DIR/content/notebooks/climate_indicators/PAVICStutorial_ClimateDataAnalysis-3Climate-Indicators.ipynb" ]; then
-            NEW_RESULTING_NB="$nb"
+            NEW_RESULTING_NB="$NEW_RESULTING_NB $nb"
         fi
     done
     RESULTING_NOTEBOOKS="$NEW_RESULTING_NB"
