@@ -13,6 +13,9 @@
 
 DEFAULT_CONFIG_OVERRIDE_SCRIPT_URL="/tmp/default-config-override.include.sh"
 
+# Need to export so it is visible in 'runtest'.
+export DEFAULT_CONFIG_OVERRIDE_SCRIPT_URL
+
 # Populate the content of our DEFAULT_CONFIG_OVERRIDE_SCRIPT_URL.
 echo '
 #!/bin/sh
