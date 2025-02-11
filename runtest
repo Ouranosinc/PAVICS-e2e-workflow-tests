@@ -45,30 +45,12 @@ fi
 # so tests still pass when user want to disable ssl cert verification
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 
+# This default can be override by CONFIG_OVERRIDE_SCRIPT_URL and can be used in
+# DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL.
+handle_config_override_script_url "$DEFAULT_CONFIG_OVERRIDE_SCRIPT_URL"
+
 # Allow full override of ALL configs before running test suite.
-if [ -n "$CONFIG_OVERRIDE_SCRIPT_URL" ]; then
-    TMP_CONF_OVERRIDE="/tmp/conf_override"
-    rm -vf "$TMP_CONF_OVERRIDE"
-
-
-    if echo "$CONFIG_OVERRIDE_SCRIPT_URL" | grep -e ^http ; then
-        # Use tee to log content of override script for traceability.
-        curl --silent "$CONFIG_OVERRIDE_SCRIPT_URL" | tee "$TMP_CONF_OVERRIDE"
-    else
-        # Not starting with http, it's a local file.
-        # Local file can be previously created by CONFIG_PARAMETERS_SCRIPT_URL.
-        # See example in test-override/jenkins-params-raven-specific-nb.include.sh.
-        TMP_CONF_OVERRIDE="$CONFIG_OVERRIDE_SCRIPT_URL"
-
-        # Log content of override script for traceability.
-        cat "$TMP_CONF_OVERRIDE"
-    fi
-
-    # Source script so it can alter ALL existing variables in the current context.
-    if [ -f "$TMP_CONF_OVERRIDE" ]; then
-        . "$TMP_CONF_OVERRIDE"
-    fi
-fi
+handle_config_override_script_url
 
 # CONFIG_OVERRIDE_SCRIPT_URL can override NBVAL_SANITIZE_CFG_FILE.
 py.test --rootdir=. --nbval $NOTEBOOKS --nbval-sanitize-with "${NBVAL_SANITIZE_CFG_FILE:=notebooks/output-sanitize.cfg}" $PYTEST_EXTRA_OPTS

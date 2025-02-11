@@ -175,6 +175,42 @@ handle_config_parameters_script_url() {
 }
 
 
+# Allow full override of ALL configs before running test suite.
+#
+# USAGE: handle_config_override_script_url ["$CONFIG_OVERRIDE_SCRIPT_URL"]
+#
+handle_config_override_script_url() {
+
+    if [ -n "$1" ]; then
+        CONFIG_OVERRIDE_SCRIPT_URL="$1"
+    fi
+
+    if [ -n "$CONFIG_OVERRIDE_SCRIPT_URL" ]; then
+        TMP_CONF_OVERRIDE="/tmp/conf_override"
+        rm -vf "$TMP_CONF_OVERRIDE"
+
+
+        if echo "$CONFIG_OVERRIDE_SCRIPT_URL" | grep -e ^http ; then
+            # Use tee to log content of override script for traceability.
+            curl --silent "$CONFIG_OVERRIDE_SCRIPT_URL" | tee "$TMP_CONF_OVERRIDE"
+        else
+            # Not starting with http, it's a local file.
+            # Local file can be previously created by CONFIG_PARAMETERS_SCRIPT_URL.
+            # See example in test-override/jenkins-params-raven-specific-nb.include.sh.
+            TMP_CONF_OVERRIDE="$CONFIG_OVERRIDE_SCRIPT_URL"
+
+            # Log content of override script for traceability.
+            cat "$TMP_CONF_OVERRIDE"
+        fi
+
+        # Source script so it can alter ALL existing variables in the current context.
+        if [ -f "$TMP_CONF_OVERRIDE" ]; then
+            . "$TMP_CONF_OVERRIDE"
+        fi
+    fi
+}
+
+
 if [ -z "$DOWNLOADREPOS_AS_LIB" ]; then
     # Script mode, not library mode.
     downloadrepos_main "$@"
