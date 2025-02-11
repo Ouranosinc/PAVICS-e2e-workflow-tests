@@ -69,10 +69,15 @@ SAVE_RESULTING_NOTEBOOK="$(lowercase "$SAVE_RESULTING_NOTEBOOK")"
 # work-around as nbval can not save the result of the run
 # see https://github.com/computationalmodelling/nbval/issues/112
 
+RESULTING_NOTEBOOKS="$NOTEBOOKS"
+
 BUILDOUT_DIR="buildout"  # hardcode in Jenkinsfile, can not be override.
 
+# Pre-processing steps, override in CONFIG_OVERRIDE_SCRIPT_URL.
+pre_saving_resulting_nb
+
 mkdir -p "$BUILDOUT_DIR/"
-for nb in $NOTEBOOKS; do
+for nb in $RESULTING_NOTEBOOKS; do
     filename="$(choose_artifact_filename "$nb")"
     filename="$(echo "$filename" | sed "s/.ipynb$//")"  # remove .ipynb ext
     if [ -e "${BUILDOUT_DIR}/${filename}.ipynb" ]; then

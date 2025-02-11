@@ -211,6 +211,17 @@ handle_config_override_script_url() {
 }
 
 
+# Any pre-processing steps before generating resulting notebooks.
+#
+# Override this function in CONFIG_OVERRIDE_SCRIPT_URL to alter
+# RESULTING_NOTEBOOKS.
+#
+pre_saving_resulting_nb() {
+    # Can not have empty function, have to put something here.
+    echo "Default: no pre_saving_resulting_nb() override."
+}
+
+
 if [ -z "$DOWNLOADREPOS_AS_LIB" ]; then
     # Script mode, not library mode.
     downloadrepos_main "$@"
