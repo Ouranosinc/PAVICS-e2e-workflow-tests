@@ -167,11 +167,16 @@ handle_config_parameters_script_url() {
         TMP_PARAMS_OVERRIDE="/tmp/jenkins_params_override"
         rm -vf "$TMP_PARAMS_OVERRIDE"
 
-        # Use tee to log content of override script for traceability.
-        curl --silent "$TMP_CONFIG_PARAMETERS_SCRIPT_URL" | tee "$TMP_PARAMS_OVERRIDE"
+        curl --fail --silent "$TMP_CONFIG_PARAMETERS_SCRIPT_URL" > "$TMP_PARAMS_OVERRIDE"
+        CURL_EXIT_CODE=$?
 
-        # Source script so it can alter ALL existing variables in the current context.
-        . "$TMP_PARAMS_OVERRIDE"
+        # Use cat to log content of override script for traceability.
+        cat "$TMP_PARAMS_OVERRIDE"
+
+        if [ $CURL_EXIT_CODE -eq 0 ]; then
+            # Source script so it can alter ALL existing variables in the current context.
+            . "$TMP_PARAMS_OVERRIDE"
+        fi
     fi
 
     # Reset for subsequent runs.
@@ -194,22 +199,23 @@ handle_config_override_script_url() {
         TMP_CONF_OVERRIDE="/tmp/conf_override"
         rm -vf "$TMP_CONF_OVERRIDE"
 
-
+        CURL_EXIT_CODE=0
         if echo "$TMP_CONFIG_OVERRIDE_SCRIPT_URL" | grep -e ^http ; then
             # Use tee to log content of override script for traceability.
-            curl --silent "$TMP_CONFIG_OVERRIDE_SCRIPT_URL" | tee "$TMP_CONF_OVERRIDE"
+            curl --fail --silent "$TMP_CONFIG_OVERRIDE_SCRIPT_URL" > "$TMP_CONF_OVERRIDE"
+            CURL_EXIT_CODE=$?
         else
             # Not starting with http, it's a local file.
             # Local file can be previously created by CONFIG_PARAMETERS_SCRIPT_URL.
             # See example in test-override/jenkins-params-raven-specific-nb.include.sh.
             TMP_CONF_OVERRIDE="$TMP_CONFIG_OVERRIDE_SCRIPT_URL"
-
-            # Log content of override script for traceability.
-            cat "$TMP_CONF_OVERRIDE"
         fi
 
+        # Log content of override script for traceability.
+        cat "$TMP_CONF_OVERRIDE"
+
         # Source script so it can alter ALL existing variables in the current context.
-        if [ -f "$TMP_CONF_OVERRIDE" ]; then
+        if [ -f "$TMP_CONF_OVERRIDE" ] && [ $CURL_EXIT_CODE -eq 0 ]; then
             . "$TMP_CONF_OVERRIDE"
         fi
     fi
