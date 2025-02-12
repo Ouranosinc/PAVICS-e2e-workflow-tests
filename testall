@@ -22,6 +22,8 @@ fi
 # The CONFIG_PARAMETERS_SCRIPT_URL is a Jenkins parameter so it is like the
 # interractive version, while this DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL can be
 # viewed as the unattended version.
+#
+# See sample test-override/jenkins-params-default.include.sh.
 handle_config_parameters_script_url "$DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL"
 
 

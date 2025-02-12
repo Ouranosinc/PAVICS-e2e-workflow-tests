@@ -47,6 +47,7 @@ export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 
 # This default can be override by CONFIG_OVERRIDE_SCRIPT_URL and can be used in
 # DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL.
+# See sample test-override/jenkins-params-default.include.sh.
 handle_config_override_script_url "$DEFAULT_CONFIG_OVERRIDE_SCRIPT_URL"
 
 # Allow full override of ALL configs before running test suite.
