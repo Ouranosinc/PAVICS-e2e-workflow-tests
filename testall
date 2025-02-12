@@ -26,7 +26,7 @@ handle_config_parameters_script_url "$DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL"
 
 
 # Allow full override of ALL Jenkins params before running test suite.
-handle_config_parameters_script_url
+handle_config_parameters_script_url "$CONFIG_PARAMETERS_SCRIPT_URL"
 
 
 # download all additional repos containing extra notebooks to test

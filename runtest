@@ -50,7 +50,7 @@ export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 handle_config_override_script_url "$DEFAULT_CONFIG_OVERRIDE_SCRIPT_URL"
 
 # Allow full override of ALL configs before running test suite.
-handle_config_override_script_url
+handle_config_override_script_url "$CONFIG_OVERRIDE_SCRIPT_URL"
 
 # CONFIG_OVERRIDE_SCRIPT_URL can override NBVAL_SANITIZE_CFG_FILE.
 py.test --rootdir=. --nbval $NOTEBOOKS --nbval-sanitize-with "${NBVAL_SANITIZE_CFG_FILE:=notebooks/output-sanitize.cfg}" $PYTEST_EXTRA_OPTS
