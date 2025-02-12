@@ -159,9 +159,7 @@ post_runtest() {
 TMP_CONFIG_PARAMETERS_SCRIPT_URL=""  # init before use
 handle_config_parameters_script_url() {
 
-    if [ -n "$1" ]; then
-        TMP_CONFIG_PARAMETERS_SCRIPT_URL="$1"
-    fi
+    TMP_CONFIG_PARAMETERS_SCRIPT_URL="$1"
 
     if [ -n "$TMP_CONFIG_PARAMETERS_SCRIPT_URL" ]; then
         TMP_PARAMS_OVERRIDE="/tmp/jenkins_params_override"
@@ -191,9 +189,7 @@ handle_config_parameters_script_url() {
 TMP_CONFIG_OVERRIDE_SCRIPT_URL=""  # init before use
 handle_config_override_script_url() {
 
-    if [ -n "$1" ]; then
-        TMP_CONFIG_OVERRIDE_SCRIPT_URL="$1"
-    fi
+    TMP_CONFIG_OVERRIDE_SCRIPT_URL="$1"
 
     if [ -n "$TMP_CONFIG_OVERRIDE_SCRIPT_URL" ]; then
         TMP_CONF_OVERRIDE="/tmp/conf_override"
@@ -201,7 +197,6 @@ handle_config_override_script_url() {
 
         CURL_EXIT_CODE=0
         if echo "$TMP_CONFIG_OVERRIDE_SCRIPT_URL" | grep -e ^http ; then
-            # Use tee to log content of override script for traceability.
             curl --fail --silent "$TMP_CONFIG_OVERRIDE_SCRIPT_URL" > "$TMP_CONF_OVERRIDE"
             CURL_EXIT_CODE=$?
         else
