@@ -92,7 +92,7 @@ for nb in $RESULTING_NOTEBOOKS; do
     fi
     cp "$nb" "$BUILDOUT_DIR/${filename}.ipynb"
 
-    if [ x"$SAVE_RESULTING_NOTEBOOK" = xtrue ]; then
+    if [ x"$SAVE_RESULTING_NOTEBOOK" = xtrue ] && enable_resulting_nb "${filename}" ; then
         # Timeout must not be more than 240s (4 mins). Default in Jenkinsfile.
         # Tutorial notebooks should be fast so user do not lose patience waiting
         # for them to run.  If more than 4 mins, in addition to simplifying the

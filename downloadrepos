@@ -236,6 +236,19 @@ pre_saving_resulting_nb() {
 }
 
 
+# Check whether a notebook is enabled to produce output.  Can be used to
+# blacklist a list of notebooks.
+#
+# Override this function in CONFIG_OVERRIDE_SCRIPT_URL.
+#
+# USAGE: enable_resulting_nb "<filename without .ipynb ext>"
+#
+enable_resulting_nb() {
+    # Return success by default for all notebooks.
+    return 0
+}
+
+
 if [ -z "$DOWNLOADREPOS_AS_LIB" ]; then
     # Script mode, not library mode.
     downloadrepos_main "$@"
