@@ -21,12 +21,10 @@ echo '
 #!/bin/sh
 # Config override script to exclude default notebooks.
 
-NEW_NB_LIST=""
-for nb in $NOTEBOOKS; do
-    if [ x"$nb" != x"$RAVENPY_DIR/docs/notebooks/HydroShare_integration.ipynb" ]; then
-        NEW_NB_LIST="$NEW_NB_LIST $nb"
-    fi
-done
+# Add more -e for additional nbs to blacklist.
+NEW_NB_LIST="$(echo $NOTEBOOKS | sed \
+  -e "s@$RAVENPY_DIR/docs/notebooks/HydroShare_integration.ipynb@@" \
+  )"
 NOTEBOOKS="$NEW_NB_LIST"
 
 
