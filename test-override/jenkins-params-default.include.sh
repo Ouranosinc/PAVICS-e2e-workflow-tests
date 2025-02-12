@@ -31,8 +31,8 @@ NOTEBOOKS="$NEW_NB_LIST"
 # Select which notebooks to blacklist from generating output.
 enable_resulting_nb() {
     nb="$1"
-    if [ x"$nb" != x"$PAVICS_SDI_DIR/docs/source/notebooks/FAQ_dask_parallel" ] ||
-       [ x"$nb" != x"$PAVICS_LANDING_DIR/content/notebooks/climate_indicators/PAVICStutorial_ClimateDataAnalysis-3Climate-Indicators" ]; then
+    if [ x"$nb" = x"$PAVICS_SDI_DIR/docs/source/notebooks/FAQ_dask_parallel" ] ||
+       [ x"$nb" = x"$PAVICS_LANDING_DIR/content/notebooks/climate_indicators/PAVICStutorial_ClimateDataAnalysis-3Climate-Indicators" ]; then
         # Blacklist those notebooks.
         return 1
     else
