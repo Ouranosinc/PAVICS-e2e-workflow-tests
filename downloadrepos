@@ -172,6 +172,9 @@ handle_config_parameters_script_url() {
         # Source script so it can alter ALL existing variables in the current context.
         . "$TMP_PARAMS_OVERRIDE"
     fi
+
+    # Reset for subsequent runs.
+    TMP_CONFIG_PARAMETERS_SCRIPT_URL=""
 }
 
 
@@ -208,6 +211,9 @@ handle_config_override_script_url() {
             . "$TMP_CONF_OVERRIDE"
         fi
     fi
+
+    # Reset for subsequent runs.
+    TMP_CONFIG_OVERRIDE_SCRIPT_URL=""
 }
 
 
