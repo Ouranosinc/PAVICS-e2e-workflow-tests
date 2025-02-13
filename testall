@@ -26,6 +26,8 @@ fi
 # See sample test-override/jenkins-params-default.include.sh.
 handle_config_parameters_script_url "$DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL"
 
+# 2nd default to override the first default.
+handle_config_parameters_script_url "$DEFAULT_2_CONFIG_PARAMETERS_SCRIPT_URL"
 
 # Allow full override of ALL Jenkins params before running test suite.
 handle_config_parameters_script_url "$CONFIG_PARAMETERS_SCRIPT_URL"
