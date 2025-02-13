@@ -13,6 +13,8 @@ TEST_PAVICS_SDI_REPO="false"
 TEST_FINCH_REPO="false"
 TEST_PAVICS_LANDING_REPO="false"
 TEST_LOCAL_NOTEBOOKS="false"
+TEST_RAVEN_REPO="false"
+TEST_RAVENPY_REPO="false"
 
 # Set new external repo vars.  Need 'export' so CONFIG_OVERRIDE_SCRIPT_URL can see them.
 export ROOK_REPO="roocs/rook"
