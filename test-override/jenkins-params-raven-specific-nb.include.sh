@@ -20,6 +20,9 @@ cat test-override/jenkins-params-raven-nb-only.include.sh
 
 CONFIG_OVERRIDE_SCRIPT_URL="/tmp/specific-raven-nb.include.sh"
 
+# export so it is visible by 'runtest'.
+export CONFIG_OVERRIDE_SCRIPT_URL
+
 echo '
 #!/bin/sh
 # Sample config override script to only run 2 specific raven notebooks.
