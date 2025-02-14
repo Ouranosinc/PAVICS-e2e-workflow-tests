@@ -28,6 +28,9 @@ PYTEST_EXTRA_OPTS="$PYTEST_EXTRA_OPTS --nbval-lax"
 
 CONFIG_OVERRIDE_SCRIPT_URL="/tmp/custom-repos.include.sh"
 
+# export so it is visible by 'runtest'.
+export CONFIG_OVERRIDE_SCRIPT_URL
+
 # Populate the content of our CONFIG_OVERRIDE_SCRIPT_URL.
 echo '
 #!/bin/sh
