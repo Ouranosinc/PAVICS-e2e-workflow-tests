@@ -236,7 +236,7 @@ pre_saving_resulting_nb() {
 #
 # Override this function in CONFIG_OVERRIDE_SCRIPT_URL.
 #
-# USAGE: enable_resulting_nb "<filename without .ipynb ext>"
+# USAGE: enable_resulting_nb "<path/filename.ipynb"
 #
 enable_resulting_nb() {
     # Return success by default for all notebooks.
