@@ -22,10 +22,10 @@ echo '
 # Config override script to exclude default notebooks.
 
 # Add more -e for additional nbs to blacklist.
-NEW_NB_LIST="$(echo $NOTEBOOKS | sed \
-  -e "s@$RAVENPY_DIR/docs/notebooks/HydroShare_integration.ipynb@@" \
-  )"
-NOTEBOOKS="$NEW_NB_LIST"
+#NEW_NB_LIST="$(echo $NOTEBOOKS | sed \
+#  -e "s@$RAVENPY_DIR/docs/notebooks/HydroShare_integration.ipynb@@" \
+#  )"
+#NOTEBOOKS="$NEW_NB_LIST"
 
 
 # Select which notebooks to blacklist from generating output.
