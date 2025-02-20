@@ -20,6 +20,10 @@ TEST_RAVENPY_REPO="false"
 export ROOK_REPO="roocs/rook"
 export ROOK_BRANCH="master"
 
+# Hijack PAVICS_SDI fields for interractive build request ROOK override.
+[ x"$PAVICS_SDI_REPO" != x"Ouranosinc/pavics-sdi" ] && ROOK_REPO="$PAVICS_SDI_REPO"
+[ x"$PAVICS_SDI_BRANCH" != x"master" ] && ROOK_BRANCH="$PAVICS_SDI_BRANCH"
+
 # Not checking for expected output, just checking whether the code can run without errors.
 PYTEST_EXTRA_OPTS="$PYTEST_EXTRA_OPTS --nbval-lax"
 
