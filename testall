@@ -25,13 +25,13 @@ fi
 #
 # See sample test-override/jenkins-params-default.include.sh.
 #
-# Utilisation example: https://github.com/Ouranosinc/jenkins-config/blob/f2de2241ee4fd6c516cee67d29600e313d4b4f7c/jcasc/global_env_var.yaml#L11-L12
+# CI usage sample: https://github.com/Ouranosinc/jenkins-config/blob/f2de2241ee4fd6c516cee67d29600e313d4b4f7c/jcasc/global_env_var.yaml#L11-L12
 # See PR https://github.com/Ouranosinc/jenkins-config/pull/17.
 handle_config_parameters_script_url "$DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL"
 
 # Override the default above, could be used by CI.
 #
-# Utilisation example: https://github.com/Ouranosinc/jenkins-config/blob/f2de2241ee4fd6c516cee67d29600e313d4b4f7c/jcasc_ouranos/staging_jobs.yaml#L87
+# CI usage sample: https://github.com/Ouranosinc/jenkins-config/blob/f2de2241ee4fd6c516cee67d29600e313d4b4f7c/jcasc_ouranos/staging_jobs.yaml#L87
 # See PR https://github.com/Ouranosinc/jenkins-config/pull/17.
 handle_config_parameters_script_url "$CI_OVERRIDE_CONFIG_PARAMETERS_SCRIPT_URL"
 
