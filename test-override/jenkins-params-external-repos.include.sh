@@ -60,16 +60,16 @@ NOTEBOOKS="$ROOK_DIR/notebooks/*.ipynb"
 # there will be
 # "buildout/pavics-sdi-master--regridding.ipynb" and
 # "buildout/pavics-sdi-master--regridding.output.ipynb"
-choose_artifact_filename() {
-    repo_branch="$(echo "$1" | sed "s@/.*@@")"
-    echo "${repo_branch}--$(basename "$1")"
-}
+#choose_artifact_filename() {
+#    repo_branch="$(echo "$1" | sed "s@/.*@@")"
+#    echo "${repo_branch}--$(basename "$1")"
+#}
 
 # Sample demo override post_runtest: create lots of artifacts for Jenkins to
 # archive to test how Jenkins will display its archive page.
-post_runtest() {
-    for i in $(seq --equal-width 500); do
-        echo "file${i}" > "${BUILDOUT_DIR}/file${i}.ipynb"
-    done
-}
+#post_runtest() {
+#    for i in $(seq --equal-width 500); do
+#        echo "file${i}" > "${BUILDOUT_DIR}/file${i}.ipynb"
+#    done
+#}
 ' > "$CONFIG_OVERRIDE_SCRIPT_URL"
