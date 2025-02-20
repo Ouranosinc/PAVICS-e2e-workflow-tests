@@ -18,7 +18,7 @@ TEST_RAVENPY_REPO="false"
 
 # Set new external repo vars.  Need 'export' so CONFIG_OVERRIDE_SCRIPT_URL can see them.
 export ROOK_REPO="roocs/rook"
-export ROOK_BRANCH="master"
+export ROOK_BRANCH="main"
 
 # Hijack PAVICS_SDI fields for interractive build request ROOK override.
 [ x"$PAVICS_SDI_REPO" != x"Ouranosinc/pavics-sdi" ] && ROOK_REPO="$PAVICS_SDI_REPO"
