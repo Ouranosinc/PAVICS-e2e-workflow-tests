@@ -44,7 +44,7 @@ COPY environment.yml /environment.yml
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 #
 RUN umask 0000 && \
-    mamba create --name birdy --channel conda-forge --channel defaults xclim ravenpy xscen python=3.12 --yes && \
+    mamba create --name birdy --channel conda-forge --channel defaults xclim ravenpy xscen python=3.11 --yes && \
     (conda env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
     (du -sh /opt/conda 2>&1 | tee /conda-envs-size-phase1.txt) && \
     mamba env update --name birdy --file /environment.yml && \
