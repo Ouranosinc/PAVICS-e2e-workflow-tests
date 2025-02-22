@@ -21,6 +21,9 @@ export TEST_NO_USE_PROD_DATA=1
 # GeoServer only.
 CONFIG_OVERRIDE_SCRIPT_URL="https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/geoserver-nb-only.include.sh"
 
+# export so it is visible by 'runtest'.
+export CONFIG_OVERRIDE_SCRIPT_URL
+
 # Set different test branch if required.
 #PAVICS_SDI_BRANCH=""
 #FINCH_BRANCH=""
