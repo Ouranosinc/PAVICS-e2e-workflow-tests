@@ -13,34 +13,31 @@ if [ x"${TEST_ALL_SKIP_CLEANUP}" != x"true" ]; then
   git clean -fdx
 fi
 
+
 # Allow full override of ALL Jenkins params before running test suite.
-# Intended to override all params in Jenkinsfile.
 #
-# This `CONFIG_PARAMETERS_SCRIPT_URL` is different than the
-# `CONFIG_OVERRIDE_SCRIPT_URL` in that it overrides all the
-# Jenkins params much sooner so all regular processing can take place.
+# Same as CONFIG_PARAMETERS_SCRIPT_URL below but this allow to specify default
+# behavior that CONFIG_PARAMETERS_SCRIPT_URL below can override.
 #
-# When the regular processing are not enough and we need additional
-# customizations, then we use the other `CONFIG_OVERRIDE_SCRIPT_URL`.
+# The CONFIG_PARAMETERS_SCRIPT_URL is a Jenkins parameter so it is like the
+# interractive version, while this DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL can be
+# viewed as the unattended version.
 #
-# The two override scripts complement each other by hooking into the
-# process at different moment in time, and together they allow full
-# complete override of the various options for the test run.
+# See sample test-override/jenkins-params-default.include.sh.
 #
-# Furthermore, CONFIG_OVERRIDE_SCRIPT_URL can also be a local file that is
-# created on the fly by CONFIG_PARAMETERS_SCRIPT_URL.  So in the end, only
-# CONFIG_PARAMETERS_SCRIPT_URL is needed for a full complete override.
-# See example in test-override/jenkins-params-raven-specific-nb.include.sh.
-if [ -n "$CONFIG_PARAMETERS_SCRIPT_URL" ]; then
-    TMP_PARAMS_OVERRIDE="/tmp/jenkins_params_override"
-    rm -vf "$TMP_PARAMS_OVERRIDE"
+# CI usage sample: https://github.com/Ouranosinc/jenkins-config/blob/f2de2241ee4fd6c516cee67d29600e313d4b4f7c/jcasc/global_env_var.yaml#L11-L12
+# See PR https://github.com/Ouranosinc/jenkins-config/pull/17.
+handle_config_parameters_script_url "$DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL"
 
-    # Use tee to log content of override script for traceability.
-    curl --silent "$CONFIG_PARAMETERS_SCRIPT_URL" | tee "$TMP_PARAMS_OVERRIDE"
+# Override the default above, could be used by CI.
+#
+# CI usage sample: https://github.com/Ouranosinc/jenkins-config/blob/f2de2241ee4fd6c516cee67d29600e313d4b4f7c/jcasc_ouranos/staging_jobs.yaml#L87
+# See PR https://github.com/Ouranosinc/jenkins-config/pull/17.
+handle_config_parameters_script_url "$CI_OVERRIDE_CONFIG_PARAMETERS_SCRIPT_URL"
 
-    # Source script so it can alter ALL existing variables in the current context.
-    . "$TMP_PARAMS_OVERRIDE"
-fi
+# Allow full override of ALL Jenkins params before running test suite.
+handle_config_parameters_script_url "$CONFIG_PARAMETERS_SCRIPT_URL"
+
 
 # download all additional repos containing extra notebooks to test
 DOWNLOAD_ALL_DEFAULT_REPOS=false

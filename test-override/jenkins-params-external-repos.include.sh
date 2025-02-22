@@ -13,10 +13,16 @@ TEST_PAVICS_SDI_REPO="false"
 TEST_FINCH_REPO="false"
 TEST_PAVICS_LANDING_REPO="false"
 TEST_LOCAL_NOTEBOOKS="false"
+TEST_RAVEN_REPO="false"
+TEST_RAVENPY_REPO="false"
 
 # Set new external repo vars.  Need 'export' so CONFIG_OVERRIDE_SCRIPT_URL can see them.
 export ROOK_REPO="roocs/rook"
-export ROOK_BRANCH="master"
+export ROOK_BRANCH="main"
+
+# Hijack PAVICS_SDI fields for interractive build request ROOK override.
+[ x"$PAVICS_SDI_REPO" != x"Ouranosinc/pavics-sdi" ] && ROOK_REPO="$PAVICS_SDI_REPO"
+[ x"$PAVICS_SDI_BRANCH" != x"master" ] && ROOK_BRANCH="$PAVICS_SDI_BRANCH"
 
 # Not checking for expected output, just checking whether the code can run without errors.
 PYTEST_EXTRA_OPTS="$PYTEST_EXTRA_OPTS --nbval-lax"
@@ -25,6 +31,9 @@ PYTEST_EXTRA_OPTS="$PYTEST_EXTRA_OPTS --nbval-lax"
 # our external repo.
 
 CONFIG_OVERRIDE_SCRIPT_URL="/tmp/custom-repos.include.sh"
+
+# export so it is visible by 'runtest'.
+export CONFIG_OVERRIDE_SCRIPT_URL
 
 # Populate the content of our CONFIG_OVERRIDE_SCRIPT_URL.
 echo '
@@ -51,16 +60,16 @@ NOTEBOOKS="$ROOK_DIR/notebooks/*.ipynb"
 # there will be
 # "buildout/pavics-sdi-master--regridding.ipynb" and
 # "buildout/pavics-sdi-master--regridding.output.ipynb"
-choose_artifact_filename() {
-    repo_branch="$(echo "$1" | sed "s@/.*@@")"
-    echo "${repo_branch}--$(basename "$1")"
-}
+#choose_artifact_filename() {
+#    repo_branch="$(echo "$1" | sed "s@/.*@@")"
+#    echo "${repo_branch}--$(basename "$1")"
+#}
 
 # Sample demo override post_runtest: create lots of artifacts for Jenkins to
 # archive to test how Jenkins will display its archive page.
-post_runtest() {
-    for i in $(seq --equal-width 500); do
-        echo "file${i}" > "${BUILDOUT_DIR}/file${i}.ipynb"
-    done
-}
+#post_runtest() {
+#    for i in $(seq --equal-width 500); do
+#        echo "file${i}" > "${BUILDOUT_DIR}/file${i}.ipynb"
+#    done
+#}
 ' > "$CONFIG_OVERRIDE_SCRIPT_URL"
