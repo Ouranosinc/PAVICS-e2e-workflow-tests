@@ -64,7 +64,7 @@ else
 fi
 
 if [ -z "$TEST_RAVEN_REPO" ]; then
-    TEST_RAVEN_REPO=false
+    TEST_RAVEN_REPO=true
     echo "TEST_RAVEN_REPO not set, default to '$TEST_RAVEN_REPO'"
 else
     echo "TEST_RAVEN_REPO has been set to '$TEST_RAVEN_REPO'"
@@ -85,7 +85,7 @@ else
 fi
 
 if [ -z "$TEST_RAVENPY_REPO" ]; then
-    TEST_RAVENPY_REPO=false
+    TEST_RAVENPY_REPO=true
     echo "TEST_RAVENPY_REPO not set, default to '$TEST_RAVENPY_REPO'"
 else
     echo "TEST_RAVENPY_REPO has been set to '$TEST_RAVENPY_REPO'"
