@@ -15,7 +15,7 @@ TEST_RAVENPY_REPO="true"
 
 # Raven nbs outputs are not fully up-to-date or regexed escaped properly like
 # the other default nbs so need --nbval-lax for the moment.
-PYTEST_EXTRA_OPTS="$PYTEST_EXTRA_OPTS --nbval-lax"
+#PYTEST_EXTRA_OPTS="$PYTEST_EXTRA_OPTS --nbval-lax"
 
 # Set different test branch if required.
 #RAVEN_BRANCH=""
