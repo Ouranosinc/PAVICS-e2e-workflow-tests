@@ -71,13 +71,13 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
                description: 'PAVICS_LANDING_REPO branch to test against.', trim: true)
         string(name: 'PAVICS_LANDING_REPO', defaultValue: 'Ouranosinc/PAVICS-landing',
                description: 'https://github.com/Ouranosinc/PAVICS-landing repo or fork to test against.', trim: true)
-        booleanParam(name: 'TEST_RAVEN_REPO', defaultValue: false,
+        booleanParam(name: 'TEST_RAVEN_REPO', defaultValue: true,
                      description: 'Check the box to test raven repo.')
         string(name: 'RAVEN_BRANCH', defaultValue: 'main',
                description: 'RAVEN_REPO branch to test against.', trim: true)
         string(name: 'RAVEN_REPO', defaultValue: 'Ouranosinc/raven',
                description: 'https://github.com/Ouranosinc/raven repo or fork to test against.', trim: true)
-        booleanParam(name: 'TEST_RAVENPY_REPO', defaultValue: false,
+        booleanParam(name: 'TEST_RAVENPY_REPO', defaultValue: true,
                      description: 'Check the box to test RavenPy repo.')
         string(name: 'RAVENPY_BRANCH', defaultValue: 'master',
                description: 'RAVENPY_REPO branch to test against.', trim: true)
