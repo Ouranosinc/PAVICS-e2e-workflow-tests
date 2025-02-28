@@ -159,9 +159,9 @@ Note this is another run, will double the time and no guaranty to have same erro
     options {
         ansiColor('xterm')
         timestamps()
-        timeout(time: 2, unit: 'HOURS')
+        timeout(time: 4, unit: 'HOURS')
         // trying to keep 3 months worth of history
         // assuming manual build requests are done on a separated job
-        buildDiscarder(logRotator(numToKeepStr: '100'))
+        buildDiscarder(logRotator(numToKeepStr: '90'))
     }
 }
