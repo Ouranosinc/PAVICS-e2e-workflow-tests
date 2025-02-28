@@ -1,9 +1,9 @@
 #!/bin/sh
 #
 # Sample Jenkins params override script to demonstrate running new notebooks
-# from an external repo and on-the-fly CONFIG_OVERRIDE_SCRIPT_URL file creation.
+# from an external repo and on-the-fly CI_OVERRIDE_CONFIG_OVERRIDE_SCRIPT_URL file creation.
 #
-# This script is intended for param CONFIG_PARAMETERS_SCRIPT_URL.
+# This script is intended for param CI_OVERRIDE_CONFIG_PARAMETERS_SCRIPT_URL.
 
 # Scenario: we want to run notebooks from an external repo, unknown to current Jenkins config.
 # https://github.com/roocs/rook/tree/master/notebooks/*.ipynb
@@ -16,7 +16,7 @@ TEST_LOCAL_NOTEBOOKS="false"
 TEST_RAVEN_REPO="false"
 TEST_RAVENPY_REPO="false"
 
-# Set new external repo vars.  Need 'export' so CONFIG_OVERRIDE_SCRIPT_URL can see them.
+# Set new external repo vars.  Need 'export' so CI_OVERRIDE_CONFIG_OVERRIDE_SCRIPT_URL can see them.
 export ROOK_REPO="roocs/rook"
 export ROOK_BRANCH="main"
 
@@ -27,15 +27,15 @@ export ROOK_BRANCH="main"
 # Not checking for expected output, just checking whether the code can run without errors.
 PYTEST_EXTRA_OPTS="$PYTEST_EXTRA_OPTS --nbval-lax"
 
-# Create CONFIG_OVERRIDE_SCRIPT_URL file on-the-fly to run the notebooks from
+# Create CI_OVERRIDE_CONFIG_OVERRIDE_SCRIPT_URL file on-the-fly to run the notebooks from
 # our external repo.
 
-CONFIG_OVERRIDE_SCRIPT_URL="/tmp/custom-repos.include.sh"
+CI_OVERRIDE_CONFIG_OVERRIDE_SCRIPT_URL="/tmp/ci-override-custom-repos.include.sh"
 
 # export so it is visible by 'runtest'.
-export CONFIG_OVERRIDE_SCRIPT_URL
+export CI_OVERRIDE_CONFIG_OVERRIDE_SCRIPT_URL
 
-# Populate the content of our CONFIG_OVERRIDE_SCRIPT_URL.
+# Populate the content of our CI_OVERRIDE_CONFIG_OVERRIDE_SCRIPT_URL.
 echo '
 #!/bin/sh
 # Sample config override script to run new notebooks from new external repo.
@@ -72,4 +72,4 @@ NOTEBOOKS="$ROOK_DIR/notebooks/*.ipynb"
 #        echo "file${i}" > "${BUILDOUT_DIR}/file${i}.ipynb"
 #    done
 #}
-' > "$CONFIG_OVERRIDE_SCRIPT_URL"
+' > "$CI_OVERRIDE_CONFIG_OVERRIDE_SCRIPT_URL"
