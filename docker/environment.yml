@@ -6,8 +6,6 @@ channels:
   - bokeh
 
 dependencies:
-  - python >= 3.10
-
   # Do not put xclim and ravenpy direct dependencies here to let xclim and ravenpy manage their own dependencies pinning.
 
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
@@ -32,7 +30,8 @@ dependencies:
   # xsdba: Statistical correction and bias adjustment tools for xarray.
   - xsdba >= 0.4.0
 
-  # Add pins here as needed
+  ## COMMON LIBRARIES
+  # Only add pins here as needed
 
   # dask: parallel computing with task scheduling
   - dask != 2024.11.0  # bug in this specific version broke Raven nb
@@ -43,29 +42,31 @@ dependencies:
   # pandas: data structures and data analysis tools for Python
   - pandas
   # scipy: scientific computing library for Python
-  - scipy >= 1.11.0
+  - scipy
   # xarray: N-D labeled arrays and datasets in Python
   - xarray
 
-  ## COMMON LIBRARIES
+  # DEPENDENCIES
 
   # flox: fast & furious GroupBy reductions for dask.array
   # https://anaconda.org/conda-forge/flox
   - flox
-  # cf-xarray: xarray extension for CF-compliant data
-  # https://anaconda.org/conda-forge/cf-xarray
-  - cf_xarray != 0.8.1
+    # cf-xarray: xarray extension for CF-compliant data
+    # https://anaconda.org/conda-forge/cf-xarray
+    # - cf_xarray # provided by ravenpy, xclim, xscen
   - birdy >= 0.8.7
-    # - owslib>=0.23.0  # from ravenpy
-    # - netcdf4  # from ravenpy
+    # - owslib>=0.23.0  # provided by ravenpy
+    # - netcdf4  # provided by xscen
   - libnetcdf
   # cfgrib: Python interface to map GRIB files to the Unidata's Common Data Model v4 following the CF Conventions.
   # https://github.com/ecmwf/cfgrib
   - cfgrib
-  - pydap
-  # cartopy: Python library for cartographic projections and geospatial data visualization
-  # https://anaconda.org/conda-forge/cartopy
-  # - cartopy >= 0.23.0 # provided by xscen
+    # pydap: A pure python implementation of the Data Access Protocol.
+    # https://anaconda.org/conda-forge/pydap
+    # - pydap  # provided by ravenpy (Note: As of 2025-03-18 (v3.5.4) does not support Python 3.13)
+    # cartopy: Python library for cartographic projections and geospatial data visualization
+    # https://anaconda.org/conda-forge/cartopy
+    # - cartopy >= 0.23.0  # provided by xscen
   # pykdtree: Fast kd-tree implementation with OpenMP-enabled queries
   # Fixes cartopy bug arising with scipy 1.11.
   # https://github.com/Ouranosinc/pavics-sdi/pull/298
@@ -80,7 +81,7 @@ dependencies:
   - regionmask
   - siphon
   - pscript
-  - h5netcdf
+  # - h5netcdf  # provided by ravenpy, xclim, xscen
   - panel >= 1.2.2
   # https://github.com/holoviz/panel
   - pyviz_comms  # (was labextension pyviz/jupyterlab_pyviz in jupyterlab v2)
@@ -110,13 +111,15 @@ dependencies:
   # https://anaconda.org/conda-forge/openpyxl
   - openpyxl
   - nc-time-axis
-    # - cftime  # from xclim and ravenpy
-    # - statsmodels  # for ravenpy
+    # - cftime  # provided by xclim, xscen, ravenpy
+    # - statsmodels  # provided by ravenpy
   # for error 'ImportError: HTTPFileSystem requires "requests" and "aiohttp" to
   # be installed' with call 'fsspec.filesystem('https')'
   - aiohttp
-    # - pydantic  # from ravenpy
-  # Intake is a lightweight set of tools for loading and sharing data in data science projects
+    # pydantic: Data validation and settings management using Python type annotations
+    # https://docs.pydantic.dev/latest/
+    # - pydantic  # provided by ravenpy
+  # Intake: a lightweight set of tools for loading and sharing data in data science projects
   # https://intake.readthedocs.io/en/latest/
   - intake
   # https://intake.readthedocs.io/en/latest/plugin-directory.html
@@ -137,13 +140,12 @@ dependencies:
   # gcsfs: Google Cloud Storage File System
   # https://anaconda.org/conda-forge/gcsfs
   - gcsfs
-  # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
-  # https://anaconda.org/conda-forge/zarr
-  # - zarr # provided by xscen
+    # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
+    # https://anaconda.org/conda-forge/zarr
+    # - zarr # provided by xscen
   # s3fs: Convenient Filesystem interface over S3
   # https://github.com/dask/s3fs/
   - s3fs
-    # - shapely  # from ravenpy
   # xesmf: Universal Regridder for Geospatial Data
   - xesmf >= 0.7.0  # Needed for xscen 0.12.1
   # salib: Sensitivity Analysis Library
@@ -208,9 +210,9 @@ dependencies:
   # dask-labextension: A JupyterLab extension for Dask.
   # https://github.com/dask/dask-labextension
   - dask-labextension
-  # https://github.com/holoviz/jupyter-panel-proxy
-  # DISABLE: seems to interfere with 'panel serve' command
-  # - jupyter-panel-proxy >= 0.2.0a2
+    # https://github.com/holoviz/jupyter-panel-proxy
+    # DISABLE: seems to interfere with 'panel serve' command
+    # - jupyter-panel-proxy >= 0.2.0a2
   # Force newer nodejs for 'jupyter lab build' issue
   # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998901247
   # TODO: remove nodejs once all extensions move to prebuilt extensions, see comment
@@ -228,7 +230,8 @@ dependencies:
   - geckodriver
   - xlrd
   - pre-commit
-  # for pip packages
+
+  # PIP PACKAGES
   - pip
   - pip:
     # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
