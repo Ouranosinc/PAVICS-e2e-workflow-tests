@@ -16,7 +16,7 @@ dependencies:
   # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
   # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
 
-  # Pin latest figanos, ravenpy, xclim, and xscen to avoid downgrading during the second installation phase.
+  # Pin latest clisops, ravenpy, xclim, and xscen to avoid downgrading during the second installation phase.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
 
   ## CORE LIBRARIES
