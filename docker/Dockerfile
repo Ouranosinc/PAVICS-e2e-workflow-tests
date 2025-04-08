@@ -58,7 +58,8 @@ ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 RUN python -m ipykernel install --name birdy && \
     (conda env export --name birdy 2>&1 | tee /conda-env-export-final.yml) && \
     (diff --unified /conda-env-export-phase1.yml /conda-env-export-final.yml 2>&1 | tee /conda-env-export.diff) && \
-    (du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt)
+    (du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt) && \
+    diff /conda-envs-size-phase1.txt /conda-envs-size-final.txt || true
 
 # install using same channel preferences as birdy original env to not downgrade
 # anything accidentally
