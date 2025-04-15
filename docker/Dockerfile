@@ -3,7 +3,7 @@ FROM continuumio/miniconda3
 # Use mamba for much improved performance over conda.
 # The 'channel_priority strict' did help conda but it was not enough.
 RUN conda update conda -n base && \
-    conda install mamba conda-pack -n base -c conda-forge -c defaults && \
+    conda install mamba conda-pack -n base -c conda-forge && \
     conda clean --all --yes && \
     conda config --set channel_priority strict && \
     wget -qO- https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -C /usr/local -xvj bin/micromamba
@@ -44,7 +44,7 @@ COPY environment.yml /environment.yml
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 #
 RUN umask 0000 && \
-    mamba create --name birdy --channel conda-forge --channel defaults xclim ravenpy xscen python=3.11 --yes && \
+    mamba create --name birdy --channel conda-forge xclim ravenpy xscen python=3.11 --yes && \
     (conda env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
     (du -sh /opt/conda 2>&1 | tee /conda-envs-size-phase1.txt) && \
     mamba env update --name birdy --file /environment.yml && \
@@ -61,11 +61,9 @@ RUN python -m ipykernel install --name birdy && \
     (du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt) && \
     diff /conda-envs-size-phase1.txt /conda-envs-size-final.txt || true
 
-# install using same channel preferences as birdy original env to not downgrade
-# anything accidentally
-# this is for debug only, all dependencies should be specified in
-# environment.yml above
-# RUN mamba install -c conda-forge -c cdat -c bokeh -c plotly -c defaults -n birdy nbdime
+# install using same channel preferences as birdy original env to not downgrade anything accidentally
+# this is for debug only, all dependencies should be specified in environment.yml above
+# RUN mamba install -c conda-forge -c cdat -c bokeh -c plotly -n birdy nbdime
 
 # build jupyterlab extensions installed by conda, see `jupyter labextension list`
 # Supposedly not needed with jupyterlab v3 anymore but see
