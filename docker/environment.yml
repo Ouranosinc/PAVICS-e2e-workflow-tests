@@ -4,15 +4,16 @@ channels:
   - conda-forge
   - cdat
   - bokeh
-
+  - fortiers  # for fstd2nc
 dependencies:
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
   # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/master/recipe/meta.yaml
   # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/master/recipe/meta.yaml
+  # xhydro direct dependencies: https://github.com/conda-forge/xhydro-feedstock/blob/main/recipe/meta.yaml
   # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
   # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
 
-  # Pin latest clisops, ravenpy, xclim, xscen, and xsdba to avoid downgrading during the second installation phase.
+  # Pin latest clisops, ravenpy, xclim, xhydro, xscen, and xsdba to avoid downgrading during the second installation phase.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
 
   ## CORE LIBRARIES
@@ -23,6 +24,8 @@ dependencies:
   - ravenpy >= 0.18.1
   # xclim: Climate indices computation package based on Xarray.
   - xclim >= 0.56.0
+  # Hydrological analysis library built with xarray.
+  # - xhydro  # 2025-04: Currently deactivated due to older dependency pins
   # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
   - xscen >= 0.12.1
   # xsdba: Statistical correction and bias adjustment tools for xarray.
@@ -30,7 +33,9 @@ dependencies:
 
   ## COMMON LIBRARIES
   # Only add pins here as needed
-  
+
+  # cartopy: Python library for cartographic projections and geospatial data visualization
+  - cartopy
   # cf-xarray: xarray extension for CF-compliant data
   - cf_xarray >= 0.10.4
   # dask: parallel computing with task scheduling
@@ -47,16 +52,20 @@ dependencies:
   - pydantic >= 2.11
   # scipy: scientific computing library for Python
   - scipy >= 1.11.0
+  # sparse: Sparse arrays for Python
+  - sparse < 0.16.0 # bug with xesmf<=0.8.7 and numba>=61.0; xesmf==0.8.8 is broken; xesmf>=0.8.9 will fix this
   # xarray: N-D labeled arrays and datasets in Python
   - xarray
 
   # DEPENDENCIES
 
+  # fstd2nc: Converts RPN standard files (from Environment Canada) to netCDF files.
+  # https://pypi.org/project/fstd2nc/
+  - fstd2nc
     # flox: fast & furious GroupBy reductions for dask.array
     # https://anaconda.org/conda-forge/flox
     # - flox # provided by xscen
   - birdy >= 0.8.7
-    # - owslib>=0.23.0  # from ravenpy
     # - netcdf4  # from ravenpy and xscen
   - libnetcdf
   # cfgrib: Python interface to map GRIB files to the Unidata's Common Data Model v4 following the CF Conventions.
@@ -64,10 +73,9 @@ dependencies:
   - cfgrib
     # pydap: A pure python implementation of the Data Access Protocol.
     # https://anaconda.org/conda-forge/pydap
-    # - pydap  # provided by ravenpy (Note: As of 2025-03-18 (v3.5.4) does not support Python 3.13)
-    # cartopy: Python library for cartographic projections and geospatial data visualization
-    # https://anaconda.org/conda-forge/cartopy
-    # - cartopy >= 0.23.0  # provided by xscen
+    # 2025-03-18: pydap v3.5.4 does not support Python 3.13
+    # 2025-04-15: pydap v3.5.5 not supported by xarray<=2025.3.0
+    # - pydap  # provided by ravenpy
   # pykdtree: Fast kd-tree implementation with OpenMP-enabled queries
   # Fixes cartopy bug arising with scipy 1.11.
   # https://github.com/Ouranosinc/pavics-sdi/pull/298
@@ -160,28 +168,40 @@ dependencies:
   # geopy: Python Geocoding Toolbox
   # https://anaconda.org/conda-forge/geopy
   - geopy
-    # Hydrological analysis library built with xarray.
-    # https://anaconda.org/conda-forge/xhydro
-    # - xhydro
   # Monitor memory consumption of a process as well as line-by-line analysis of memory consumption for Python programs.
   # https://anaconda.org/anaconda/memory_profiler
   - memory_profiler
+  # esgf-compute-api: The API for end users for esgf compute stacks (cwt)
   # for esgf notebooks
+  # https://github.com/ESGF/esgf-compute-api
   - esgf-compute-api
   # esgf-pyclient: Python client for the Earth System Grid Federation (ESGF) web services.
   # https://anaconda.org/conda-forge/esgf-pyclient (for pavics-sdi esgf-dap.ipynb)
   - esgf-pyclient
-  # mesalib: open-source implementation of the OpenGL specification
+  # mesalib: Open-source implementation of the OpenGL specification
+  # https://anaconda.org/conda-forge/mesalib
   - mesalib
+
   # TESTING LIBRARIES
+
+  # pytest: The pytest framework makes it easy to write small tests, yet scales to support complex functional testing
+  # https://github.com/pytest-dev/pytest
   - pytest
+  # pytest-xdist: pytest plugin for distributed testing and loop-on-failures testing modes.
+  # https://github.com/pytest-dev/pytest-xdist
   - pytest-xdist >= 3.2.0  # Needed for xclim
+  # nbval: A py.test plugin to validate Jupyter notebooks
+  # https://github.com/computationalmodelling/nbval
   - nbval
-  # to edit .ipynb
+  # Jupyter conda metapackage: Install all the Jupyter components in one go.
+  # https://anaconda.org/conda-forge/jupyter
   - jupyter
+  # notebook: A web-based notebook environment for interactive computing.
   # to be launched by image jupyterhub/jupyterhub
+  # https://github.com/jupyter/notebook
   - notebook
-  # JupyterLab computational environment
+  # jupyterlab: An extensible environment for interactive and reproducible computing
+  # https://github.com/jupyterlab/jupyterlab
   - jupyterlab
   # JupyterHub: A multi-user server for Jupyter notebooks
   # https://github.com/jupyterhub/jupyterhub
@@ -196,13 +216,17 @@ dependencies:
   # gator: The Mamba Navigator, a Web UI for managing conda environments
   # https://github.com/mamba-org/gator (was jupyter_conda)
   - mamba_gator
-  # to diff .ipynb files
+  # nbdime: Jupyter Notebook Diff and Merge tools
+  # https://github.com/jupyter/nbdime
   - nbdime
-  # for rendering Bokeh content
+  # jupyter_bokeh: An extension for rendering Bokeh content in JupyterLab notebooks
+  # https://github.com/bokeh/jupyter_bokeh
   - jupyter_bokeh
-  # extension to produce .py files from notebook .ipynb files
+  # jupytext: extension to produce .py files from notebook .ipynb files
+  # https://github.com/mwouts/jupytext
   - jupytext
-  # jupyterlab extension for git
+  # jupyterlab-git: A JupyterLab extension for version control using Git
+  # https://github.com/jupyterlab/jupyterlab-git
   - jupyterlab-git >= 0.44.0
   # voila: Voilà turns Jupyter notebooks into standalone web applications
   # https://github.com/voila-dashboards/voila
@@ -257,27 +281,16 @@ dependencies:
     - xncml
     # hsclient: A python client for managing HydroShare resources, replaces hs_restclient
     # https://pypi.org/project/hsclient/
+    # This package relies on `hsmodels` which has explicit pins causing downgrades ("pydantic==2.7.*")
     - hsclient
-    # fstd2nc: Converts RPN standard files (from Environment Canada) to netCDF files.
-    # https://pypi.org/project/fstd2nc/
-    - fstd2nc
     # ipython_blocking: block execution of 'run_all_cells' until user input finished
     - ipython_blocking
-    # handcalcs: Mimics how one might format their calculation if it were written with a
-    # pencil: write the symbolic formula, followed by numeric substitutions,
-    # and then the result.
-    # DISABLE handcalcs, interfere with "Panel preview" button
-    # See comment https://github.com/holoviz/panel/issues/3440#issuecomment-1112182170
-    # - handcalcs
     # jupyternotify: Jupyter Magic For Browser Notifications of Cell Completion.
     # https://github.com/ShopRunner/jupyter-notify
     - jupyternotify
-    # jupyterlab-logout: JupyterLab extension to log out of JupyterHub
-    # https://github.com/jupyterlab-contrib/jupyterlab-logout (was from jupyterlab-topbar)
-    # - jupyterlab-logout
     # jupyterlab-tabular-data-editor: JupyterLab extension for editing tabular data
     # https://github.com/jupytercalpoly/jupyterlab-tabular-data-editor
-    - jupyterlab-tabular-data-editor
+    # - jupyterlab-tabular-data-editor
     # Needed to run notebook tests
     # Missing indirect recursive dependencies somewhere, should not need to manually add it here.
     - pytest-tornasync
