@@ -6,8 +6,6 @@ channels:
   - bokeh
 
 dependencies:
-  # Do not put xclim and ravenpy direct dependencies here to let xclim and ravenpy manage their own dependencies pinning.
-
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
   # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/master/recipe/meta.yaml
   # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/master/recipe/meta.yaml
@@ -22,7 +20,7 @@ dependencies:
   # clisops: Data reduction operations on xarray climate data
   - clisops >= 0.16.1
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
-  - ravenpy >= 0.18.0
+  - ravenpy >= 0.18.1
   # xclim: Climate indices computation package based on Xarray.
   - xclim >= 0.56.0
   # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
@@ -36,15 +34,19 @@ dependencies:
   # cf-xarray: xarray extension for CF-compliant data
   - cf_xarray >= 0.10.4
   # dask: parallel computing with task scheduling
-  - dask != 2024.11.0  # bug in this specific version broke Raven nb
+  - dask != 2024.11.0  # bug in this specific version broke Raven notebooks
+  # lmoments3: Estimate linear moments for statistical distribution functions.
+  - lmoments3 >= 1.0.8
   # matplotlib: 2D plotting library
   - matplotlib
   # numpy: fundamental package for scientific computing with Python
   - numpy >= 1.24
   # pandas: data structures and data analysis tools for Python
   - pandas
+  # pydantic: Data validation and settings management using Python type annotations
+  - pydantic >= 2.11
   # scipy: scientific computing library for Python
-  - scipy
+  - scipy >= 1.11.0
   # xarray: N-D labeled arrays and datasets in Python
   - xarray
 
@@ -81,16 +83,16 @@ dependencies:
   - siphon
   - pscript
     # - h5netcdf  # provided by ravenpy, xclim, xscen
-  - panel >= 1.2.2
   # https://github.com/holoviz/panel
+  - panel >= 1.2.2
+  # pyviz-comms: Simple bidirectional communication architecture between Python and JavaScript
   - pyviz_comms  # (was labextension pyviz/jupyterlab_pyviz in jupyterlab v2)
+  # holoviews: A high-level plotting API for the PyData ecosystem built on HoloViews.
+  # https://github.com/holoviz/holoviews
   - holoviews
   - geoviews >= 1.9.6
-  # this might still be relevant https://github.com/holoviz/hvplot/issues/498
-  # (violin plot not working with hvplot 0.6.0).
-  # Per this comment
-  # https://github.com/bird-house/birdhouse-deploy/pull/63#issuecomment-668270608
-  # pinning hvplot did not solve the problem with violin plot.
+  # hvplot: A high-level plotting API for pandas, dask, xarray, and networkx built on HoloViews.
+  # https://github.com/holoviz/hvplot
   - hvplot
   # dash: A web application framework for building data visualization interfaces.
   # https://anaconda.org/conda-forge/dash
@@ -161,9 +163,6 @@ dependencies:
     # Hydrological analysis library built with xarray.
     # https://anaconda.org/conda-forge/xhydro
     # - xhydro
-  # lmoments3: Estimate linear moments for statistical distribution functions.
-  # https://anaconda.org/conda-forge/lmoments3
-  - lmoments3
   # Monitor memory consumption of a process as well as line-by-line analysis of memory consumption for Python programs.
   # https://anaconda.org/anaconda/memory_profiler
   - memory_profiler
@@ -185,11 +184,16 @@ dependencies:
   # JupyterLab computational environment
   - jupyterlab
   # JupyterHub: A multi-user server for Jupyter notebooks
+  # https://github.com/jupyterhub/jupyterhub
   - jupyterhub
+  # ipywidgets: Interactive HTML Widgets
+  # https://github.com/jupyter-widgets/ipywidgets
   # https://ipywidgets.readthedocs.io/en/latest/user_install.html
   - ipywidgets
+  # ipyleaflet: A Jupyter / Leaflet bridge enabling interactive maps in the Jupyter notebook.
   # https://github.com/jupyter-widgets/ipyleaflet
   - ipyleaflet
+  # gator: The Mamba Navigator, a Web UI for managing conda environments
   # https://github.com/mamba-org/gator (was jupyter_conda)
   - mamba_gator
   # to diff .ipynb files
@@ -200,17 +204,21 @@ dependencies:
   - jupytext
   # jupyterlab extension for git
   - jupyterlab-git >= 0.44.0
-  # Voilà turns Jupyter notebooks into standalone web applications
+  # voila: Voilà turns Jupyter notebooks into standalone web applications
+  # https://github.com/voila-dashboards/voila
   - voila
+  # jupyterlab-archive: A Jupyter extension to make, download and extract archive files.
+  # https://github.com/jupyterlab-contrib/jupyter-archive
   # TODO: UNPIN jupyter-archive due to
   # https://github.com/jupyterlab-contrib/jupyter-archive/issues/132
   - jupyter-archive <= 3.3.4
+  # jupyterlab-topbar: JupyterLab Top Bar Extensions
   # https://github.com/jtpio/jupyterlab-topbar
   - jupyterlab-topbar
-  # https://github.com/jtpio/jupyterlab-system-monitor (was from jupyterlab-topbar)
-  - jupyterlab-system-monitor
-  - jupyter-resource-usage  # needed by jupyterlab-system-monitor
-  - nbresuse  # needed by jupyterlab-system-monitor
+  # jupyter-resource-usage: Jupyter Extension to show resource usage
+  # https://github.com/jupyter-server/jupyter-resource-usage
+  # migrated from https://github.com/jtpio/jupyterlab-system-monitor and originally from jupyterlab-topbar
+  - jupyter-resource-usage
   # xeus-python: back-end kernel implementing the Jupyter Debug Protocol
   # https://github.com/jupyter-xeus/xeus-python
   - xeus-python
