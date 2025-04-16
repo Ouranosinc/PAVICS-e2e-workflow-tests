@@ -46,18 +46,24 @@ dependencies:
   - lmoments3 >= 1.0.8
   # matplotlib: 2D plotting library
   - matplotlib
+  # netcdf4: Python interface to the netCDF C library
+  - netcdf4
   # numpy: fundamental package for scientific computing with Python
   - numpy >= 1.24
   # pandas: data structures and data analysis tools for Python
   - pandas
   # pydantic: Data validation and settings management using Python type annotations
   - pydantic >= 2.11
+  # pydap: A pure python implementation of the Data Access Protocol.
+  - pydap
   # scipy: scientific computing library for Python
   - scipy >= 1.11.0
   # sparse: Sparse arrays for Python
-  - sparse < 0.16.0 # bug with xesmf<=0.8.7 and numba>=61.0; xesmf==0.8.8 is broken; xesmf>=0.8.9 will fix this
+  - sparse >=0.16.0
   # xarray: N-D labeled arrays and datasets in Python
   - xarray
+  # xesmf: Universal Regridder for Geospatial Data
+  - xesmf >= 0.8.9
 
   # DEPENDENCIES
 
@@ -68,16 +74,10 @@ dependencies:
     # https://anaconda.org/conda-forge/flox
     # - flox # provided by xscen
   - birdy >= 0.8.7
-    # - netcdf4  # from ravenpy and xscen
   - libnetcdf
   # cfgrib: Python interface to map GRIB files to the Unidata's Common Data Model v4 following the CF Conventions.
   # https://github.com/ecmwf/cfgrib
   - cfgrib
-    # pydap: A pure python implementation of the Data Access Protocol.
-    # https://anaconda.org/conda-forge/pydap
-    # 2025-03-18: pydap v3.5.4 does not support Python 3.13
-    # 2025-04-15: pydap v3.5.5 not supported by xarray<=2025.3.0
-    # - pydap  # provided by ravenpy
   # pykdtree: Fast kd-tree implementation with OpenMP-enabled queries
   # Fixes cartopy bug arising with scipy 1.11.
   # https://github.com/Ouranosinc/pavics-sdi/pull/298
@@ -157,9 +157,6 @@ dependencies:
   # s3fs: Convenient Filesystem interface over S3
   # https://github.com/dask/s3fs/
   - s3fs
-  # xesmf: Universal Regridder for Geospatial Data
-  # https://github.com/pangeo-data/xESMF
-  - xesmf >= 0.7.0  # Needed for xscen 0.12.1
   # salib: Sensitivity Analysis Library
   # https://anaconda.org/conda-forge/salib
   - salib
