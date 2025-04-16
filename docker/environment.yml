@@ -36,6 +36,8 @@ dependencies:
 
   # cartopy: Python library for cartographic projections and geospatial data visualization
   - cartopy
+  # cftime: A Python library for handling time in netCDF files
+  - cftime
   # cf-xarray: xarray extension for CF-compliant data
   - cf_xarray >= 0.10.4
   # dask: parallel computing with task scheduling
@@ -120,14 +122,10 @@ dependencies:
   # https://anaconda.org/conda-forge/openpyxl
   - openpyxl
     # - nc-time-axis # provided by xscen
-    # - cftime  # provided by xclim, xscen, ravenpy
-    # - statsmodels  # provided by ravenpy
+    # - statsmodels # provided by ravenpy
   # for error 'ImportError: HTTPFileSystem requires "requests" and "aiohttp" to
   # be installed' with call 'fsspec.filesystem('https')'
   - aiohttp
-    # pydantic: Data validation and settings management using Python type annotations
-    # https://docs.pydantic.dev/latest/
-    # - pydantic  # provided by ravenpy
   # Intake: a lightweight set of tools for loading and sharing data in data science projects
   # https://intake.readthedocs.io/en/latest/
   - intake
@@ -279,18 +277,12 @@ dependencies:
     # xncml: Tools for manipulating and opening NCML (NetCDF Markup) files with/for xarray
     # https://pypi.org/project/xncml/
     - xncml
-    # hsclient: A python client for managing HydroShare resources, replaces hs_restclient
-    # https://pypi.org/project/hsclient/
-    # This package relies on `hsmodels` which has explicit pins causing downgrades ("pydantic==2.7.*")
-    - hsclient
     # ipython_blocking: block execution of 'run_all_cells' until user input finished
     - ipython_blocking
     # jupyternotify: Jupyter Magic For Browser Notifications of Cell Completion.
     # https://github.com/ShopRunner/jupyter-notify
     - jupyternotify
-    # jupyterlab-tabular-data-editor: JupyterLab extension for editing tabular data
-    # https://github.com/jupytercalpoly/jupyterlab-tabular-data-editor
-    # - jupyterlab-tabular-data-editor
+    # pytest-tornasync: pytest plugin for testing Tornado applications
     # Needed to run notebook tests
     # Missing indirect recursive dependencies somewhere, should not need to manually add it here.
     - pytest-tornasync
