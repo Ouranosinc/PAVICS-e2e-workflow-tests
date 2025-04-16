@@ -2,7 +2,8 @@ FROM continuumio/miniconda3
 
 # Use mamba for much improved performance over conda.
 # The 'channel_priority strict' did help conda but it was not enough.
-RUN conda update conda -n base && \
+RUN conda config --remove channels defaults || true && \
+    conda update conda -n base && \
     conda install mamba conda-pack -n base -c conda-forge && \
     conda clean --all --yes && \
     conda config --set channel_priority strict && \
@@ -20,8 +21,8 @@ RUN apt-get update && \
 
 # Create user jenkins for our Jenkins e2e notebooks test suite.
 # Change /opt/conda folder permissions for jupyter-conda extension.
-RUN groupadd --gid 1000 jenkins \
-    && useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins && \
+RUN groupadd --gid 1000 jenkins && \
+    useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins && \
     chmod -R a+rwX /opt/conda
 
 COPY environment.yml /environment.yml
@@ -44,7 +45,7 @@ COPY environment.yml /environment.yml
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 #
 RUN umask 0000 && \
-    mamba create --name birdy --channel conda-forge xclim ravenpy xscen python=3.11 --yes && \
+    mamba create --name birdy --channel conda-forge ravenpy xclim xscen xsdba python=3.11 --yes && \
     (conda env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
     (du -sh /opt/conda 2>&1 | tee /conda-envs-size-phase1.txt) && \
     mamba env update --name birdy --file /environment.yml && \
@@ -74,10 +75,10 @@ RUN python -m ipykernel install --name birdy && \
 # https://github.com/plotly/jupyter-dash/issues/49
 RUN jupyter lab build
 
-RUN jupyter serverextension enable voila --sys-prefix \
-    && jupyter serverextension enable panel.io.jupyter_server_extension --sys-prefix \
-    && jupyter serverextension list
-#    && jupyter labextension install jupyterlab-clipboard
+RUN jupyter serverextension enable voila --sys-prefix && \
+    jupyter serverextension enable panel.io.jupyter_server_extension --sys-prefix && \
+    jupyter serverextension list
+#   jupyter labextension install jupyterlab-clipboard
 
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
@@ -99,9 +100,12 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT/base-notebook/jupyter_notebook_config.py --output-document /etc/jupyter/jupyter_notebook_config.py && \
     chmod a+rx /usr/local/bin/start.sh /usr/local/bin/start-singleuser.sh /usr/local/bin/start-notebook.sh /usr/local/bin/fix-permissions && \
     chmod a+r /etc/jupyter/jupyter_notebook_config.py && \
-    mkdir -p /notebook_dir/writable-workspace && chown jenkins /notebook_dir/writable-workspace && \
-    mkdir -p /notebook_dir/pavics-homepage && chown jenkins /notebook_dir/pavics-homepage && \
-    chown root:root /notebook_dir && chmod a-w /notebook_dir && \
+    mkdir -p /notebook_dir/writable-workspace && \
+    chown jenkins /notebook_dir/writable-workspace && \
+    mkdir -p /notebook_dir/pavics-homepage && \
+    chown jenkins /notebook_dir/pavics-homepage && \
+    chown root:root /notebook_dir && \
+    chmod a-w /notebook_dir && \
     chmod a+rwX -R /opt/conda/envs/birdy/fonts && \
     mkdir /opt/conda/pkgs/cache && \
     chown jenkins:jenkins -R /opt/conda/pkgs/cache && \
