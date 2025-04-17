@@ -692,7 +692,6 @@ dependencies:
       - email-validator==2.2.0
       - figanos==0.4.0
       - fstd2nc==0.20250310.0
-      - hsclient==1.1.6
       - hsmodels==1.0.4
       - ipython-blocking==0.3.1
       - isodate==0.7.2
