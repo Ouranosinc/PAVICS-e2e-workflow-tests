@@ -42,6 +42,10 @@ dependencies:
   - cf_xarray >= 0.10.4
   # dask: parallel computing with task scheduling
   - dask != 2024.11.0  # bug in this specific version broke Raven notebooks
+  # flox: fast & furious GroupBy reductions for dask.array
+  - flox
+  # h5netcdf: NetCDF4 backend for h5py
+  - h5netcdf
   # lmoments3: Estimate linear moments for statistical distribution functions.
   - lmoments3 >= 1.0.8
   # matplotlib: 2D plotting library
@@ -64,17 +68,17 @@ dependencies:
   - xarray
   # xesmf: Universal Regridder for Geospatial Data
   - xesmf >= 0.8.9
+  # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
+  - zarr
 
   # DEPENDENCIES
 
   # fstd2nc: Converts RPN standard files (from Environment Canada) to netCDF files.
   # https://pypi.org/project/fstd2nc/
   - fstd2nc
-    # flox: fast & furious GroupBy reductions for dask.array
-    # https://anaconda.org/conda-forge/flox
-    # - flox # provided by xscen
+  # birdy: Birdy provides a command-line tool to work with Web Processing Services (WPS).
+  # https://github.com/bird-house/birdy
   - birdy >= 0.8.7
-  - libnetcdf
   # cfgrib: Python interface to map GRIB files to the Unidata's Common Data Model v4 following the CF Conventions.
   # https://github.com/ecmwf/cfgrib
   - cfgrib
@@ -86,13 +90,25 @@ dependencies:
   # pyogrio: Vectorized vector I/O using GDAL
   # https://anaconda.org/conda-forge/pyogrio
   - pyogrio
+  # scikit-image: Image processing in Python
+  # https://anaconda.org/conda-forge/scikit-image
   - scikit-image
+  # threddsclient: Python client for THREDDS Data Server (TDS) catalogs
+  # https://anaconda.org/conda-forge/threddsclient
   - threddsclient >= 0.4.5
+  # bokeh: Interactive Data Visualization in the browser, for Python.
+  # https://anaconda.org/conda-forge/bokeh
   - bokeh
+  # regionmask: A library for masking geospatial data with shapefiles.
+  # https://anaconda.org/conda-forge/regionmask
   - regionmask
+  # siphon: A collection of Python utilities for accessing remote geoscience data
+  # https://anaconda.org/conda-forge/siphon
   - siphon
+  # pscript: A Python to JavaScript compiler
+  # https://anaconda.org/conda-forge/pscript
   - pscript
-    # - h5netcdf  # provided by ravenpy, xclim, xscen
+  # Panel: The powerful data exploration & web app framework for Python
   # https://github.com/holoviz/panel
   - panel >= 1.2.2
   # pyviz-comms: Simple bidirectional communication architecture between Python and JavaScript
@@ -100,6 +116,8 @@ dependencies:
   # holoviews: A high-level plotting API for the PyData ecosystem built on HoloViews.
   # https://github.com/holoviz/holoviews
   - holoviews
+  # geoviews: A Python library for building complex visualizations of geospatial data.
+  # https://github.com/holoviz/geoviews
   - geoviews >= 1.9.6
   # hvplot: A high-level plotting API for pandas, dask, xarray, and networkx built on HoloViews.
   # https://github.com/holoviz/hvplot
@@ -121,21 +139,18 @@ dependencies:
   # openpyxl: library to read/write Excel 2010 xlsx/xlsm files
   # https://anaconda.org/conda-forge/openpyxl
   - openpyxl
-    # - nc-time-axis # provided by xscen
-    # - statsmodels # provided by ravenpy
-  # for error 'ImportError: HTTPFileSystem requires "requests" and "aiohttp" to
-  # be installed' with call 'fsspec.filesystem('https')'
+  # aiohttp: Asynchronous HTTP client/server framework for Python
+  # https://anaconda.org/conda-forge/aiohttp
+  # for error 'ImportError: HTTPFileSystem requires "requests" and "aiohttp" to be installed' with call 'fsspec.filesystem('https')'
   - aiohttp
   # Intake: a lightweight set of tools for loading and sharing data in data science projects
   # https://intake.readthedocs.io/en/latest/
   - intake
   # https://intake.readthedocs.io/en/latest/plugin-directory.html
   # intake-esm: Plugin for building and loading intake catalogs for earth system data sets
-  # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM
-  # Large Ensemble datasets.
+  # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM Large Ensemble datasets.
   - intake-esm >= 2025.2.3
-  # load netCDF, Zarr and other multi-dimensional data (xarray_image, netcdf,
-  # grib, opendap, rasterio, remote-xarray, zarr)
+  # load netCDF, Zarr and other multi-dimensional data (xarray_image, netcdf, grib, opendap, rasterio, remote-xarray, zarr)
   # TODO: Unpin intake-xarray
   # https://github.com/Ouranosinc/pavics-jupyter-env-issues/issues/17
   # https://github.com/intake/intake-esm/issues/688
@@ -151,12 +166,13 @@ dependencies:
   # gcsfs: Google Cloud Storage File System
   # https://anaconda.org/conda-forge/gcsfs
   - gcsfs
-    # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
-    # https://anaconda.org/conda-forge/zarr
-    # - zarr # provided by xscen
   # s3fs: Convenient Filesystem interface over S3
   # https://github.com/dask/s3fs/
   - s3fs
+  # pymetalink: Python library for creating and parsing Metalink files
+  # https://anaconda.org/conda-forge/pymetalink
+  # for Raven notebook Extract_geographical_watershed_properties.ipynb
+  - pymetalink
   # salib: Sensitivity Analysis Library
   # https://anaconda.org/conda-forge/salib
   - salib
@@ -182,12 +198,19 @@ dependencies:
   # pytest: The pytest framework makes it easy to write small tests, yet scales to support complex functional testing
   # https://github.com/pytest-dev/pytest
   - pytest
+  # pytest-tornasync: pytest plugin for testing Tornado applications
+  # Needed to run notebook tests
+  # Missing indirect recursive dependencies somewhere, should not need to manually add it here.
+  - pytest-tornasync
   # pytest-xdist: pytest plugin for distributed testing and loop-on-failures testing modes.
   # https://github.com/pytest-dev/pytest-xdist
   - pytest-xdist >= 3.2.0  # Needed for xclim
   # nbval: A py.test plugin to validate Jupyter notebooks
   # https://github.com/computationalmodelling/nbval
   - nbval
+
+  # JUPYTER LIBRARIES
+
   # Jupyter conda metapackage: Install all the Jupyter components in one go.
   # https://anaconda.org/conda-forge/jupyter
   - jupyter
@@ -228,8 +251,7 @@ dependencies:
   - voila
   # jupyterlab-archive: A Jupyter extension to make, download and extract archive files.
   # https://github.com/jupyterlab-contrib/jupyter-archive
-  # TODO: UNPIN jupyter-archive due to
-  # https://github.com/jupyterlab-contrib/jupyter-archive/issues/132
+  # TODO: UNPIN jupyter-archive due to: https://github.com/jupyterlab-contrib/jupyter-archive/issues/132
   - jupyter-archive <= 3.3.4
   # jupyterlab-topbar: JupyterLab Top Bar Extensions
   # https://github.com/jtpio/jupyterlab-topbar
@@ -247,26 +269,42 @@ dependencies:
   # dask-labextension: A JupyterLab extension for Dask.
   # https://github.com/dask/dask-labextension
   - dask-labextension
+
+  # MISCELLANEOUS EXTRAS
+
   # Force newer nodejs for 'jupyter lab build' issue
   # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998901247
   # TODO: remove nodejs once all extensions move to prebuilt extensions, see comment
   # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998917305
   - nodejs >= 16.0
-  # utilities
+
+  # UTILITIES
+
+  # curl: command-line tool for transferring data with URL syntax
   - curl
+  # wget: command-line utility for downloading files from the web
   - wget
+  # geckodriver: WebDriver for Firefox and Gecko-based browsers
+  - geckodriver
+  # nested_dict: A dictionary subclass that allows for nested dictionaries
+  # FIXME: Last release was in 2015. What is this doing here???
   - nested_dict
   - paramiko
-  - pymetalink  # for Raven notebook Extract_geographical_watershed_properties.ipynb
+  - pre-commit
+  # requests-magpie: Authentication library
+  # https://anaconda.org/conda-forge/requests-magpie
   - requests-magpie
   - scp
   - selenium
-  - geckodriver
+
   - xlrd
-  - pre-commit
+
+  # PIP PACKAGE SUPPORT
+  - pip # Needed for pip packages
+  - xmltodict # Needed for xncml
+  - xsdata # Needed for xncml
 
   # PIP PACKAGES
-  - pip
   - pip:
     # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
     # https://pypi.org/project/figanos/
@@ -275,11 +313,5 @@ dependencies:
     # https://pypi.org/project/xncml/
     - xncml
     # ipython_blocking: block execution of 'run_all_cells' until user input finished
+    # https://github.com/kafonek/ipython_blocking
     - ipython_blocking
-    # jupyternotify: Jupyter Magic For Browser Notifications of Cell Completion.
-    # https://github.com/ShopRunner/jupyter-notify
-    - jupyternotify
-    # pytest-tornasync: pytest plugin for testing Tornado applications
-    # Needed to run notebook tests
-    # Missing indirect recursive dependencies somewhere, should not need to manually add it here.
-    - pytest-tornasync
