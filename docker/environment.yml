@@ -35,13 +35,13 @@ dependencies:
   # Only add pins here as needed
 
   # cartopy: Python library for cartographic projections and geospatial data visualization
-  - cartopy
+  - cartopy >= 0.23
   # cftime: A Python library for handling time in netCDF files
   - cftime
   # cf-xarray: xarray extension for CF-compliant data
   - cf_xarray >= 0.10.4
   # dask: parallel computing with task scheduling
-  - dask != 2024.11.0  # bug in this specific version broke Raven notebooks
+  - dask != 2024.11.0  # a bug in this specific version broke Raven notebooks
   # flox: fast & furious GroupBy reductions for dask.array
   - flox
   # h5netcdf: NetCDF4 backend for h5py
@@ -55,7 +55,7 @@ dependencies:
   # numpy: fundamental package for scientific computing with Python
   - numpy >= 1.24
   # pandas: data structures and data analysis tools for Python
-  - pandas
+  # - pandas  # managed by core libraries
   # pydantic: Data validation and settings management using Python type annotations
   - pydantic >= 2.11
   # pydap: A pure python implementation of the Data Access Protocol.
@@ -64,12 +64,12 @@ dependencies:
   - scipy >= 1.11.0
   # sparse: Sparse arrays for Python
   - sparse >= 0.16.0
-  # xarray: N-D labeled arrays and datasets in Python
-  - xarray
+  # xarray: N-D labelled arrays and datasets in Python
+  # - xarray  # managed by core libraries
   # xesmf: Universal Regridder for Geospatial Data
   - xesmf >= 0.8.9
   # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
-  - zarr
+  # - zarr  # managed by core libraries
 
   # DEPENDENCIES
 
@@ -93,7 +93,7 @@ dependencies:
   # scikit-image: Image processing in Python
   # https://anaconda.org/conda-forge/scikit-image
   - scikit-image
-  # threddsclient: Python client for THREDDS Data Server (TDS) catalogs
+  # threddsclient: Python client for THREDDS Data Server (TDS) catalogues
   # https://anaconda.org/conda-forge/threddsclient
   - threddsclient >= 0.4.5
   # bokeh: Interactive Data Visualization in the browser, for Python.
@@ -147,7 +147,7 @@ dependencies:
   # https://intake.readthedocs.io/en/latest/
   - intake
   # https://intake.readthedocs.io/en/latest/plugin-directory.html
-  # intake-esm: Plugin for building and loading intake catalogs for earth system data sets
+  # intake-esm: Plugin for building and loading intake catalogues for earth system data sets
   # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM Large Ensemble datasets.
   - intake-esm >= 2025.2.3
   # load netCDF, Zarr and other multi-dimensional data (xarray_image, netcdf, grib, opendap, rasterio, remote-xarray, zarr)
@@ -160,7 +160,7 @@ dependencies:
   # geopandas (geojson, postgis, shapefile, spatialite) and regionmask for opening shapefiles into regionmask.
   # https://github.com/intake/intake_geopandas
   - intake-geopandas
-  # Intake interface to THREDDS data catalogs (thredds_cat, thredds_merged_source)
+  # Intake interface to THREDDS data catalogues (thredds_cat, thredds_merged_source)
   # https://github.com/intake/intake-thredds
   - intake-thredds
   # gcsfs: Google Cloud Storage File System
