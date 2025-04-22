@@ -63,7 +63,7 @@ dependencies:
   # scipy: scientific computing library for Python
   - scipy >= 1.11.0
   # sparse: Sparse arrays for Python
-  - sparse >=0.16.0
+  - sparse >= 0.16.0
   # xarray: N-D labeled arrays and datasets in Python
   - xarray
   # xesmf: Universal Regridder for Geospatial Data
@@ -289,14 +289,18 @@ dependencies:
   # nested_dict: A dictionary subclass that allows for nested dictionaries
   # FIXME: Last release was in 2015. What is this doing here???
   - nested_dict
+  # paramiko: Python implementation of the SSH protocol
   - paramiko
+  # pre-commit: framework for managing and maintaining multi-language pre-commit hooks
   - pre-commit
   # requests-magpie: Authentication library
   # https://anaconda.org/conda-forge/requests-magpie
   - requests-magpie
+  # scp: Secure Copy Protocol (SCP) implementation for Python and Paramiko
   - scp
+  # selenium: Python library for automating web browser interaction
   - selenium
-
+  # xlrd: Python library for reading data and formatting information from legacy Excel files
   - xlrd
 
   # PIP PACKAGE SUPPORT
