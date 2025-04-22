@@ -10,6 +10,7 @@ USER root
 # Use 'update' for existing and 'install' for new package.
 # Keep same channel ordering to not revert anything.
 RUN umask 0000 && \
+    conda config --prepend channel nodefaults || true && \
     conda config --remove channels defaults || true && \
     pip uninstall -y hsclient && \
     mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers ravenpy==0.18.1 sparse==0.15.5 && \
