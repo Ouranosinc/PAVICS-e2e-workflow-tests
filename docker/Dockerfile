@@ -65,7 +65,7 @@ RUN python -m ipykernel install --name birdy && \
 
 # install using same channel preferences as birdy original env to not downgrade anything accidentally
 # this is for debug only, all dependencies should be specified in environment.yml above
-# RUN mamba install -c conda-forge -c cdat -c bokeh -c plotly -n birdy nbdime
+# RUN mamba install -c conda-forge -c cdat -c bokeh -c fortiers -n birdy nbdime
 
 # build jupyterlab extensions installed by conda, see `jupyter labextension list`
 # Supposedly not needed with jupyterlab v3 anymore but see

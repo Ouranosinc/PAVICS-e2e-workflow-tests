@@ -37,7 +37,7 @@ dependencies:
   # cartopy: Python library for cartographic projections and geospatial data visualization
   - cartopy >= 0.23
   # cftime: A Python library for handling time in netCDF files
-  - cftime
+  # - cftime  # managed by core libraries
   # cf-xarray: xarray extension for CF-compliant data
   - cf_xarray >= 0.10.4
   # dask: parallel computing with task scheduling
@@ -51,13 +51,13 @@ dependencies:
   # matplotlib: 2D plotting library
   - matplotlib
   # netcdf4: Python interface to the netCDF C library
-  - netcdf4
+  # - netcdf4  # managed by core libraries
   # numpy: fundamental package for scientific computing with Python
   - numpy >= 1.24
   # pandas: data structures and data analysis tools for Python
   # - pandas  # managed by core libraries
   # pydantic: Data validation and settings management using Python type annotations
-  - pydantic >= 2.11
+  # - pydantic  # managed by core libraries
   # pydap: A pure python implementation of the Data Access Protocol.
   - pydap
   # scipy: scientific computing library for Python

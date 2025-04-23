@@ -23,7 +23,7 @@ RUN umask 0000 && \
 #     mamba clean --all --yes && \
 #     pip install --no-cache-dir --upgrade figanos && \
 #     pip uninstall -y ravenpy && \
-#     mamba install -c conda-forge -c cdat -c bokeh -c plotly -n birdy ravenpy aiohttp
+#     mamba install -c conda-forge -c cdat -c bokeh -c fortiers -n birdy ravenpy aiohttp
 
 # RUN umask 0000 && \
 #     python -m pip install --upgrade --force-reinstall --no-deps --no-cache-dir netcdf4==1.6.0 --no-binary netcdf4
