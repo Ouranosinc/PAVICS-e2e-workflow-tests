@@ -75,7 +75,7 @@ dependencies:
 
   # fstd2nc: Converts RPN standard files (from Environment Canada) to netCDF files.
   # https://pypi.org/project/fstd2nc/
-  - fstd2nc
+  - fstd2nc >= 0.20250310.0  # build1 fixes issues in build0
   # birdy: Birdy provides a command-line tool to work with Web Processing Services (WPS).
   # https://github.com/bird-house/birdy
   - birdy >= 0.8.7
