@@ -1,3 +1,73 @@
+Started by user Trevor James Smith
+Replayed #482
+ > git rev-parse --is-inside-work-tree # timeout=10
+Setting origin to https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git
+ > git config remote.origin.url https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git # timeout=10
+Fetching origin...
+Fetching upstream changes from origin
+ > git --version # timeout=10
+ > git config --get remote.origin.url # timeout=10
+ > git fetch --tags --progress -- origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/current-production-version
+Seen branch in repository origin/devel-new-extensions
+Seen branch in repository origin/extended_tests
+Seen branch in repository origin/master
+Seen branch in repository origin/new-docker-build
+Seen branch in repository origin/new-docker-build-py312
+Seen branch in repository origin/pin-jupyter-env
+Seen branch in repository origin/test-dockerhub-build
+Seen branch in repository origin/twitcher_perf_test_notebook
+Seen 9 remote branches
+Obtained Jenkinsfile from 3b4682eec5a673b5f9b7103e34e4663706964cbd
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on linux1 in /home/jenkins/agent/workspace/_workflow-tests_new-docker-build
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+No credentials specified
+Fetching changes from the remote Git repository
+Fetching without tags
+ > git rev-parse --is-inside-work-tree # timeout=10
+ > git config remote.origin.url https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git # timeout=10
+Fetching upstream changes from https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git
+ > git --version # timeout=10
+ > git fetch --no-tags --progress -- https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision 3b4682eec5a673b5f9b7103e34e4663706964cbd (new-docker-build)
+Commit message: "update build log and environment"
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 3b4682eec5a673b5f9b7103e34e4663706964cbd # timeout=10
+ > git rev-list --no-walk 3b4682eec5a673b5f9b7103e34e4663706964cbd # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
++ docker inspect -f . pavics/workflow-tests:py311-250423
+.
+[Pipeline] withDockerContainer
+linux1 seems to be running inside container 6f0fbbe67eab302fc9f64e219c6ebe1dd0fd2c0d35482dcc73fc606c1d9b6894
+$ docker run -t -d -u 1000:1000 -w /home/jenkins/agent/workspace/_workflow-tests_new-docker-build --volumes-from 6f0fbbe67eab302fc9f64e219c6ebe1dd0fd2c0d35482dcc73fc606c1d9b6894 -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** pavics/workflow-tests:py311-250423 cat
+$ docker top 527170f20e221d728084623e547c26c094eed09004fb9502aace7c1bc6f29b61 -eo pid,comm
+[Pipeline] {
+[Pipeline] ansiColor
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+15:09:06  Timeout set to expire in 4 hr 0 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Run tests)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withCredentials
+15:09:07  Masking supported pattern matches of $ESGF_AUTH_USERNAME or $ESGF_AUTH_PASSWORD or $ESGF_AUTH_TOKEN or $COMPUTE_TOKEN
+[Pipeline] {
+[Pipeline] sh
 15:09:08  + VERIFY_SSL=true SAVE_RESULTING_NOTEBOOK=true ./testall
 15:09:08  TEST_PAVICS_SDI_REPO has been set to 'true'
 15:09:08  PAVICS_SDI_BRANCH has been set to 'pjei-update-202504'
@@ -2274,3 +2344,39 @@
 16:35:32  + rm -fv buildout/env-dump/pip-freeze-birdy-requirements.txt
 16:35:32  + pip freeze
 16:35:32  + exit 1
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+16:35:34  Archiving artifacts
+16:35:36  Recording fingerprints
+[Pipeline] archiveArtifacts
+16:35:47  Archiving artifacts
+16:35:47  Recording fingerprints
+[Pipeline] emailextrecipients
+[Pipeline] step
+16:35:47  Sending e-mails to: smith.trevorj@ouranos.ca
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // ansiColor
+[Pipeline] }
+$ docker stop --time=1 527170f20e221d728084623e547c26c094eed09004fb9502aace7c1bc6f29b61
+$ docker rm -f 527170f20e221d728084623e547c26c094eed09004fb9502aace7c1bc6f29b61
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
