@@ -29,10 +29,10 @@ update_ver Jenkinsfile
 update_ver binder/Dockerfile
 
 git add launchcontainer launchnotebook Jenkinsfile binder/Dockerfile
-git st -v
+git status -v
 echo "Looks good to commit? (Ctrl-C to abort)"; read a
 
-git ci -m "release: update to use image pavics/workflow-tests:$NEW_VER"
+git commit -m "release: update to use image pavics/workflow-tests:$NEW_VER"
 git show
 echo "Looks good to tag? (Ctrl-C to abort)"; read a
 

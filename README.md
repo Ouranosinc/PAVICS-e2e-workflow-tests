@@ -1,50 +1,32 @@
 # PAVICS-e2e-workflow-tests
-Test user-level end-to-end workflow.
 
+Test user-level end-to-end workflow.
 
 ## Description
 
-This repo ensure the various Jupyter notebooks run without errors against the
-chosen [PAVICS
-server](https://github.com/bird-house/birdhouse-deploy/blob/master/birdhouse)
-and still produce the same output.
+This repository ensures that the various Jupyter notebooks run without errors against the chosen [PAVICS server](https://github.com/bird-house/birdhouse-deploy/blob/master/birdhouse) and still produce the same output.
 
 Resulting benefits:
 
-* Those Jupyter notebooks that are the test suite also double as documentation
-  for the features provided to the end users.  More incentive to write more
-  documentations and more tests since writing one and the other one comes for
-  free!
+* Jupyter notebooks that constitue the test suite can also double as documentation for the features provided to the end-users. More incentive to write more documentation and more tests since adding documentation means adding tests for free!
 
-* Those test suite are also useful during upgrade of some parts of the system
-  since we are able to target different PAVICS servers with the same test suite.
+* This test suite is also useful during the upgrade of the system components since we are able to target different PAVICS servers with the same test suite.
 
-* Jenkins (see [Jenkinsfile](Jenkinsfile)) is configured to run the test suite
-  regularly so we are able to detect regressions on servers or out-of-date
-  output or code in the Jupyter notebooks.  No more mismatched, outdated
+* Jenkins (see [Jenkinsfile](Jenkinsfile)) is configured to run the test suite regularly, so we are able to detect regressions on servers or out-of-date output or code in the Jupyter notebooks. No more mismatched or outdated
   documentation!
 
-* The runtime environment used by Jenkins is the exact same Jupyter environment
-  deployed on PAVICS, ensuring we do not provide broken Jupyter environment to
-  our users when then need to try out the tutorial notebooks.
+* The runtime environment used by `Jenkins` is the exact same Jupyter environment deployed on PAVICS, ensuring we do not provide broken Jupyter environments to our users when the wish to try out the tutorial notebooks.
 
-* Indirectly this also serve as a monitoring tool for the servers.  Standard
-  monitoring tools normally just ensure the services are up and running.  This
-  will actually monitor that the most useful and frequently used user workflows
-  are working end-to-end.
+* Indirectly, this also serves as a monitoring tool for the servers. Standard monitoring tools normally just ensure the services are up and running. This will actually monitor that the most useful and frequently used user workflows are working end-to-end.
 
-[nbval](https://github.com/computationalmodelling/nbval) pytest plugin used to
-validate Jupyter notebooks.
+Built using the [nbval](https://github.com/computationalmodelling/nbval) Pytest plugin used to validate Jupyter notebooks.
 
-Fully pre-configured turnkey deployment of Jenkins for this test suite can be
-found at https://github.com/Ouranosinc/jenkins-config.
+Fully pre-configured turnkey deployment of `Jenkins` for this test suite can be found at https://github.com/Ouranosinc/jenkins-config.
 
 ## Launch Jupyter Notebook server using Binder
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Ouranosinc/PAVICS-e2e-workflow-tests/master)
 
-Click the Binder button above to launch a Jupyter Notebook server on Binder's
-cloud to test out all the notebooks in this test suite.
-
+Click the Binder button above to launch a Jupyter Notebook server on Binder's cloud to test out all the notebooks in this test suite.
 
 ## Run locally
 
@@ -83,47 +65,28 @@ SAVE_RESULTING_NOTEBOOK=true ./runtest
 
 ## Design considerations
 
-Since the runtime environment is provided by the Docker container, it is not
-required to create a conda env to run the tests.
+As the runtime environment is provided via the Docker container, it is not required to create a conda env to run the tests.
 
-By using the exact same Docker container as the one that Jenkins will use, you
-will be guarantied that if a notebook runs locally, it will also run
-successfully on Jenkins.
+By using the exact same Docker container as the one that Jenkins will use, you will be guarantied that if a notebook runs locally, it will also run successfully on Jenkins.
 
-Therefore we do not need to pin any versions in the conda
-[`environment.yml`](docker/environment.yml) file since the built docker image
-provided us with pinned version for reproducibility.
+Therefore, we do not need to pin any versions in the conda [`environment.yml`](docker/environment.yml) file since the built docker image provides the pinned versions for reproducibility.
 
-To encourage more notebooks written/contribution, which means more
-documentations and more tests, it is easy to add new notebooks and the test
-runner can even run notebooks from several external repos (current also
-running the notebooks from the
-[pavics-sdi](https://github.com/Ouranosinc/pavics-sdi/tree/master/docs/source/notebooks)
-repo, more can be added easily).
+To encourage more notebooks written/contribution, which means more documentation and more tests, we have aimed to make it easy for users to add new notebooks. The test runner can even run notebooks from external repos (at present, notebooks from the [pavics-sdi](https://github.com/Ouranosinc/pavics-sdi/tree/master/docs/source/notebooks), [PAVICS-landing](https://github.com/Ouranosinc/PAVICS-landing/tree/master/content/notebooks), [RavenPy](https://github.com/CSHS-CWRA/RavenPy/tree/master/docs/notebooks) repositories are run and more can be added easily).
 
-By default we regex replace `pavics.ouranos.ca` to the hostname of the server
-under test to test all components of the server under test.  However, we do not
-perform this regex replace for `.ncml` links so `.ncml` links will come from
-our production server `pavics.ouranos.ca`.  The reason is that `.ncml` files
-require a large amount of `.nc` matching files to be copied to the server under
-test so we want to avoid this setup burden for the server under test.  Regular
-`.nc` files will still have to be copied over so the Thredds component is
-tested.
-
+By default, we use regex to replace `pavics.ouranos.ca` with the hostname of the server under test to test all components of the server under test.  However, we do not perform this regex replacement step for `.ncml` links so `.ncml` links will come from our production server `pavics.ouranos.ca`. The reason here is that `.ncml` files
+require a large amount of `.nc` matching files to be copied to the server under test so we want to avoid this setup burden for the server under test.  Typical `.nc` files will still have to be copied over so the Thredds component is tested.
 
 ## Adding more notebooks to tests
 
-Simply add another `.ipynb` file under folder `notebooks/` and it'll be picked
-up by the runner.
+Add another `.ipynb` file under folder `notebooks/` and it'll be picked up by the runner.
 
+## Start Jupyter Notebook to modify one of the notebooks
 
-## Start Jupyter notebook to modify one of the notebooks
-
-```
+```shell
 ./launchnotebook [port]
 ```
 
-then follow the output to open the browser to your local Jupyter instance.
+Then follow the output to open the browser to your local Jupyter instance.
 
 Example output:
 ```
@@ -140,15 +103,12 @@ Example output:
         http://(ebe30a480ccf or 127.0.0.1):8890/?token=22fc0be94eb948977fc235b588116c670beafde4374d8de8
 ```
 
-So you would open
-`http://localhost:8890/?token=22fc0be94eb948977fc235b588116c670beafde4374d8de8`
-then navigate to
-`http://localhost:8890/tree/home/lvu/repos/PAVICS-e2e-workflow-tests/notebooks`
-if `/home/lvu/repos/PAVICS-e2e-workflow-tests` is where you have this repo
-checked out on your local machine.
+So you would open:`http://localhost:8890/?token=22fc0be94eb948977fc235b588116c670beafde4374d8de8`
+Then navigate to: `http://localhost:8890/tree/home/lvu/repos/PAVICS-e2e-workflow-tests/notebooks`
+if `/home/lvu/repos/PAVICS-e2e-workflow-tests` is where you have this repo checked out on your local machine.
 
 To stop the notebook:
-```
+```shell
 docker stop birdy-notebook  # the container created by launchnotebook
 ```
 
@@ -159,8 +119,7 @@ cd docker
 docker build -t my_image_name .
 ```
 
-
-## Start Jupyter notebook to test a local docker image build
+## Start Jupyter Notebook to test a local docker image build
 
 ```shell
 DOCKER_IMAGE="my_image_name" ./launchnotebook [port]
@@ -169,17 +128,13 @@ DOCKER_IMAGE="my_image_name" ./launchnotebook [port]
 DOCKER_IMAGE="my_image_name" DOCKER_RUN_OPTS="-v /some/dir/locally:/some/dir/in/container ./launchnotebook [port]
 ```
 
-For usage, same instructions as 'Start Jupyter notebook to modify one of the notebooks' above.
-
+For usage, follow the same instructions as 'Start Jupyter notebook to modify one of the notebooks' above.
 
 ## Releasing a new Docker image
 
 Use the script [`releasedocker`](releasedocker)` <old_ver> <new_ver>`, example:
 `releasedocker 190311 190312`.
 
-This script will commit, tag and push a new release.  You need write access to
-the repo when using this script.
+This script will commit, tag and push a new release. You will need write-access to the repo when using this script.
 
-Then Docker Hub will build automatically the new tag and eventually we have a
-new image, example:
-[`pavics/workflow-tests:190312`](https://hub.docker.com/r/pavics/workflow-tests/tags).
+Then Docker Hub will build automatically the new tag, and eventually we will have a new image, example: [`pavics/workflow-tests:190312`](https://hub.docker.com/r/pavics/workflow-tests/tags).

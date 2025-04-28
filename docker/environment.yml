@@ -4,92 +4,133 @@ channels:
   - conda-forge
   - cdat
   - bokeh
-    # - plotly  # for jupyter-dash
-    #  - pyston
-  - pyviz/label/dev  # for jupyter-panel-proxy, panel
-  - defaults
-
+  - fortiers  # for fstd2nc
 dependencies:
-
-  # Do not put xclim and ravenpy direct dependencies here to let xclim and ravenpy
-  # manage their own dependencies pinning.
-  #
-  # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/master/recipe/meta.yaml
+  # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
   # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/master/recipe/meta.yaml
+  # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/master/recipe/meta.yaml
+  # xhydro direct dependencies: https://github.com/conda-forge/xhydro-feedstock/blob/main/recipe/meta.yaml
+  # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
+  # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
 
-  # Pin latest xclim and ravenpy to avoid downgrading during the second installation phase.
+  # Pin latest clisops, ravenpy, xclim, xhydro, xscen, and xsdba to avoid downgrading during the second installation phase.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
-  - xclim >= 0.53.2
-  - ravenpy >= 0.16.0
 
-  # https://anaconda.org/conda-forge/xscen
-  # A climate change scenario-building analysis framework, built with xclim/xarray.
-  - xscen >= 0.10.1
+  ## CORE LIBRARIES
 
-    #- dask  # from xclim and ravenpy
-  - dask != 2024.11.0  # bug in this specific version broke Raven nb
-    #- distributed
+  # clisops: Data reduction operations on xarray climate data
+  - clisops >= 0.16.1
+  # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
+  - ravenpy >= 0.18.1
+  # xclim: Climate indices computation package based on Xarray.
+  - xclim >= 0.56.0
+  # Hydrological analysis library built with xarray.
+  # - xhydro  # 2025-04: Currently deactivated due to older dependency pins
+  # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
+  - xscen >= 0.12.1
+  # xsdba: Statistical correction and bias adjustment tools for xarray.
+  - xsdba >= 0.4.0
 
+  ## COMMON LIBRARIES
+  # Only add pins here as needed
+
+  # cartopy: Python library for cartographic projections and geospatial data visualization
+  - cartopy >= 0.23
+  # cftime: A Python library for handling time in netCDF files
+  # - cftime  # managed by core libraries
+  # cf-xarray: xarray extension for CF-compliant data
+  - cf_xarray >= 0.10.4
+  # dask: parallel computing with task scheduling
+  - dask != 2024.11.0  # a bug in this specific version broke Raven notebooks
   # flox: fast & furious GroupBy reductions for dask.array
-  # https://flox.readthedocs.io/en/latest/
-  # https://anaconda.org/conda-forge/flox
   - flox
+  # h5netcdf: NetCDF4 backend for h5py
+  - h5netcdf
+  # lmoments3: Estimate linear moments for statistical distribution functions.
+  - lmoments3 >= 1.0.8
+  # matplotlib: 2D plotting library
   - matplotlib
-    # - xarray  # from xclim and ravenpy
-    # - numpy  # from xclim and ravenpy
-  - numpy
-  # TODO: unpin cf_xarray due to https://github.com/xarray-contrib/cf-xarray/issues/442
-  - cf_xarray != 0.8.1
-  - birdy >= 0.8.7
-    # - owslib>=0.23.0  # from ravenpy
-    # - netcdf4  # from ravenpy
-  - libnetcdf
-  # https://github.com/ecmwf/cfgrib
-  # Python interface to map GRIB files to the Unidata's Common Data Model v4
-  # following the CF Conventions.
-  - cfgrib
+  # netcdf4: Python interface to the netCDF C library
+  # - netcdf4  # managed by core libraries
+  # numpy: fundamental package for scientific computing with Python
+  - numpy >= 1.24
+  # pandas: data structures and data analysis tools for Python
+  # - pandas  # managed by core libraries
+  # pydantic: Data validation and settings management using Python type annotations
+  # - pydantic  # managed by core libraries
+  # pydap: A pure python implementation of the Data Access Protocol.
   - pydap
-  - cartopy >= 0.21.0
+  # scipy: scientific computing library for Python
+  - scipy >= 1.11.0
+  # sparse: Sparse arrays for Python
+  - sparse >= 0.16.0
+  # xarray: N-D labelled arrays and datasets in Python
+  # - xarray  # managed by core libraries
+  # xesmf: Universal Regridder for Geospatial Data
+  - xesmf >= 0.8.9
+  # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
+  # - zarr  # managed by core libraries
+
+  # DEPENDENCIES
+
+  # fstd2nc: Converts RPN standard files (from Environment Canada) to netCDF files.
+  # https://pypi.org/project/fstd2nc/
+  - fstd2nc >= 0.20250310.0  # build1 fixes issues in build0
+  # birdy: Birdy provides a command-line tool to work with Web Processing Services (WPS).
+  # https://github.com/bird-house/birdy
+  - birdy >= 0.8.7
+  # cfgrib: Python interface to map GRIB files to the Unidata's Common Data Model v4 following the CF Conventions.
+  # https://github.com/ecmwf/cfgrib
+  - cfgrib
+  # pykdtree: Fast kd-tree implementation with OpenMP-enabled queries
   # Fixes cartopy bug arising with scipy 1.11.
   # https://github.com/Ouranosinc/pavics-sdi/pull/298
   # https://github.com/Ouranosinc/pavics-sdi/issues/294
   - pykdtree
-  - descartes # Is this really needed???
-    # - rasterio  # from ravenpy
-    # - gdal  # for osgeo, from ravenpy
-    # - geopandas  # from ravenpy
-    # - pandas  # from xclim and ravenpy
-    # - rioxarray  # from ravenpy
+  # pyogrio: Vectorized vector I/O using GDAL
   # https://anaconda.org/conda-forge/pyogrio
-  # Vectorized vector I/O using GDAL
   - pyogrio
+  # scikit-image: Image processing in Python
+  # https://anaconda.org/conda-forge/scikit-image
   - scikit-image
-  - ipyleaflet
+  # threddsclient: Python client for THREDDS Data Server (TDS) catalogues
+  # https://anaconda.org/conda-forge/threddsclient
   - threddsclient >= 0.4.5
+  # bokeh: Interactive Data Visualization in the browser, for Python.
+  # https://anaconda.org/conda-forge/bokeh
   - bokeh
+  # regionmask: A library for masking geospatial data with shapefiles.
+  # https://anaconda.org/conda-forge/regionmask
   - regionmask
+  # siphon: A collection of Python utilities for accessing remote geoscience data
+  # https://anaconda.org/conda-forge/siphon
   - siphon
-  - jupyter_bokeh
+  # pscript: A Python to JavaScript compiler
+  # https://anaconda.org/conda-forge/pscript
   - pscript
-  - h5netcdf
-  - panel >= 1.2.2
+  # Panel: The powerful data exploration & web app framework for Python
   # https://github.com/holoviz/panel
+  - panel >= 1.2.2
+  # pyviz-comms: Simple bidirectional communication architecture between Python and JavaScript
   - pyviz_comms  # (was labextension pyviz/jupyterlab_pyviz in jupyterlab v2)
+  # holoviews: A high-level plotting API for the PyData ecosystem built on HoloViews.
+  # https://github.com/holoviz/holoviews
   - holoviews
+  # geoviews: A Python library for building complex visualizations of geospatial data.
+  # https://github.com/holoviz/geoviews
   - geoviews >= 1.9.6
-  # this might still be relevant https://github.com/holoviz/hvplot/issues/498
-  # (violin plot not working with hvplot 0.6.0).
-  # Per this comment
-  # https://github.com/bird-house/birdhouse-deploy/pull/63#issuecomment-668270608
-  # pinning hvplot did not solve the problem with violin plot.
+  # hvplot: A high-level plotting API for pandas, dask, xarray, and networkx built on HoloViews.
+  # https://github.com/holoviz/hvplot
   - hvplot
+  # dash: A web application framework for building data visualization interfaces.
   # https://anaconda.org/conda-forge/dash
   - dash >= 2.16.1
+  # streamlit: For creating web apps for data science and machine learning projects.
   # https://streamlit.io/
   # https://anaconda.org/conda-forge/streamlit
   - streamlit
+  # Seaborn: Statistical data visualization
   # https://anaconda.org/conda-forge/seaborn
-  # Statistical data visualization
   - seaborn
   # python-pptx is a Python library for creating and updating PowerPoint (.pptx) files.
   # https://python-pptx.readthedocs.io/en/latest/
@@ -98,161 +139,183 @@ dependencies:
   # openpyxl: library to read/write Excel 2010 xlsx/xlsm files
   # https://anaconda.org/conda-forge/openpyxl
   - openpyxl
-  - nc-time-axis
-    # - cftime  # from xclim and ravenpy
-    # - statsmodels  # for ravenpy
-  # for error 'ImportError: HTTPFileSystem requires "requests" and "aiohttp" to
-  # be installed' with call 'fsspec.filesystem('https')'
+  # aiohttp: Asynchronous HTTP client/server framework for Python
+  # https://anaconda.org/conda-forge/aiohttp
+  # for error 'ImportError: HTTPFileSystem requires "requests" and "aiohttp" to be installed' with call 'fsspec.filesystem('https')'
   - aiohttp
-    # - pydantic  # from ravenpy
-  # Intake is a lightweight set of tools for loading and sharing data in data science projects
+  # Intake: a lightweight set of tools for loading and sharing data in data science projects
+  # https://intake.readthedocs.io/en/latest/
   - intake
   # https://intake.readthedocs.io/en/latest/plugin-directory.html
-  # Plugin for building and loading intake catalogs for earth system data sets
-  # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM
-  # Large Ensemble datasets.
-  - intake-esm >= 2023.6.14
-  # load netCDF, Zarr and other multi-dimensional data (xarray_image, netcdf,
-  # grib, opendap, rasterio, remote-xarray, zarr)
-  - intake-xarray
+  # intake-esm: Plugin for building and loading intake catalogues for earth system data sets
+  # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM Large Ensemble datasets.
+  - intake-esm >= 2025.2.3
+  # load netCDF, Zarr and other multi-dimensional data (xarray_image, netcdf, grib, opendap, rasterio, remote-xarray, zarr)
+  # TODO: Unpin intake-xarray
+  # https://github.com/Ouranosinc/pavics-jupyter-env-issues/issues/17
+  # https://github.com/intake/intake-esm/issues/688
+  # https://github.com/intake/intake-thredds/issues/136
+  - intake-xarray < 2.0.0
   # load from ESRI Shape Files, GeoJSON, and geospatial databases with
-  # geopandas (geojson, postgis, shapefile, spatialite) and regionmask for
-  # opening shapefiles into regionmask.
+  # geopandas (geojson, postgis, shapefile, spatialite) and regionmask for opening shapefiles into regionmask.
+  # https://github.com/intake/intake_geopandas
   - intake-geopandas
-  # Intake interface to THREDDS data catalogs (thredds_cat, thredds_merged_source)
+  # Intake interface to THREDDS data catalogues (thredds_cat, thredds_merged_source)
+  # https://github.com/intake/intake-thredds
   - intake-thredds
+  # gcsfs: Google Cloud Storage File System
+  # https://anaconda.org/conda-forge/gcsfs
   - gcsfs
-  - zarr
+  # s3fs: Convenient Filesystem interface over S3
   # https://github.com/dask/s3fs/
   - s3fs
-    # - shapely  # from ravenpy
-  # https://github.com/roocs/clisops
-  - clisops >= 0.9.2
-  # Universal Regridder for Geospatial Data
-  # https://github.com/pangeo-data/xESMF
-  # xesmf-0.6.2 requires clisops>=0.8.0
-  - xesmf >= 0.6.2
-  # Sensitivity Analysis Library
+  # pymetalink: Python library for creating and parsing Metalink files
+  # https://anaconda.org/conda-forge/pymetalink
+  # for Raven notebook Extract_geographical_watershed_properties.ipynb
+  - pymetalink
+  # salib: Sensitivity Analysis Library
   # https://anaconda.org/conda-forge/salib
   - salib
+  # geopy: Python Geocoding Toolbox
   # https://anaconda.org/conda-forge/geopy
   - geopy
+  # Monitor memory consumption of a process as well as line-by-line analysis of memory consumption for Python programs.
   # https://anaconda.org/anaconda/memory_profiler
-  # Monitor memory consumption of a process as well as line-by-line analysis
-  # of memory consumption for Python programs.
   - memory_profiler
+  # esgf-compute-api: The API for end users for esgf compute stacks (cwt)
   # for esgf notebooks
+  # https://github.com/ESGF/esgf-compute-api
   - esgf-compute-api
+  # esgf-pyclient: Python client for the Earth System Grid Federation (ESGF) web services.
   # https://anaconda.org/conda-forge/esgf-pyclient (for pavics-sdi esgf-dap.ipynb)
   - esgf-pyclient
-  # Disable cdms2 because it was forcing python downgrade to 3.10 and below.
-  #- cdms2
-  # Disable vcs because it was forcing python downgrade to below 3.9.
-  # See https://github.com/CDAT/vcs/issues/457
-  #   package vcs-8.1-py_0 requires vtk-cdat >8.1, but none of the providers can be installed
-  #   package vtk-cdat-8.2.0.8.2.1-py38hbc81915_0 requires python >=3.8,<3.9.0a0 *_cpython
-  #- vcs
+  # mesalib: Open-source implementation of the OpenGL specification
+  # https://anaconda.org/conda-forge/mesalib
   - mesalib
-  # tests
+
+  # TESTING LIBRARIES
+
+  # pytest: The pytest framework makes it easy to write small tests, yet scales to support complex functional testing
+  # https://github.com/pytest-dev/pytest
   - pytest
-  - pytest-xdist
+  # pytest-tornasync: pytest plugin for testing Tornado applications
+  # Needed to run notebook tests
+  # Missing indirect recursive dependencies somewhere, should not need to manually add it here.
+  - pytest-tornasync
+  # pytest-xdist: pytest plugin for distributed testing and loop-on-failures testing modes.
+  # https://github.com/pytest-dev/pytest-xdist
+  - pytest-xdist >= 3.2.0  # Needed for xclim
+  # nbval: A py.test plugin to validate Jupyter notebooks
+  # https://github.com/computationalmodelling/nbval
   - nbval
-  # to edit .ipynb
+
+  # JUPYTER LIBRARIES
+
+  # Jupyter conda metapackage: Install all the Jupyter components in one go.
+  # https://anaconda.org/conda-forge/jupyter
   - jupyter
+  # notebook: A web-based notebook environment for interactive computing.
   # to be launched by image jupyterhub/jupyterhub
+  # https://github.com/jupyter/notebook
   - notebook
+  # jupyterlab: An extensible environment for interactive and reproducible computing
+  # https://github.com/jupyterlab/jupyterlab
   - jupyterlab
+  # JupyterHub: A multi-user server for Jupyter notebooks
+  # https://github.com/jupyterhub/jupyterhub
   - jupyterhub
+  # ipywidgets: Interactive HTML Widgets
+  # https://github.com/jupyter-widgets/ipywidgets
   # https://ipywidgets.readthedocs.io/en/latest/user_install.html
   - ipywidgets
+  # ipyleaflet: A Jupyter / Leaflet bridge enabling interactive maps in the Jupyter notebook.
   # https://github.com/jupyter-widgets/ipyleaflet
   - ipyleaflet
+  # gator: The Mamba Navigator, a Web UI for managing conda environments
   # https://github.com/mamba-org/gator (was jupyter_conda)
   - mamba_gator
-  # to diff .ipynb files
+  # nbdime: Jupyter Notebook Diff and Merge tools
+  # https://github.com/jupyter/nbdime
   - nbdime
-  # extension to produce .py files from notebook .ipynb files
+  # jupyter_bokeh: An extension for rendering Bokeh content in JupyterLab notebooks
+  # https://github.com/bokeh/jupyter_bokeh
+  - jupyter_bokeh
+  # jupytext: extension to produce .py files from notebook .ipynb files
+  # https://github.com/mwouts/jupytext
   - jupytext
-  # jupyterlab extension for git
+  # jupyterlab-git: A JupyterLab extension for version control using Git
+  # https://github.com/jupyterlab/jupyterlab-git
   - jupyterlab-git >= 0.44.0
-  # Voilà turns Jupyter notebooks into standalone web applications
+  # voila: Voilà turns Jupyter notebooks into standalone web applications
+  # https://github.com/voila-dashboards/voila
   - voila
-  # TODO: UNPIN jupyter-archive due to
-  # https://github.com/jupyterlab-contrib/jupyter-archive/issues/132
+  # jupyterlab-archive: A Jupyter extension to make, download and extract archive files.
+  # https://github.com/jupyterlab-contrib/jupyter-archive
+  # TODO: UNPIN jupyter-archive due to: https://github.com/jupyterlab-contrib/jupyter-archive/issues/132
   - jupyter-archive <= 3.3.4
+  # jupyterlab-topbar: JupyterLab Top Bar Extensions
   # https://github.com/jtpio/jupyterlab-topbar
   - jupyterlab-topbar
-  # https://github.com/jtpio/jupyterlab-system-monitor (was from jupyterlab-topbar)
-  - jupyterlab-system-monitor
-  - jupyter-resource-usage  # needed by jupyterlab-system-monitor
-  - nbresuse  # needed by jupyterlab-system-monitor
+  # jupyter-resource-usage: Jupyter Extension to show resource usage
+  # https://github.com/jupyter-server/jupyter-resource-usage
+  # migrated from https://github.com/jtpio/jupyterlab-system-monitor and originally from jupyterlab-topbar
+  - jupyter-resource-usage
   # xeus-python: back-end kernel implementing the Jupyter Debug Protocol
+  # https://github.com/jupyter-xeus/xeus-python
   - xeus-python
+  # jupyter-server-proxy: run arbitrary external processes alongside your notebook server
   # https:://github.com/jupyterhub/jupyter-server-proxy
   - jupyter-server-proxy
+  # dask-labextension: A JupyterLab extension for Dask.
   # https://github.com/dask/dask-labextension
   - dask-labextension
-  # https://github.com/holoviz/jupyter-panel-proxy
-  # DISABLE: seems to interfere with 'panel serve' command
-  #- jupyter-panel-proxy >= 0.2.0a2
+
+  # MISCELLANEOUS EXTRAS
+
   # Force newer nodejs for 'jupyter lab build' issue
   # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998901247
   # TODO: remove nodejs once all extensions move to prebuilt extensions, see comment
   # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998917305
   - nodejs >= 16.0
-  # utilities
+
+  # UTILITIES
+
+  # curl: command-line tool for transferring data with URL syntax
   - curl
+  # wget: command-line utility for downloading files from the web
   - wget
-  - nested_dict
-  # https://anaconda.org/conda-forge/urlpath
-  # https://github.com/brandonschabell/urlpath
-  - urlpath
-  - paramiko
-  - pymetalink  # for Raven notebook Extract_geographical_watershed_properties.ipynb
-  - requests-magpie
-  - scp
-  - selenium
+  # geckodriver: WebDriver for Firefox and Gecko-based browsers
   - geckodriver
-  - xlrd
+  # nested_dict: A dictionary subclass that allows for nested dictionaries
+  # FIXME: Last release was in 2015. What is this doing here???
+  - nested_dict
+  # paramiko: Python implementation of the SSH protocol
+  - paramiko
+  # pre-commit: framework for managing and maintaining multi-language pre-commit hooks
   - pre-commit
-  # pyston_lite_autoload blocked us from using newer Python than 3.8
-  #   package pyston_lite_autoload-2.3.4-pyh44b312d_0 requires pyston_lite
-  #   2.3.4 py38h0a891b7_0, but none of the providers can be installed
-  # https://github.com/pyston/pyston/
-  #  - pyston_lite_autoload
-  # for pip packages
-  - pip
+  # requests-magpie: Authentication library
+  # https://anaconda.org/conda-forge/requests-magpie
+  - requests-magpie
+  # scp: Secure Copy Protocol (SCP) implementation for Python and Paramiko
+  - scp
+  # selenium: Python library for automating web browser interaction
+  - selenium
+  # xlrd: Python library for reading data and formatting information from legacy Excel files
+  - xlrd
+
+  # PIP PACKAGE SUPPORT
+  - pip # Needed for pip packages
+  - xmltodict # Needed for xncml
+  - xsdata # Needed for xncml
+
+  # PIP PACKAGES
   - pip:
-    # https://pypi.org/project/xncml/
-    # Tools for manipulating and opening NCML (NetCDF Markup) files with/for xarray
-    - xncml
-    # https://pypi.org/project/hsclient/
-    # A python client for managing HydroShare resources, replaces hs_restclient
-    - hsclient
-    # https://pypi.org/project/fstd2nc/
-    # Converts RPN standard files (from Environment Canada) to netCDF files.
-    - fstd2nc
+    # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
     # https://pypi.org/project/figanos/
-    # Outils pour produire des graphiques informatifs sur les impacts des
-    # changements climatiques.
-    - figanos
-    # visual debugger for Jupyter Notebook, not working with JupyterLab at this moment
-    - pixiedust
-    # block execution of 'run_all_cells' until user input finished
+    - figanos >= 0.4.0
+    # xncml: Tools for manipulating and opening NCML (NetCDF Markup) files with/for xarray
+    # https://pypi.org/project/xncml/
+    - xncml
+    # ipython_blocking: block execution of 'run_all_cells' until user input finished
+    # https://github.com/kafonek/ipython_blocking
     - ipython_blocking
-    # Mimics how one might format their calculation if it were written with a
-    # pencil: write the symbolic formula, followed by numeric substitutions,
-    # and then the result.
-    # DISABLE handcalcs, interfere with "Panel preview" button
-    # See comment https://github.com/holoviz/panel/issues/3440#issuecomment-1112182170
-    # - handcalcs
-    # https://github.com/ShopRunner/jupyter-notify
-    # Jupyter Magic For Browser Notifications of Cell Completion.
-    - jupyternotify
-    # https://github.com/jupyterlab-contrib/jupyterlab-logout (was from jupyterlab-topbar)
-    - jupyterlab-logout
-    # https://github.com/jupytercalpoly/jupyterlab-tabular-data-editor
-    - jupyterlab-tabular-data-editor
-    # Needed to run notebook tests.  Missing indirect recursive dependencies
-    # somewhere, should not need to manually add it here.
-    - pytest-tornasync

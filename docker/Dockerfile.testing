@@ -1,33 +1,39 @@
 # For testing quickly without having to do a full rebuild.
 
-FROM pavics/workflow-tests:py311-240506
+FROM pavics/workflow-tests:py311-250415
 
-#ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
-
-#ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
+# ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
+# ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
 
 USER root
 
 # Use 'update' for existing and 'install' for new package.
 # Keep same channel ordering to not revert anything.
-RUN umask 0000 \
-    && pip uninstall -y ravenpy birdhouse-birdy \
-    && pip install --no-cache-dir --no-deps ravenpy==0.13.1 birdhouse-birdy==0.8.7 \
-    && mamba install -c conda-forge -c cdat -c bokeh -c plotly -c pyviz/label/dev -c defaults -n birdy jupyterlab-git==0.44.0 \
-    && mamba clean --all --yes
-#    && pip install --no-cache-dir --upgrade figanos
-#    && pip uninstall -y ravenpy \
-#    && mamba install -c conda-forge -c cdat -c bokeh -c plotly -c defaults -n birdy ravenpy aiohttp
+RUN umask 0000 && \
+    conda config --prepend channels nodefaults || true && \
+    conda config --remove channels defaults || true && \
+    pip uninstall -y hsclient && \
+    mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers ravenpy==0.18.1 sparse==0.15.5 && \
+    mamba clean --all --yes
 
-#RUN umask 0000 \
-#    && python -m pip install --upgrade --force-reinstall --no-deps --no-cache-dir netcdf4==1.6.0 --no-binary netcdf4
+# RUN umask 0000 && \
+#     pip uninstall -y ravenpy birdhouse-birdy && \
+#     pip install --no-cache-dir --no-deps ravenpy==0.13.1 birdhouse-birdy==0.8.7 && \
+#     mamba install -c conda-forge -c cdat -c bokeh -c fortiers -n birdy jupyterlab-git==0.44.0 && \
+#     mamba clean --all --yes && \
+#     pip install --no-cache-dir --upgrade figanos && \
+#     pip uninstall -y ravenpy && \
+#     mamba install -c conda-forge -c cdat -c bokeh -c fortiers -n birdy ravenpy aiohttp
+
+# RUN umask 0000 && \
+#     python -m pip install --upgrade --force-reinstall --no-deps --no-cache-dir netcdf4==1.6.0 --no-binary netcdf4
 # RUN apt-get update && \
 #     DEBIAN_FRONTEND=noninteractive apt-get install -y unzip && \
 #     apt-get clean && \
 #     mkdir /notebook_dir && \
 #     chown jenkins /notebook_dir
 
-#RUN umask 0000 \
-#    && pip install https://github.com/CSHS-CWRA/RavenPy/archive/refs/heads/master.zip
+# RUN umask 0000 && \
+#     pip install https://github.com/CSHS-CWRA/RavenPy/archive/refs/heads/master.zip
 
 USER jenkins
