@@ -21,8 +21,8 @@ echo '
 #!/bin/sh
 # Config override script to exclude default notebooks.
 
-# esgf-dap: https://github.com/Ouranosinc/pavics-sdi/issues/353
-BLACKLIST_NOTEBOOKS="$PAVICS_SDI_DIR/docs/source/notebooks/esgf-dap.ipynb"
+#BLACKLIST_NOTEBOOKS="$PAVICS_SDI_DIR/docs/source/notebooks/esgf-dap.ipynb"
+BLACKLIST_NOTEBOOKS=""
 
 if [ -n "$BLACKLIST_NOTEBOOKS" ]; then
     sed_args=""
