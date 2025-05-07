@@ -7,13 +7,14 @@ channels:
   - fortiers  # for fstd2nc
 dependencies:
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
+  # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/master/recipe/meta.yaml
   # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/master/recipe/meta.yaml
   # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/master/recipe/meta.yaml
   # xhydro direct dependencies: https://github.com/conda-forge/xhydro-feedstock/blob/main/recipe/meta.yaml
   # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
   # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
 
-  # Pin latest clisops, ravenpy, xclim, xhydro, xscen, and xsdba to avoid downgrading during the second installation phase.
+  # Pin latest clisops, figanos, ravenpy, xclim, xhydro, xscen, and xsdba to avoid undesired downgrades.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
 
   ## CORE LIBRARIES
