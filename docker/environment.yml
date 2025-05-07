@@ -20,6 +20,8 @@ dependencies:
 
   # clisops: Data reduction operations on xarray climate data
   - clisops >= 0.16.1
+  # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
+  - figanos >= 0.5.0
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
   - ravenpy >= 0.18.1
   # xclim: Climate indices computation package based on Xarray.
@@ -68,6 +70,8 @@ dependencies:
   # - xarray  # managed by core libraries
   # xesmf: Universal Regridder for Geospatial Data
   - xesmf >= 0.8.9
+  # xncml: Tools for manipulating and opening NCML (NetCDF Markup) files with/for xarray
+  - xncml >= 0.5.0
   # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
   # - zarr  # managed by core libraries
 
@@ -305,17 +309,3 @@ dependencies:
 
   # PIP PACKAGE SUPPORT
   - pip # Needed for pip packages
-  - xmltodict # Needed for xncml
-  - xsdata # Needed for xncml
-
-  # PIP PACKAGES
-  - pip:
-    # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
-    # https://pypi.org/project/figanos/
-    - figanos >= 0.4.0
-    # xncml: Tools for manipulating and opening NCML (NetCDF Markup) files with/for xarray
-    # https://pypi.org/project/xncml/
-    - xncml
-    # ipython_blocking: block execution of 'run_all_cells' until user input finished
-    # https://github.com/kafonek/ipython_blocking
-    - ipython_blocking
