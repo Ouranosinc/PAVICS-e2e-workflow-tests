@@ -15,6 +15,7 @@ dependencies:
   # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
 
   # Pin latest clisops, figanos, ravenpy, xclim, xhydro, xscen, and xsdba to avoid undesired downgrades.
+  # Installation proceeds in two phases in the Dockerfile in order to avoid memory usage issues.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
 
   ## CORE LIBRARIES
