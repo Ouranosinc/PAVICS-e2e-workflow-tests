@@ -1,65 +1,60 @@
 # Overview
 
-Please include a summary of the changes and which issues is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
+<!-- Please include a summary of the changes and which issues is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change. -->
 
-This PR fixes [issue id](url)
+This PR fixes [issue id](URL_HERE) by [explain how it fixes the issue]. It also includes [any other relevant changes].
 
 <!-- NOTE: Remember to tag 'release-py###-######' on the commit of this merge. -->
-
 
 ## Changes
 
 - Adds...
 - Jupyter env changes:
-  - Change 1 (related PR url)
-  - Change 2 (related PR url)
+  - Change 1 
+    - _Related PR URL_
+  - Change 2 
+    - _Related PR URL_
   - Relevant changes (alphabetical order):
 ```diff
 <   - somelib=0.8.1=pyh6c4a22f_1
 >   - somelib=0.8.4=pyh1a96a4e_0
 
 (...)
-
 ```
 
+## Testing Checklist
 
-## Test
-
-- Deployed as "beta" image in production for bokeh visualization performance regression testing.
-- Manual test notebook https://github.com/Ouranosinc/PAVICS-landing/blob/master/content/notebooks/climate_indicators/PAVICStutorial_ClimateDataAnalysis-5Visualization.ipynb for bokeh visualization performance and it looks fine.
-- Jenkins build:
-  - Default notebooks https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/blob/NEW-release-py###-######/docker/saved_buildout/jenkins-buildlogs-default.txt
-  - Raven notebooks https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/blob/NEW-release-py###-######/docker/saved_buildout/jenkins-buildlogs-raven.txt
-
+- [ ] Deployed as "beta" image in production for bokeh visualization performance regression testing.
+- [ ] Manually tested notebook https://github.com/Ouranosinc/PAVICS-landing/blob/master/content/notebooks/climate_indicators/PAVICStutorial_ClimateDataAnalysis-5Visualization.ipynb for bokeh visualization performance.
+- [ ] Committed the Jenkins build log to this Pull Request: https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/blob/NEW-release-py###-######/docker/saved_buildout/jenkins-buildlogs-default.txt
 
 ## Related Issue / Discussion
 
 - Matching notebook fixes:
-  - Pavics-sdi: PR url
-  - Finch: PR url
-  - PAVICS-landing: PR url
-  - RavenPy: PR url
+  - pavics-sdi: _PR URL_
+  - finch: _PR URL_
+  - PAVICS-landing: _PR URL_
+  - RavenPy: _PR URL_
   - (...)
 
-- Deployment to PAVICS: PR url
+- Deployment to PAVICS: _PR URL_
 
-- Jenkins-config changes for new notebooks: PR url
+- Jenkins-config changes for new notebooks: _PR URL_
 
 - Other issues found while working on this one
-  - Issue 1 URL
-  - Issue 2 URL
+  - _Issue 1 URL_
+  - _Issue 2 URL_
   - (...)
 
-- Previous release: PR url
-
+- Previous release: _PR URL_
 
 ## Additional Information
 
-Full diff conda env export:
+Full diff of the conda env export:
 https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/compare/PREVIOUS-release-py###-######...NEW-release-py###-######
 
 Full new conda env export:
 https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/blob/NEW-release-py###-######/docker/saved_buildout/conda-env-export.yml
 
-DockerHub build log
+DockerHub build log:
 https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/blob/NEW-release-py###-######/docker/saved_buildout/docker-buildlogs.txt
