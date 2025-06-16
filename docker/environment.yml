@@ -7,19 +7,23 @@ channels:
   - fortiers  # for fstd2nc
 dependencies:
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
+  # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/master/recipe/meta.yaml
   # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/master/recipe/meta.yaml
   # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/master/recipe/meta.yaml
   # xhydro direct dependencies: https://github.com/conda-forge/xhydro-feedstock/blob/main/recipe/meta.yaml
   # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
   # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
 
-  # Pin latest clisops, ravenpy, xclim, xhydro, xscen, and xsdba to avoid downgrading during the second installation phase.
+  # Pin latest clisops, figanos, ravenpy, xclim, xhydro, xscen, and xsdba to avoid undesired downgrades.
+  # Installation proceeds in two phases in the Dockerfile in order to avoid memory usage issues.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
 
   ## CORE LIBRARIES
 
   # clisops: Data reduction operations on xarray climate data
   - clisops >= 0.16.1
+  # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
+  - figanos >= 0.5.0
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
   - ravenpy >= 0.18.1
   # xclim: Climate indices computation package based on Xarray.
@@ -68,6 +72,8 @@ dependencies:
   # - xarray  # managed by core libraries
   # xesmf: Universal Regridder for Geospatial Data
   - xesmf >= 0.8.9
+  # xncml: Tools for manipulating and opening NCML (NetCDF Markup) files with/for xarray
+  - xncml >= 0.5.0
   # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
   # - zarr  # managed by core libraries
 
@@ -307,17 +313,3 @@ dependencies:
 
   # PIP PACKAGE SUPPORT
   - pip # Needed for pip packages
-  - xmltodict # Needed for xncml
-  - xsdata # Needed for xncml
-
-  # PIP PACKAGES
-  - pip:
-    # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
-    # https://pypi.org/project/figanos/
-    - figanos >= 0.4.0
-    # xncml: Tools for manipulating and opening NCML (NetCDF Markup) files with/for xarray
-    # https://pypi.org/project/xncml/
-    - xncml
-    # ipython_blocking: block execution of 'run_all_cells' until user input finished
-    # https://github.com/kafonek/ipython_blocking
-    - ipython_blocking
