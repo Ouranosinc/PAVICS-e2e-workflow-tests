@@ -21,17 +21,17 @@ dependencies:
   ## CORE LIBRARIES
 
   # clisops: Data reduction operations on xarray climate data
-  - clisops >= 0.16.1
+  - clisops >= 0.16.2
   # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
   - figanos >= 0.5.0
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
-  - ravenpy >= 0.18.1
+  - ravenpy >= 0.18.2
   # xclim: Climate indices computation package based on Xarray.
   - xclim >= 0.57.0
   # Hydrological analysis library built with xarray.
   # - xhydro  # 2025-04: Currently deactivated due to older dependency pins
   # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
-  - xscen >= 0.12.1
+  - xscen >= 0.12.3
   # xsdba: Statistical correction and bias adjustment tools for xarray.
   - xsdba >= 0.4.0
 
