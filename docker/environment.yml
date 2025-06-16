@@ -23,7 +23,7 @@ dependencies:
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
   - ravenpy >= 0.18.1
   # xclim: Climate indices computation package based on Xarray.
-  - xclim >= 0.56.0
+  - xclim >= 0.57.0
   # Hydrological analysis library built with xarray.
   # - xhydro  # 2025-04: Currently deactivated due to older dependency pins
   # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
@@ -147,6 +147,8 @@ dependencies:
   # https://intake.readthedocs.io/en/latest/
   - intake
   # https://intake.readthedocs.io/en/latest/plugin-directory.html
+  # intake-esgf: Plugin for building and loading intake catalogues for ESGF (Earth System Grid Federation) data sets.
+  - intake-esgf >= 2025.6.6
   # intake-esm: Plugin for building and loading intake catalogues for earth system data sets
   # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM Large Ensemble datasets.
   - intake-esm >= 2025.2.3
