@@ -1,0 +1,49 @@
+[tool.bumpversion]
+current_version = "release-py311-250423"
+parse = """(?x)                     # Verbose mode
+    (?P<release>            # The current version
+        (?:docker|dockerupate|release)       # The type of version
+    -py311-                # The Python version
+    (?P<date>                    # The release part
+        (?:[1-9][0-9]{3})\\.        # YYYY.
+        (?:1[0-2]|[1-9])\\.         # MM.
+        (?:3[0-1]|[1-2][0-9]|[1-9]) # DD
+    )
+    (?:\\.(?P<patch>\\d+))?         # .patch, optional
+"""
+serialize = ["{update}-py311-{date}", "{update}-py311-{date}-{patch}"]
+tag = true
+tag_name = "v{new_version}"
+tag_message = "Bump version: {current_version} → {new_version}"
+allow_dirty = false
+message = "Bump version: {current_version} → {new_version}"
+
+[tool.bumpversion.parts.update]
+values = ["docker", "dockerupdate"]
+optional_value = "release"
+
+[tool.bumpversion.parts.date]
+calver_format = "{YYYY}{MM}{DD}"
+
+[tool.bumpversion.parts.patch]
+calver_format = "update{YYYY}{MM}{DD}"
+
+[[tool.bumpversion.files]]
+filename = "launchcontainer"
+search = "pavics/workflow-tests:py311-250423"
+
+[[tool.bumpversion.files]]
+filename = "launchnotebook"
+search = "pavics/workflow-tests:py311-250423"
+
+[[tool.bumpversion.files]]
+filename = "Jenkinsfile"
+search = "pavics/workflow-tests:py311-250423"
+
+[[tool.bumpversion.files]]
+filename = "binder/Dockerfile"
+search = "pavics/workflow-tests:py311-250423"
+replace = "pavics/workflow-tests:{current_version}"
+
+[tool.bumpversion.replace]
+replace = "pavics/workflow-tests:{new_version}"
