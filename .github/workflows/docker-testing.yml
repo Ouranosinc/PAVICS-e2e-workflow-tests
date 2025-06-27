@@ -40,5 +40,4 @@ jobs:
             set -e
             echo "Running tests in Docker container"
             # Run the test script inside the Docker container
-            mamba activate birdy
-            mamba list
+            conda run -n birdy mamba list
