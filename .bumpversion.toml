@@ -16,8 +16,10 @@ parse = """(?x)                     # Verbose mode
     $
 """
 serialize = [
-    "{python}-{date}"
+    "{python}-{date}",
+    "{python}-{date}{dockerupdate}",
 ]
+commit = false
 commit_message = "Bump version: {current_version} → {new_version}"
 allow_dirty = true
 tag = false
@@ -28,6 +30,12 @@ values = ["py311"]
 
 [tool.bumpversion.parts.date]
 calver_format = "{0Y}{0M}{0D}"
+
+[tool.bumpversion.parts.dockerupdate]
+calver_format = "-dockerupdate{0Y}{0M}{0D}"
+
+[[tool.bumpversion.files]]
+filename = ".bumpversion.toml"
 
 [[tool.bumpversion.files]]
 filename = "launchcontainer"
