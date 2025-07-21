@@ -25,7 +25,7 @@ dependencies:
   # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
   - figanos >= 0.5.0
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
-  - ravenpy >= 0.18.2
+  - ravenpy >= 0.19.0
   # xclim: Climate indices computation package based on Xarray.
   - xclim >= 0.57.0
   # Hydrological analysis library built with xarray.
@@ -57,7 +57,7 @@ dependencies:
   # netcdf4: Python interface to the netCDF C library
   # - netcdf4  # managed by core libraries
   # numpy: fundamental package for scientific computing with Python
-  - numpy >= 1.24
+  - numpy >= 1.25
   # pandas: data structures and data analysis tools for Python
   # - pandas  # managed by core libraries
   # pydantic: Data validation and settings management using Python type annotations
