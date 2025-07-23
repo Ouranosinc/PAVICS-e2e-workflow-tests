@@ -9,17 +9,18 @@ USER root
 
 # Use 'update' for existing and 'install' for new package.
 # Keep same channel ordering to not revert anything.
+# Be sure to specify the environment name with '-n environment'.
 RUN umask 0000 && \
     conda config --prepend channels nodefaults || true && \
     conda config --remove channels defaults || true && \
-    mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers ravenpy==0.19.0 intake-esgf==2025.6.6 && \
+    mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers -n birdy ravenpy==0.19.0 intake-esgf==2025.6.6 && \
     mamba clean --all --yes
 
 # RUN umask 0000 && \
 #     conda config --prepend channels nodefaults || true && \
 #     conda config --remove channels defaults || true && \
 #     pip uninstall -y hsclient && \
-#     mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers ravenpy==0.18.1 sparse==0.15.5 && \
+#     mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers -n birdy ravenpy==0.18.1 sparse==0.15.5 && \
 #     mamba clean --all --yes
 
 # RUN umask 0000 && \
