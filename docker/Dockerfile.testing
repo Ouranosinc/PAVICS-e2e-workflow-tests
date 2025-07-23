@@ -13,7 +13,8 @@ USER root
 RUN umask 0000 && \
     conda config --prepend channels nodefaults || true && \
     conda config --remove channels defaults || true && \
-    mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers -n birdy ravenpy==0.19.0 intake-esgf==2025.6.6 && \
+    mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers -n birdy intake-esgf==2025.6.6 && \
+    mamba update -c conda-forge -c cdat -c bokeh -c fortiers -n birdy ravenpy==0.19.0 xclim==0.57.0 xscen==0.12.3 xsdba==0.5.0 && \
     mamba clean --all --yes
 
 # RUN umask 0000 && \
