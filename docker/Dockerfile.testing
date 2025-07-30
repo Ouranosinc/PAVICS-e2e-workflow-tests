@@ -17,7 +17,10 @@ RUN umask 0000 && \
     mamba update -c conda-forge -c cdat -c bokeh -c fortiers -n birdy numpy==2.2.6 ravenpy==0.19.0 xclim==0.57.0 xscen==0.12.3 xsdba==0.5.0 && \
     mamba clean --all --yes
 
-ADD https://raw.githubusercontent.com/CSHS-CWRA/RavenPy/refs/heads/fix-notebooks/src/ravenpy/testing/registry.txt /opt/conda/envs/birdy/lib/python3.11/site-packages/ravenpy/testing/registry.txt
+RUN umask 0000 && \
+    curl -sSL https://raw.githubusercontent.com/CSHS-CWRA/RavenPy/refs/heads/fix-notebooks/src/ravenpy/testing/registry.txt \
+    -o /opt/conda/envs/birdy/lib/python3.11/site-packages/ravenpy/testing/registry.txt && \
+    chmod 777 /opt/conda/envs/birdy/lib/python3.11/site-packages/ravenpy/testing/registry.txt
 
 # RUN umask 0000 && \
 #     conda config --prepend channels nodefaults || true && \
