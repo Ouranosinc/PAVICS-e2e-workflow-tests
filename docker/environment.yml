@@ -33,7 +33,7 @@ dependencies:
   # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
   - xscen >= 0.12.3
   # xsdba: Statistical correction and bias adjustment tools for xarray.
-  - xsdba >= 0.4.0
+  - xsdba >= 0.5.0
 
   ## COMMON LIBRARIES
   # Only add pins here as needed

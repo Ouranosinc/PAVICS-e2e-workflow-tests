@@ -186,6 +186,7 @@ dependencies:
   - giflib=5.2.2=hd590300_0
   - gitdb=4.0.12=pyhd8ed1ab_0
   - gitpython=3.1.44=pyhff2d567_0
+  - globus-sdk=3.61.0=pyhd8ed1ab_0
   - glog=0.7.1=hbabe93e_0
   - google-api-core=2.24.2=pyhd8ed1ab_0
   - google-auth=2.39.0=pyhd8ed1ab_0
@@ -221,6 +222,7 @@ dependencies:
   - importlib_resources=6.5.2=pyhd8ed1ab_0
   - iniconfig=2.0.0=pyhd8ed1ab_1
   - intake=2.0.8=pyhd8ed1ab_0
+  - intake-esgf=2025.6.6=pyhd8ed1ab_0
   - intake-esm=2025.2.3=pyhd8ed1ab_0
   - intake-geopandas=0.4.0=pyhd8ed1ab_1
   - intake-thredds=2025.2.18=pyhd8ed1ab_0
@@ -544,7 +546,7 @@ dependencies:
   - rasterio=1.4.3=py311he01b476_1
   - rav1e=0.6.6=he8a937b_2
   - raven-hydro=0.4.0=py311h81cb690_0
-  - ravenpy=0.18.1=pyhd8ed1ab_0
+  - ravenpy=0.19.0=pyhd8ed1ab_0
   - rdma-core=57.0=h5888daf_0
   - re2=2024.07.02=h9925aae_3
   - readline=8.2=h8c095d6_2
@@ -662,7 +664,7 @@ dependencies:
   - xcb-util-keysyms=0.4.1=hb711507_0
   - xcb-util-renderutil=0.3.10=hb711507_0
   - xcb-util-wm=0.4.2=hb711507_0
-  - xclim=0.56.0=pyhd8ed1ab_0
+  - xclim=0.57.0=pyhd8ed1ab_0
   - xerces-c=3.2.5=h988505b_2
   - xesmf=0.8.9=pyhd8ed1ab_0
   - xeus=5.2.1=hf4f7e68_0
@@ -692,9 +694,9 @@ dependencies:
   - xorg-libxtst=1.2.5=hb9d3cd8_3
   - xorg-libxxf86vm=1.1.6=hb9d3cd8_0
   - xrft=1.0.1=pyhd8ed1ab_1
-  - xscen=0.12.1=pyhd8ed1ab_0
+  - xscen=0.12.3=pyhd8ed1ab_0
   - xsdata=25.4=pyhd8ed1ab_0
-  - xsdba=0.4.0=pyhd8ed1ab_0
+  - xsdba=0.5.0=pyhd8ed1ab_0
   - xskillscore=0.0.26=pyhd8ed1ab_1
   - xxhash=0.8.3=hb9d3cd8_0
   - xyzservices=2025.1.0=pyhd8ed1ab_0
