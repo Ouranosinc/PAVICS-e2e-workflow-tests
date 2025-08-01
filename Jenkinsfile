@@ -10,7 +10,7 @@ pipeline {
     // https://jenkins.io/doc/book/pipeline/syntax/
     agent {
         docker {
-            image "pavics/workflow-tests:py311-250423"
+            image "pavics/workflow-tests:py311-250423-update250730"
             label 'linux && docker'
         }
     }
@@ -61,7 +61,7 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
 (see https://github.com/bird-house/birdhouse-deploy/tree/master/birdhouse/components#weaver).''')
         booleanParam(name: 'TEST_FINCH_REPO', defaultValue: true,
                      description: 'Check the box to test finch repo.')
-        string(name: 'FINCH_BRANCH', defaultValue: 'master',
+        string(name: 'FINCH_BRANCH', defaultValue: 'main',
                description: 'FINCH_REPO branch to test against.', trim: true)
         string(name: 'FINCH_REPO', defaultValue: 'bird-house/finch',
                description: 'https://github.com/bird-house/finch repo or fork to test against.', trim: true)
@@ -79,7 +79,7 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
                description: 'https://github.com/Ouranosinc/raven repo or fork to test against.', trim: true)
         booleanParam(name: 'TEST_RAVENPY_REPO', defaultValue: true,
                      description: 'Check the box to test RavenPy repo.')
-        string(name: 'RAVENPY_BRANCH', defaultValue: 'master',
+        string(name: 'RAVENPY_BRANCH', defaultValue: 'main',
                description: 'RAVENPY_REPO branch to test against.', trim: true)
         string(name: 'RAVENPY_REPO', defaultValue: 'CSHS-CWRA/RavenPy',
                description: 'https://github.com/CSHS-CWRA/RavenPy repo or fork to test against.', trim: true)

@@ -29,7 +29,7 @@ else
 fi
 
 if [ -z "$FINCH_BRANCH" ]; then
-    FINCH_BRANCH=master
+    FINCH_BRANCH=main
     echo "FINCH_BRANCH not set, default to '$FINCH_BRANCH'"
 else
     echo "FINCH_BRANCH has been set to '$FINCH_BRANCH'"
@@ -92,7 +92,7 @@ else
 fi
 
 if [ -z "$RAVENPY_BRANCH" ]; then
-    RAVENPY_BRANCH=master
+    RAVENPY_BRANCH=main
     echo "RAVENPY_BRANCH not set, default to '$RAVENPY_BRANCH'"
 else
     echo "RAVENPY_BRANCH has been set to '$RAVENPY_BRANCH'"
