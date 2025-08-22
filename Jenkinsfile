@@ -99,8 +99,8 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
                      description: 'Check the box to test notebooks in this repo (./notebooks/*.ipynb).')
         booleanParam(name: 'VERIFY_SSL', defaultValue: true,
                      description: 'Check the box to verify SSL certificate for https connections to PAVICS host.')
-        text(name: 'CUSTOM_NOTEBOOKS', defaultValue: '',
-                     description: 'Optional: space-separated list of notebook paths to run. If empty, defaults will be used.', trim: true)
+        string(name: 'CUSTOM_NOTEBOOKS', defaultValue: '',
+                     description: 'Optional: space-separated list of notebook paths to run.  If empty, defaults will be used.', trim: true)
         booleanParam(name: 'SAVE_RESULTING_NOTEBOOK', defaultValue: true,
                      description: '''Check the box to save the resulting notebooks of the run.
 Note this is another run, will double the time and no guaranty to have same error as the run from py.test.''')
@@ -135,25 +135,8 @@ Note this is another run, will double the time and no guaranty to have same erro
                          // string(credentialsId: 'hydroshare_auth_token',
                          //        variable: 'HYDROSHARE_AUTH_TOKEN'),
                          ]) {
-                         // Create CONFIG_OVERRIDE_SCRIPT_URL on-the-fly
                         if (params.CUSTOM_NOTEBOOKS?.trim()) {
-                            sh("""
-                            CONFIG_OVERRIDE_SCRIPT_URL="/tmp/custom-repos.include.sh"
-                            NOTEBOOKS="${params.CUSTOM_NOTEBOOKS}"
-
-                            cat > "\$CONFIG_OVERRIDE_SCRIPT_URL" <<EOF
-                            #!/bin/sh -x
-
-                            NOTEBOOKS="\$NOTEBOOKS"
-
-                            enable_resulting_nb() {
-                              # all nbs enabled
-                              return 0
-                            }
-                            EOF
-
-                            chmod +x "\$CONFIG_OVERRIDE_SCRIPT_URL"
-                            """)
+                            sh("CUSTOM_NOTEBOOKS"=${params.CUSTOM_NOTEBOOKS} ./notebookoverride")
                         }
                         sh("VERIFY_SSL=${params.VERIFY_SSL} \
                             SAVE_RESULTING_NOTEBOOK=${params.SAVE_RESULTING_NOTEBOOK} \
