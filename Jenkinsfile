@@ -136,7 +136,7 @@ Note this is another run, will double the time and no guaranty to have same erro
                          //        variable: 'HYDROSHARE_AUTH_TOKEN'),
                          ]) {
                         if (params.CUSTOM_NOTEBOOKS?.trim()) {
-                            sh("CUSTOM_NOTEBOOKS"=${params.CUSTOM_NOTEBOOKS} ./notebookoverride")
+                            sh("CUSTOM_NOTEBOOKS=${params.CUSTOM_NOTEBOOKS} ./notebookoverride")
                         }
                         sh("VERIFY_SSL=${params.VERIFY_SSL} \
                             SAVE_RESULTING_NOTEBOOK=${params.SAVE_RESULTING_NOTEBOOK} \
