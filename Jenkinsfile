@@ -141,7 +141,6 @@ Note this is another run, will double the time and no guaranty to have same erro
                         SAVE_RESULTING_NOTEBOOK='${params.SAVE_RESULTING_NOTEBOOK}' \
                         ${params.EXTRA_TEST_ENV_VAR} ./testall
                         """
-                        )
                     }
                 }
             }
