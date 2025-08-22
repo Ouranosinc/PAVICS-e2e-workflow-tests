@@ -75,51 +75,54 @@ if [ x"$VERIFY_SSL" = xfalse ]; then
     echo "setting env var DISABLE_VERIFY_SSL for notebooks"
 fi
 
-
 NOTEBOOKS_TO_TEST=""
-if [ x"$TEST_MAGPIE_AUTH" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks-auth/*.ipynb"
-fi
-if [ x"$TEST_PAVICS_SDI_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_SDI_DIR}/docs/source/notebooks/*.ipynb"
-    if [ x"$TEST_PAVICS_SDI_WEAVER" = xtrue ]; then
-        NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_SDI_DIR}/docs/source/notebook-components/*weaver*.ipynb"
-    fi
-fi
-if [ x"$TEST_FINCH_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${FINCH_DIR}/docs/source/notebooks/*.ipynb"
-fi
+if [x"$CUSTOM_NOTEBOOKS" = xfalse ] || [ x"$CUSTOM_NOTEBOOKS" = x"" ]; then
+  if [ x"$TEST_MAGPIE_AUTH" = xtrue ]; then
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks-auth/*.ipynb"
+  fi
+  if [ x"$TEST_PAVICS_SDI_REPO" = xtrue ]; then
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_SDI_DIR}/docs/source/notebooks/*.ipynb"
+      if [ x"$TEST_PAVICS_SDI_WEAVER" = xtrue ]; then
+          NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_SDI_DIR}/docs/source/notebook-components/*weaver*.ipynb"
+      fi
+  fi
+  if [ x"$TEST_FINCH_REPO" = xtrue ]; then
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${FINCH_DIR}/docs/source/notebooks/*.ipynb"
+  fi
 
-if [ x"$TEST_PAVICS_LANDING_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_LANDING_DIR}/content/notebooks/climate_indicators/*.ipynb"
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_LANDING_DIR}/content/notebooks/hydrology/*.ipynb"
+  if [ x"$TEST_PAVICS_LANDING_REPO" = xtrue ]; then
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_LANDING_DIR}/content/notebooks/climate_indicators/*.ipynb"
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_LANDING_DIR}/content/notebooks/hydrology/*.ipynb"
 
-    SETUP_SCRIPT="${PAVICS_LANDING_DIR}/content/notebooks/climate_indicators/setup_dirlayout.sh"
-    if [ -x "$SETUP_SCRIPT" ]; then
+      SETUP_SCRIPT="${PAVICS_LANDING_DIR}/content/notebooks/climate_indicators/setup_dirlayout.sh"
+      if [ -x "$SETUP_SCRIPT" ]; then
 
-        # Delegate extra files layout setup to source repo so this setup_dirlayout.sh
-        # becomes a stable interface between this repo and the source repo.
-        # Any future layout changes will be seemless for this repo.
+          # Delegate extra files layout setup to source repo so this setup_dirlayout.sh
+          # becomes a stable interface between this repo and the source repo.
+          # Any future layout changes will be seemless for this repo.
 
-        $SETUP_SCRIPT
-    fi
-fi
+          $SETUP_SCRIPT
+      fi
+  fi
 
-if [ x"$TEST_RAVEN_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVEN_DIR}/docs/source/notebooks/*.ipynb"
-fi
-if [ x"$TEST_RAVENPY_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVENPY_DIR}/docs/notebooks/*.ipynb"
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVENPY_DIR}/docs/notebooks/paper/*.ipynb"
-fi
-if [ x"$TEST_ESGF_COMPUTE_API_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${ESGF_COMPUTE_API_DIR}/examples/*.ipynb"
-fi
+  if [ x"$TEST_RAVEN_REPO" = xtrue ]; then
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVEN_DIR}/docs/source/notebooks/*.ipynb"
+  fi
+  if [ x"$TEST_RAVENPY_REPO" = xtrue ]; then
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVENPY_DIR}/docs/notebooks/*.ipynb"
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVENPY_DIR}/docs/notebooks/paper/*.ipynb"
+  fi
+  if [ x"$TEST_ESGF_COMPUTE_API_REPO" = xtrue ]; then
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${ESGF_COMPUTE_API_DIR}/examples/*.ipynb"
+  fi
 
-if [ x"$TEST_LOCAL_NOTEBOOKS" = xtrue ]; then
-    # Add notebooks here last since stress-test.ipynb can possible cause cascading
-    # damage to other notebooks.
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks/*.ipynb"
+  if [ x"$TEST_LOCAL_NOTEBOOKS" = xtrue ]; then
+      # Add notebooks here last since stress-test.ipynb can possible cause cascading
+      # damage to other notebooks.
+      NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks/*.ipynb"
+  fi
+else
+  NOTEBOOKS_TO_TEST="$CUSTOM_NOTEBOOKS"
 fi
 
 # last notebooks higher chance for name clash

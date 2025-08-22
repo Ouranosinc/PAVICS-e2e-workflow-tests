@@ -1,8 +1,0 @@
-#!/bin/sh -x
-
-NOTEBOOKS=$CUSTOM_NOTEBOOKS
-
-enable_resulting_nb() {
-  # all nbs enabled
-  return 0
-}

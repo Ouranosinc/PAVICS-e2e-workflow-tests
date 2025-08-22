@@ -135,9 +135,6 @@ Note this is another run, will double the time and no guaranty to have same erro
                          // string(credentialsId: 'hydroshare_auth_token',
                          //        variable: 'HYDROSHARE_AUTH_TOKEN'),
                          ]) {
-                        if (params.CUSTOM_NOTEBOOKS?.trim()) {
-                            sh("CUSTOM_NOTEBOOKS=${params.CUSTOM_NOTEBOOKS} ./notebookoverride")
-                        }
                         sh("VERIFY_SSL=${params.VERIFY_SSL} \
                             SAVE_RESULTING_NOTEBOOK=${params.SAVE_RESULTING_NOTEBOOK} \
                             ${params.EXTRA_TEST_ENV_VAR} ./testall")
