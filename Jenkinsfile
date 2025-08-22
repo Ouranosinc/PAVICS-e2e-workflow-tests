@@ -136,6 +136,7 @@ Note this is another run, will double the time and no guaranty to have same erro
                          //        variable: 'HYDROSHARE_AUTH_TOKEN'),
                          ]) {
                         sh("VERIFY_SSL=${params.VERIFY_SSL} \
+                            CUSTOM_NOTEBOOKS='${params.CUSTOM_NOTEBOOKS}' \
                             SAVE_RESULTING_NOTEBOOK=${params.SAVE_RESULTING_NOTEBOOK} \
                             ${params.EXTRA_TEST_ENV_VAR} ./testall")
                     }
