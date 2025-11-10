@@ -5,6 +5,7 @@ channels:
   - cdat
   - bokeh
   - fortiers  # for fstd2nc
+  - nodefaults
 dependencies:
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
   # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/master/recipe/meta.yaml
@@ -34,6 +35,20 @@ dependencies:
   - xscen >= 0.12.3
   # xsdba: Statistical correction and bias adjustment tools for xarray.
   - xsdba >= 0.5.0
+
+  ## BUILD TOOLS
+  # Only add pins here as needed
+
+  # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
+  - make
+  # cmake: cross-platform, open-source build system
+  - cmake
+    # c-compiler: C compiler meta-package
+  - c-compiler
+  # cxx-compiler: C++ compiler meta-package
+  - cxx-compiler
+  # fortran-compiler: Fortran compiler meta-package
+  - fortran-compiler
 
   ## COMMON LIBRARIES
   # Only add pins here as needed
