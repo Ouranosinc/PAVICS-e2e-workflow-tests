@@ -19,7 +19,7 @@ dependencies:
   # Installation proceeds in two phases in the Dockerfile in order to avoid memory usage issues.
   # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
 
-  ## CORE LIBRARIES
+  # CORE LIBRARIES
 
   # clisops: Data reduction operations on xarray climate data
   - clisops >= 0.16.2
@@ -36,21 +36,7 @@ dependencies:
   # xsdba: Statistical correction and bias adjustment tools for xarray.
   - xsdba >= 0.5.0
 
-  ## BUILD TOOLS
-  # Only add pins here as needed
-
-  # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
-  - make
-  # cmake: cross-platform, open-source build system
-  - cmake
-    # c-compiler: C compiler meta-package
-  - c-compiler
-  # cxx-compiler: C++ compiler meta-package
-  - cxx-compiler
-  # fortran-compiler: Fortran compiler meta-package
-  - fortran-compiler
-
-  ## COMMON LIBRARIES
+  # COMMON LIBRARIES
   # Only add pins here as needed
 
   # cartopy: Python library for cartographic projections and geospatial data visualization
@@ -328,3 +314,16 @@ dependencies:
 
   # PIP PACKAGE SUPPORT
   - pip # Needed for pip packages
+
+  # BUILD TOOLS
+
+  # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
+  - make
+  # cmake: cross-platform, open-source build system
+  - cmake
+    # c-compiler: C compiler meta-package
+  - c-compiler
+  # cxx-compiler: C++ compiler meta-package
+  - cxx-compiler
+  # fortran-compiler: Fortran compiler meta-package
+  - fortran-compiler
