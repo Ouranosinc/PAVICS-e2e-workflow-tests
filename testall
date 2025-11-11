@@ -75,7 +75,6 @@ if [ x"$VERIFY_SSL" = xfalse ]; then
     echo "setting env var DISABLE_VERIFY_SSL for notebooks"
 fi
 
-
 NOTEBOOKS_TO_TEST=""
 if [ x"$TEST_MAGPIE_AUTH" = xtrue ]; then
     NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks-auth/*.ipynb"
@@ -120,6 +119,11 @@ if [ x"$TEST_LOCAL_NOTEBOOKS" = xtrue ]; then
     # Add notebooks here last since stress-test.ipynb can possible cause cascading
     # damage to other notebooks.
     NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks/*.ipynb"
+fi
+
+if [ x"$ALLOWLIST_NOTEBOOKS" != x ]; then
+  # Allowlist of notebooks to test, can be set by Jenkins job parameters.
+  NOTEBOOKS_TO_TEST="$ALLOWLIST_NOTEBOOKS"
 fi
 
 # last notebooks higher chance for name clash
