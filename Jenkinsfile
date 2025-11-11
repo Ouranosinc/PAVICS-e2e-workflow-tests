@@ -17,7 +17,7 @@ pipeline {
 
     parameters {
         string(name: 'CONFIG_PARAMETERS_SCRIPT_URL', defaultValue: '',
-               description: 'Url to a script that will be sourced, allowing to programmatically set ALL Jenkins params on this page. Ex: https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/jenkins-params-raven-nb-only.include.sh', trim: true)
+               description: 'Url to a script that will be sourced, allowing to programmatically set ALL Jenkins params on this page. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/jenkins-params-raven-nb-only.include.sh', trim: true)
         string(name: 'PAVICS_HOST', defaultValue: default_pavics_host,
                description: 'PAVICS host to run notebooks against.', trim: true)
         // TEST_MAGPIE_AUTH enables the evaluation of end-2-end access to some secured Thredds and Geoserver resources
@@ -90,17 +90,17 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
         string(name: 'ESGF_COMPUTE_API_REPO', defaultValue: 'ESGF/esgf-compute-api',
                 description: 'https://github.com/ESGF/esgf-compute-api repo or fork to test against.', trim: true)
         string(name: 'PYTEST_EXTRA_OPTS', defaultValue: '--dist=loadscope --numprocesses=0',
-                description: 'Extra options to pass to pytest, ex: --nbval-lax --dist=loadscope --numprocesses=0', trim: true)
+                description: 'Extra options to pass to pytest, e.g. --nbval-lax --dist=loadscope --numprocesses=0', trim: true)
         string(name: 'EXTRA_TEST_ENV_VAR', defaultValue: '',
                 description: 'Extra environment variables for the various tests, ex: "TEST_RUNS=50 TEST_WPS_BIRDS=finch,raven,flyingpigeon TEST_NO_USE_PROD_DATA=1"', trim: true)
         string(name: 'CONFIG_OVERRIDE_SCRIPT_URL', defaultValue: '',
-                description: 'Url or local file path to a script that will be sourced, allowing to programmatically override additional configs right before testsuite starts. Ex: https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/geoserver-nb-only.include.sh', trim: true)
+                description: 'Url or local file path to a script that will be sourced, allowing to programmatically override additional configs right before testsuite starts. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/geoserver-nb-only.include.sh', trim: true)
         booleanParam(name: 'TEST_LOCAL_NOTEBOOKS', defaultValue: true,
                 description: 'Check the box to test notebooks in this repo (./notebooks/*.ipynb).')
         booleanParam(name: 'VERIFY_SSL', defaultValue: true,
                 description: 'Check the box to verify SSL certificate for https connections to PAVICS host.')
         string(name: 'CUSTOM_NOTEBOOKS', defaultValue: '',
-                description: 'Optional: space-separated list of notebook paths to run.  If empty, defaults will be used.', trim: true)
+                description: 'Optional: space-separated list of notebook paths to run.  Top-most root should resemble {project name}-{branch}.  If empty, defaults will be used.  e.g. pavics-sdi-master/docs/source/notebooks/WCS_example.ipynb pavics-sdi-master/docs/source/notebooks/regridding.ipynb finch-main/docs/source/notebooks/finch-usage.ipynb', trim: true)
         booleanParam(name: 'SAVE_RESULTING_NOTEBOOK', defaultValue: true,
                 description: '''Check the box to save the resulting notebooks of the run.
 Note this is another run, will double the time and no guaranty to have same error as the run from py.test.''')
