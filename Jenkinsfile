@@ -42,70 +42,70 @@ Note: This test suite might require manual clean-up on failure (if critical erro
         //   https://github.com/bird-house/birdhouse-deploy/blob/master/birdhouse/scripts/create-magpie-authtest-user
         // overrides are needed when using custom values (strongly recommended for production server with real data)
         password(name: 'TEST_MAGPIE_ADMIN_USERNAME', defaultValue: 'admin',
-                 description: 'Username of admin-level user to employ when running notebooks-auth tests.')
+                description: 'Username of admin-level user to employ when running notebooks-auth tests.')
         password(name: 'TEST_MAGPIE_ADMIN_PASSWORD', defaultValue: 'qwertyqwerty!',
-                  description: 'Password of admin-level user to employ when running notebooks-auth tests.')
+                description: 'Password of admin-level user to employ when running notebooks-auth tests.')
         password(name: 'TEST_GEOSERVER_ADMIN_USERNAME', defaultValue: 'admin',
-                 description: 'Username of admin-level Geoserver user to employ when running Geoserver tests.')
+                description: 'Username of admin-level Geoserver user to employ when running Geoserver tests.')
         password(name: 'TEST_GEOSERVER_ADMIN_PASSWORD', defaultValue: 'geoserverpass',
-                  description: 'Password of admin-level Geoserver user to employ when running Geoserver tests.')
+                description: 'Password of admin-level Geoserver user to employ when running Geoserver tests.')
         booleanParam(name: 'TEST_PAVICS_SDI_REPO', defaultValue: true,
-                     description: 'Check the box to test pavics-sdi repo.')
+                description: 'Check the box to test pavics-sdi repo.')
         string(name: 'PAVICS_SDI_BRANCH', defaultValue: 'master',
-               description: 'PAVICS_SDI_REPO branch to test against.', trim: true)
+                description: 'PAVICS_SDI_REPO branch to test against.', trim: true)
         string(name: 'PAVICS_SDI_REPO', defaultValue: 'Ouranosinc/pavics-sdi',
-               description: 'https://github.com/Ouranosinc/pavics-sdi repo or fork to test against.', trim: true)
+                description: 'https://github.com/Ouranosinc/pavics-sdi repo or fork to test against.', trim: true)
         booleanParam(name: 'TEST_PAVICS_SDI_WEAVER', defaultValue: false,
-                     description: '''Execute tests related to Weaver within PAVICS_SDI_REPO.
+                description: '''Execute tests related to Weaver within PAVICS_SDI_REPO.
 Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
 (see https://github.com/bird-house/birdhouse-deploy/tree/master/birdhouse/components#weaver).''')
         booleanParam(name: 'TEST_FINCH_REPO', defaultValue: true,
-                     description: 'Check the box to test finch repo.')
+                description: 'Check the box to test finch repo.')
         string(name: 'FINCH_BRANCH', defaultValue: 'main',
-               description: 'FINCH_REPO branch to test against.', trim: true)
+                description: 'FINCH_REPO branch to test against.', trim: true)
         string(name: 'FINCH_REPO', defaultValue: 'bird-house/finch',
-               description: 'https://github.com/bird-house/finch repo or fork to test against.', trim: true)
+                description: 'https://github.com/bird-house/finch repo or fork to test against.', trim: true)
         booleanParam(name: 'TEST_PAVICS_LANDING_REPO', defaultValue: true,
-                     description: 'Check the box to test pavics-landing repo.')
+                description: 'Check the box to test pavics-landing repo.')
         string(name: 'PAVICS_LANDING_BRANCH', defaultValue: 'master',
-               description: 'PAVICS_LANDING_REPO branch to test against.', trim: true)
+                description: 'PAVICS_LANDING_REPO branch to test against.', trim: true)
         string(name: 'PAVICS_LANDING_REPO', defaultValue: 'Ouranosinc/PAVICS-landing',
-               description: 'https://github.com/Ouranosinc/PAVICS-landing repo or fork to test against.', trim: true)
+                description: 'https://github.com/Ouranosinc/PAVICS-landing repo or fork to test against.', trim: true)
         booleanParam(name: 'TEST_RAVEN_REPO', defaultValue: true,
-                     description: 'Check the box to test raven repo.')
+                description: 'Check the box to test raven repo.')
         string(name: 'RAVEN_BRANCH', defaultValue: 'main',
-               description: 'RAVEN_REPO branch to test against.', trim: true)
+                description: 'RAVEN_REPO branch to test against.', trim: true)
         string(name: 'RAVEN_REPO', defaultValue: 'Ouranosinc/raven',
-               description: 'https://github.com/Ouranosinc/raven repo or fork to test against.', trim: true)
+                description: 'https://github.com/Ouranosinc/raven repo or fork to test against.', trim: true)
         booleanParam(name: 'TEST_RAVENPY_REPO', defaultValue: true,
-                     description: 'Check the box to test RavenPy repo.')
+                description: 'Check the box to test RavenPy repo.')
         string(name: 'RAVENPY_BRANCH', defaultValue: 'main',
-               description: 'RAVENPY_REPO branch to test against.', trim: true)
+                description: 'RAVENPY_REPO branch to test against.', trim: true)
         string(name: 'RAVENPY_REPO', defaultValue: 'CSHS-CWRA/RavenPy',
-               description: 'https://github.com/CSHS-CWRA/RavenPy repo or fork to test against.', trim: true)
+                description: 'https://github.com/CSHS-CWRA/RavenPy repo or fork to test against.', trim: true)
         booleanParam(name: 'TEST_ESGF_COMPUTE_API_REPO', defaultValue: false,
-                     description: 'Check the box to test esgf-compute-api repo.  Kept here for historical reasons only, not working anymore.')
+                description: 'Check the box to test esgf-compute-api repo.  Kept here for historical reasons only, not working anymore.')
         string(name: 'ESGF_COMPUTE_API_BRANCH', defaultValue: 'devel',
-               description: 'ESGF_COMPUTE_API_REPO branch to test against.', trim: true)
+                description: 'ESGF_COMPUTE_API_REPO branch to test against.', trim: true)
         string(name: 'ESGF_COMPUTE_API_REPO', defaultValue: 'ESGF/esgf-compute-api',
-               description: 'https://github.com/ESGF/esgf-compute-api repo or fork to test against.', trim: true)
+                description: 'https://github.com/ESGF/esgf-compute-api repo or fork to test against.', trim: true)
         string(name: 'PYTEST_EXTRA_OPTS', defaultValue: '--dist=loadscope --numprocesses=0',
-               description: 'Extra options to pass to pytest, ex: --nbval-lax --dist=loadscope --numprocesses=0', trim: true)
+                description: 'Extra options to pass to pytest, ex: --nbval-lax --dist=loadscope --numprocesses=0', trim: true)
         string(name: 'EXTRA_TEST_ENV_VAR', defaultValue: '',
-               description: 'Extra environment variables for the various tests, ex: "TEST_RUNS=50 TEST_WPS_BIRDS=finch,raven,flyingpigeon TEST_NO_USE_PROD_DATA=1"', trim: true)
+                description: 'Extra environment variables for the various tests, ex: "TEST_RUNS=50 TEST_WPS_BIRDS=finch,raven,flyingpigeon TEST_NO_USE_PROD_DATA=1"', trim: true)
         string(name: 'CONFIG_OVERRIDE_SCRIPT_URL', defaultValue: '',
-               description: 'Url or local file path to a script that will be sourced, allowing to programmatically override additional configs right before testsuite starts. Ex: https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/geoserver-nb-only.include.sh', trim: true)
+                description: 'Url or local file path to a script that will be sourced, allowing to programmatically override additional configs right before testsuite starts. Ex: https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/geoserver-nb-only.include.sh', trim: true)
         booleanParam(name: 'TEST_LOCAL_NOTEBOOKS', defaultValue: true,
-                     description: 'Check the box to test notebooks in this repo (./notebooks/*.ipynb).')
+                description: 'Check the box to test notebooks in this repo (./notebooks/*.ipynb).')
         booleanParam(name: 'VERIFY_SSL', defaultValue: true,
-                     description: 'Check the box to verify SSL certificate for https connections to PAVICS host.')
+                description: 'Check the box to verify SSL certificate for https connections to PAVICS host.')
         string(name: 'CUSTOM_NOTEBOOKS', defaultValue: '',
-                     description: 'Optional: space-separated list of notebook paths to run.  If empty, defaults will be used.', trim: true)
+                description: 'Optional: space-separated list of notebook paths to run.  If empty, defaults will be used.', trim: true)
         booleanParam(name: 'SAVE_RESULTING_NOTEBOOK', defaultValue: true,
-                     description: '''Check the box to save the resulting notebooks of the run.
+                description: '''Check the box to save the resulting notebooks of the run.
 Note this is another run, will double the time and no guaranty to have same error as the run from py.test.''')
         string(name: 'SAVE_RESULTING_NOTEBOOK_TIMEOUT', defaultValue: '240',
-               description: 'Timeout in sec for nbconvert.  For slow notebooks or slow machine', trim: true)
+                description: 'Timeout in sec for nbconvert.  For slow notebooks or slow machine', trim: true)
     }
 
     triggers {
@@ -135,12 +135,11 @@ Note this is another run, will double the time and no guaranty to have same erro
                          // string(credentialsId: 'hydroshare_auth_token',
                          //        variable: 'HYDROSHARE_AUTH_TOKEN'),
                          ]) {
-                        sh """
-                        VERIFY_SSL='${params.VERIFY_SSL}' \
-                        CUSTOM_NOTEBOOKS='${params.CUSTOM_NOTEBOOKS}' \
-                        SAVE_RESULTING_NOTEBOOK='${params.SAVE_RESULTING_NOTEBOOK}' \
-                        ${params.EXTRA_TEST_ENV_VAR} ./testall
-                        """
+                        sh(
+                            "VERIFY_SSL=${params.VERIFY_SSL} \
+                            SAVE_RESULTING_NOTEBOOK=${params.SAVE_RESULTING_NOTEBOOK} \
+                            ${params.EXTRA_TEST_ENV_VAR} ./testall"
+                        )
                     }
                 }
             }
@@ -153,11 +152,17 @@ Note this is another run, will double the time and no guaranty to have same erro
             archiveArtifacts(artifacts: 'buildout/env-dump/', fingerprint: true)
         }
 	unsuccessful {  // Run if the current builds status is "Aborted", "Failure" or "Unstable"
-            step([$class: 'Mailer', notifyEveryUnstableBuild: false,
-                  recipients: emailextrecipients([
+        step(
+            [$class: 'Mailer', notifyEveryUnstableBuild: false,
+                recipients: emailextrecipients(
+                    [
                         // enable once stable [$class: 'CulpritsRecipientProvider'],
                         // [$class: 'DevelopersRecipientProvider'],
-                        [$class: 'RequesterRecipientProvider']])])
+                        [$class: 'RequesterRecipientProvider']
+                    ]
+                )
+            ]
+        )
 	}
     }
 
