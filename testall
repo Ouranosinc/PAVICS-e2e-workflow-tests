@@ -121,9 +121,9 @@ if [ x"$TEST_LOCAL_NOTEBOOKS" = xtrue ]; then
     NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks/*.ipynb"
 fi
 
-if [ x"$CUSTOM_NOTEBOOKS" != x ]; then
-  # Custom notebooks to test, can be set by Jenkins job parameters.
-  NOTEBOOKS_TO_TEST="$CUSTOM_NOTEBOOKS"
+if [ x"$ALLOWLIST_NOTEBOOKS" != x ]; then
+  # Allowlist of notebooks to test, can be set by Jenkins job parameters.
+  NOTEBOOKS_TO_TEST="$ALLOWLIST_NOTEBOOKS"
 fi
 
 # last notebooks higher chance for name clash
