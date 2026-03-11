@@ -116,7 +116,7 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     rm -v /usr/local/bin/globusconnectpersonal-latest.tgz
 
 # For jupyter-panel-proxy launcher.
-ENV BOKEH_ALLOW_WS_ORIGIN "*"
+ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
 # For import xesmf since esmf-8.4.0, see: https://github.com/conda-forge/esmf-feedstock/issues/91
 ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
@@ -126,8 +126,8 @@ ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
 ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
 
 # To expose conda-installed compilers so that users can make use of them
+ENV gcc=x86_64-conda-linux-gnu-gcc
 ENV g++=x86_64-conda-linux-gnu-g++
-ENV gxx=x86_64-conda-linux-gnu-gxx
 ENV gfortran=x86_64-conda-linux-gnu-gfortran
 
 # problem running start-notebook.sh when being root

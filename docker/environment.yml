@@ -312,11 +312,14 @@ dependencies:
   # xlrd: Python library for reading data and formatting information from legacy Excel files
   - xlrd
 
-  # PIP PACKAGE SUPPORT
-  - pip # Needed for pip packages
+  # PIP PACKAGING SUPPORT
+  - pip >= 25.2 # Needed for modern pip packages
 
   # BUILD TOOLS
 
+  # C and Fortran NetCDF library support
+  - libnetcdf
+  - netcdf-fortran
   # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
   - make
   # cmake: cross-platform, open-source build system
