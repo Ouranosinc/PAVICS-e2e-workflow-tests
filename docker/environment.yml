@@ -8,9 +8,9 @@ channels:
   - nodefaults
 dependencies:
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
-  # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/master/recipe/meta.yaml
-  # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/master/recipe/meta.yaml
-  # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/master/recipe/meta.yaml
+  # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/main/recipe/meta.yaml
+  # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/main/recipe/meta.yaml
+  # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/main/recipe/meta.yaml
   # xhydro direct dependencies: https://github.com/conda-forge/xhydro-feedstock/blob/main/recipe/meta.yaml
   # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
   # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
@@ -22,19 +22,19 @@ dependencies:
   # CORE LIBRARIES
 
   # clisops: Data reduction operations on xarray climate data
-  - clisops >= 0.16.2
+  - clisops >= 0.17.0
   # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
-  - figanos >= 0.5.0
+  - figanos >= 0.6.0
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
-  - ravenpy >= 0.19.0
+  - ravenpy >= 0.21.0
   # xclim: Climate indices computation package based on Xarray.
-  - xclim >= 0.57.0
+  - xclim >= 0.60.0
   # Hydrological analysis library built with xarray.
-  # - xhydro  # 2025-04: Currently deactivated due to older dependency pins
+  - xhydro >= 0.7.1
   # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
-  - xscen >= 0.12.3
+  - xscen >= 0.14.0
   # xsdba: Statistical correction and bias adjustment tools for xarray.
-  - xsdba >= 0.5.0
+  - xsdba >= 0.6.1
 
   # COMMON LIBRARIES
   # Only add pins here as needed
@@ -50,15 +50,15 @@ dependencies:
   # flox: fast & furious GroupBy reductions for dask.array
   - flox
   # h5netcdf: NetCDF4 backend for h5py
-  - h5netcdf
+  - h5netcdf >= 1.7.0
   # lmoments3: Estimate linear moments for statistical distribution functions.
   - lmoments3 >= 1.0.8
   # matplotlib: 2D plotting library
-  - matplotlib
+  - matplotlib >= 3.8.0
   # netcdf4: Python interface to the netCDF C library
   # - netcdf4  # managed by core libraries
   # numpy: fundamental package for scientific computing with Python
-  - numpy >= 1.25
+  - numpy >= 1.26.0
   # pandas: data structures and data analysis tools for Python
   # - pandas  # managed by core libraries
   # pydantic: Data validation and settings management using Python type annotations
@@ -78,7 +78,14 @@ dependencies:
   # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
   # - zarr  # managed by core libraries
 
-  # DEPENDENCIES
+  # C DEPENDENCIES
+
+  # proj: Cartographic Projections and Coordinate Transformations Library
+  # Changes in proj 9.8 changed the basis of PlateCarree transformation from spherical to ellipsoidal
+  # https://github.com/OSGeo/PROJ/issues/4714
+  - proj <= 9.7.1
+
+  # PYTHON DEPENDENCIES
 
   # fstd2nc: Converts RPN standard files (from Environment Canada) to netCDF files.
   # https://pypi.org/project/fstd2nc/
@@ -164,7 +171,7 @@ dependencies:
   # https://github.com/Ouranosinc/pavics-jupyter-env-issues/issues/17
   # https://github.com/intake/intake-esm/issues/688
   # https://github.com/intake/intake-thredds/issues/136
-  - intake-xarray < 2.0.0
+  - intake-xarray
   # load from ESRI Shape Files, GeoJSON, and geospatial databases with
   # geopandas (geojson, postgis, shapefile, spatialite) and regionmask for opening shapefiles into regionmask.
   # https://github.com/intake/intake_geopandas
@@ -181,7 +188,7 @@ dependencies:
   # pymetalink: Python library for creating and parsing Metalink files
   # https://anaconda.org/conda-forge/pymetalink
   # for Raven notebook Extract_geographical_watershed_properties.ipynb
-  - pymetalink
+  - pymetalink >=6.5.3
   # salib: Sensitivity Analysis Library
   # https://anaconda.org/conda-forge/salib
   - salib
@@ -260,8 +267,7 @@ dependencies:
   - voila
   # jupyterlab-archive: A Jupyter extension to make, download and extract archive files.
   # https://github.com/jupyterlab-contrib/jupyter-archive
-  # TODO: UNPIN jupyter-archive due to: https://github.com/jupyterlab-contrib/jupyter-archive/issues/132
-  - jupyter-archive <= 3.3.4
+  - jupyter-archive
   # jupyterlab-topbar: JupyterLab Top Bar Extensions
   # https://github.com/jtpio/jupyterlab-topbar
   - jupyterlab-topbar
@@ -295,9 +301,6 @@ dependencies:
   - wget
   # geckodriver: WebDriver for Firefox and Gecko-based browsers
   - geckodriver
-  # nested_dict: A dictionary subclass that allows for nested dictionaries
-  # FIXME: Last release was in 2015. What is this doing here???
-  - nested_dict
   # paramiko: Python implementation of the SSH protocol
   - paramiko
   # pre-commit: framework for managing and maintaining multi-language pre-commit hooks
@@ -320,6 +323,11 @@ dependencies:
   # C and Fortran NetCDF library support
   - libnetcdf
   - netcdf-fortran
+  # VCS support
+  - git
+  - mercurial
+  - patch
+  - unzip
   # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
   - make
   # cmake: cross-platform, open-source build system
