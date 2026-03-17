@@ -7,8 +7,8 @@ USER root
 # RUN micromamba config --prepend channels nodefaults || true && \
 #     micromamba config --remove channels defaults || true && \
 #     micromamba config --set channel_priority strict && \
-RUN micromamba update -n base micromamba && \
-    micromamba install conda-pack -n base && \
+RUN micromamba update --name base micromamba && \
+    micromamba install --name base conda-pack && \
     micromamba clean --all --yes    
 
 # Additional fonts and firefox backend for rendering widgets
@@ -28,20 +28,19 @@ COPY environment.yml /environment.yml
 # create env "birdy"
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
 #
-# Perform 2 stages install because one single 'conda env create -f
-# /environment.yml' was taking forever to complete, same with mamba.
-# Had to do this 2 stages install.  2 stages install was also taking forever
-# with conda so had to switch to mamba.
-#
-# One single 'conda env create -f /environment.yml' takes forever because we
+# Perform two-stage install because one single 'conda env create -f /environment.yml'
+# was taking forever to complete, same with mamba.
+# Previously, one single 'conda env create -f /environment.yml' took forever because we
 # removed all direct dependencies of xclim and ravenpy in /environment.yml for
-# dependencies pinning by xclim and ravenpy to take effect.  This results in
-# conda having a lot more packages to "solve" and it seems the solver
+# dependencies pinning by xclim and ravenpy to take effect.
+# This resulted in conda having a lot more packages to "solve" and it seems the solver
 # performance dropped exponentially with the number of packages to solve.
 #
 # Conda was stuck at this step:
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 #
+# As of March 2026, the new image uses mambaorg/micromamba and the libmamba solver by default. 
+
 RUN umask 0000 && \
     micromamba create --name birdy python=3.11 --yes && \
     (micromamba env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
@@ -49,7 +48,7 @@ RUN umask 0000 && \
     micromamba env update --name birdy --file /environment.yml && \
     micromamba clean --all --yes
 
-# alternate way to 'source activate birdy'
+# Alternate way to 'source activate birdy'
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
 # Notebooks are hardcoded to lookup for kernel named 'birdy' created in the previous code block
@@ -66,7 +65,7 @@ RUN python -m ipykernel install --name birdy && \
 # see comment https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998917305
 # Currently jupyter-dash is holding back this step, see
 # https://github.com/plotly/jupyter-dash/issues/49
-RUN jupyter lab build
+# RUN jupyter lab build
 
 RUN jupyter serverextension enable voila --sys-prefix && \
     jupyter serverextension enable panel.io.jupyter_server_extension --sys-prefix && \
@@ -128,4 +127,4 @@ USER jenkins
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
 # start notebook in conda environment to have working jupyter extensions
-CMD ["conda", "run", "-n", "birdy", "/usr/local/bin/start-notebook.sh"]
+CMD ["micromamba", "run", "-n", "birdy", "/usr/local/bin/start-notebook.sh"]
