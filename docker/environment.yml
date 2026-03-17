@@ -137,14 +137,14 @@ dependencies:
   # https://github.com/holoviz/hvplot
   - hvplot
   # dash: A web application framework for building data visualization interfaces.
-  # https://anaconda.org/conda-forge/dash
+  # https://github.com/plotly/dash
   - dash >= 2.16.1
   # streamlit: For creating web apps for data science and machine learning projects.
   # https://streamlit.io/
   # https://anaconda.org/conda-forge/streamlit
   - streamlit
   # Seaborn: Statistical data visualization
-  # https://anaconda.org/conda-forge/seaborn
+  # https://github.com/mwaskom/seaborn
   - seaborn
   # python-pptx is a Python library for creating and updating PowerPoint (.pptx) files.
   # https://python-pptx.readthedocs.io/en/latest/
@@ -159,15 +159,16 @@ dependencies:
   - aiohttp
   # Intake: a lightweight set of tools for loading and sharing data in data science projects
   # https://intake.readthedocs.io/en/latest/
-  - intake
+  - intake >=2.0
   # https://intake.readthedocs.io/en/latest/plugin-directory.html
   # intake-esgf: Plugin for building and loading intake catalogues for ESGF (Earth System Grid Federation) data sets.
+  # https://github.com/esgf2-us/intake-esgf
   - intake-esgf >= 2025.6.6
   # intake-esm: Plugin for building and loading intake catalogues for earth system data sets
   # holdings, such as CMIP (Coupled Model Intercomparison Project) and CESM Large Ensemble datasets.
+  # https://github.com/intake/intake-esm
   - intake-esm >= 2025.2.3
   # load netCDF, Zarr and other multi-dimensional data (xarray_image, netcdf, grib, opendap, rasterio, remote-xarray, zarr)
-  # TODO: Unpin intake-xarray
   # https://github.com/Ouranosinc/pavics-jupyter-env-issues/issues/17
   # https://github.com/intake/intake-esm/issues/688
   # https://github.com/intake/intake-thredds/issues/136
@@ -186,7 +187,7 @@ dependencies:
   # https://github.com/dask/s3fs/
   - s3fs
   # pymetalink: Python library for creating and parsing Metalink files
-  # https://anaconda.org/conda-forge/pymetalink
+  # https://github.com/metalink-dev/pymetalink
   # for Raven notebook Extract_geographical_watershed_properties.ipynb
   - pymetalink >=6.5.3
   # salib: Sensitivity Analysis Library
@@ -217,6 +218,7 @@ dependencies:
   # pytest-tornasync: pytest plugin for testing Tornado applications
   # Needed to run notebook tests
   # Missing indirect recursive dependencies somewhere, should not need to manually add it here.
+  # https://github.com/eukaryote/pytest-tornasync
   - pytest-tornasync
   # pytest-xdist: pytest plugin for distributed testing and loop-on-failures testing modes.
   # https://github.com/pytest-dev/pytest-xdist
@@ -279,7 +281,7 @@ dependencies:
   # https://github.com/jupyter-xeus/xeus-python
   - xeus-python
   # jupyter-server-proxy: run arbitrary external processes alongside your notebook server
-  # https:://github.com/jupyterhub/jupyter-server-proxy
+  # https://github.com/jupyterhub/jupyter-server-proxy
   - jupyter-server-proxy
   # dask-labextension: A JupyterLab extension for Dask.
   # https://github.com/dask/dask-labextension
@@ -291,7 +293,7 @@ dependencies:
   # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998901247
   # TODO: remove nodejs once all extensions move to prebuilt extensions, see comment
   # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998917305
-  - nodejs >= 16.0
+  # - nodejs >= 16.0
 
   # UTILITIES
 
@@ -306,7 +308,7 @@ dependencies:
   # pre-commit: framework for managing and maintaining multi-language pre-commit hooks
   - pre-commit
   # requests-magpie: Authentication library
-  # https://anaconda.org/conda-forge/requests-magpie
+  # https://github.com/Ouranosinc/requests-magpie
   - requests-magpie
   # scp: Secure Copy Protocol (SCP) implementation for Python and Paramiko
   - scp

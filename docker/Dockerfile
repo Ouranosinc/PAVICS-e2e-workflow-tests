@@ -2,6 +2,7 @@
 FROM mambaorg/micromamba
 # Switch to root user for apt access
 USER root
+ENV DEBIAN_FRONTEND=noninteractive
 
 # micromamba image only uses conda-forge as source
 # RUN micromamba config --prepend channels nodefaults || true && \
@@ -13,8 +14,7 @@ RUN micromamba update --name base micromamba && \
 
 # Additional fonts and firefox backend for rendering widgets
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    fonts-humor-sans firefox-esr x11-utils && \
+    apt-get install --yes fonts-humor-sans firefox-esr x11-utils && \
     apt-get clean
 
 # Create user jenkins for our Jenkins e2e notebooks test suite.
