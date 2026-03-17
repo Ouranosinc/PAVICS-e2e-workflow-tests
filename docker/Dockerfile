@@ -1,22 +1,20 @@
-FROM continuumio/miniconda3
+# Use micromamba for improved speed and reduced image size
+FROM mambaorg/micromamba
+# Switch to root user for apt access
+USER root
 
-# Use mamba for much improved performance over conda.
-# The 'channel_priority strict' did help conda but it was not enough.
-RUN conda config --prepend channels nodefaults || true && \
-    conda config --remove channels defaults || true && \
-    conda update conda -n base && \
-    conda install mamba conda-pack -n base -c conda-forge && \
-    conda clean --all --yes && \
-    conda config --set channel_priority strict && \
-    wget -qO- https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -C /usr/local -xvj bin/micromamba
+# micromamba image only uses conda-forge as source
+# RUN micromamba config --prepend channels nodefaults || true && \
+#     micromamba config --remove channels defaults || true && \
+#     micromamba config --set channel_priority strict && \
+RUN micromamba update -n base micromamba && \
+    micromamba install conda-pack -n base && \
+    micromamba clean --all --yes    
 
-# Default for micromamba is $HOME/micromamba which is wrong.
-ENV MAMBA_ROOT_PREFIX="/opt/conda"
-
-# to checkout other notebooks and to run pip install
+# Additional fonts and firefox backend for rendering widgets
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    git mercurial gcc unzip patch fonts-humor-sans firefox-esr x11-utils && \
+    fonts-humor-sans firefox-esr x11-utils && \
     apt-get clean
 
 # Create user jenkins for our Jenkins e2e notebooks test suite.
@@ -45,26 +43,21 @@ COPY environment.yml /environment.yml
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 #
 RUN umask 0000 && \
-    mamba create --name birdy --channel conda-forge python=3.11 clisops figanos ravenpy xclim xscen xsdba --yes && \
-    (conda env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
+    micromamba create --name birdy python=3.11 --yes && \
+    (micromamba env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
     (du -sh /opt/conda 2>&1 | tee /conda-envs-size-phase1.txt) && \
-    mamba env update --name birdy --file /environment.yml && \
-    mamba clean --all --yes
+    micromamba env update --name birdy --file /environment.yml && \
+    micromamba clean --all --yes
 
 # alternate way to 'source activate birdy'
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
-# our notebooks are hardcoded to lookup for kernel named 'birdy'
-# this python is from the birdy env above
+# Notebooks are hardcoded to lookup for kernel named 'birdy' created in the previous code block
 RUN python -m ipykernel install --name birdy && \
-    (conda env export --name birdy 2>&1 | tee /conda-env-export-final.yml) && \
+    (micromamba env export --name birdy 2>&1 | tee /conda-env-export-final.yml) && \
     (diff --unified /conda-env-export-phase1.yml /conda-env-export-final.yml 2>&1 | tee /conda-env-export.diff) && \
     (du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt) && \
     diff /conda-envs-size-phase1.txt /conda-envs-size-final.txt || true
-
-# install using same channel preferences as birdy original env to not downgrade anything accidentally
-# this is for debug only, all dependencies should be specified in environment.yml above
-# RUN mamba install -c conda-forge -c cdat -c bokeh -c fortiers -n birdy nbdime
 
 # build jupyterlab extensions installed by conda, see `jupyter labextension list`
 # Supposedly not needed with jupyterlab v3 anymore but see
@@ -78,7 +71,6 @@ RUN jupyter lab build
 RUN jupyter serverextension enable voila --sys-prefix && \
     jupyter serverextension enable panel.io.jupyter_server_extension --sys-prefix && \
     jupyter serverextension list
-#   jupyter labextension install jupyterlab-clipboard
 
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
