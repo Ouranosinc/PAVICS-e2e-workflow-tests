@@ -150,6 +150,9 @@ dependencies:
   # openpyxl: library to read/write Excel 2010 xlsx/xlsm files
   # https://anaconda.org/conda-forge/openpyxl
   - openpyxl
+  # requests: http for humans
+  # https://github.com/psf/requests
+  - requests >= 2.32.5
   # aiohttp: Asynchronous HTTP client/server framework for Python
   # https://anaconda.org/conda-forge/aiohttp
   # for error 'ImportError: HTTPFileSystem requires "requests" and "aiohttp" to be installed' with call 'fsspec.filesystem('https')'
@@ -208,7 +211,7 @@ dependencies:
   - mesalib
   # exactextract: a fast and accurate algorithm for calculating zonal statistics.
   # https://github.com/isciences/exactextract
-  - exactxtract >= 3.0
+  - exactextract >= 3.0
 
   # TESTING LIBRARIES
 
