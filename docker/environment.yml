@@ -211,7 +211,7 @@ dependencies:
   - mesalib
   # exactextract: a fast and accurate algorithm for calculating zonal statistics.
   # https://github.com/isciences/exactextract
-  - exactextract >= 3.0
+  - exactextract >= 0.3.0
 
   # TESTING LIBRARIES
 
