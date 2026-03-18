@@ -92,7 +92,7 @@ dependencies:
   - fstd2nc >= 0.20250310.0  # build1 fixes issues in build0
   # birdy: Birdy provides a command-line tool to work with Web Processing Services (WPS).
   # https://github.com/bird-house/birdy
-  - birdy >= 0.8.7
+  - birdy >= 0.9.1
   # cfgrib: Python interface to map GRIB files to the Unidata's Common Data Model v4 following the CF Conventions.
   # https://github.com/ecmwf/cfgrib
   - cfgrib
@@ -136,9 +136,6 @@ dependencies:
   # hvplot: A high-level plotting API for pandas, dask, xarray, and networkx built on HoloViews.
   # https://github.com/holoviz/hvplot
   - hvplot
-  # dash: A web application framework for building data visualization interfaces.
-  # https://github.com/plotly/dash
-  - dash >= 2.16.1
   # streamlit: For creating web apps for data science and machine learning projects.
   # https://streamlit.io/
   # https://anaconda.org/conda-forge/streamlit
@@ -159,7 +156,7 @@ dependencies:
   - aiohttp
   # Intake: a lightweight set of tools for loading and sharing data in data science projects
   # https://intake.readthedocs.io/en/latest/
-  - intake >=2.0
+  - intake >= 2.0
   # https://intake.readthedocs.io/en/latest/plugin-directory.html
   # intake-esgf: Plugin for building and loading intake catalogues for ESGF (Earth System Grid Federation) data sets.
   # https://github.com/esgf2-us/intake-esgf
@@ -189,7 +186,7 @@ dependencies:
   # pymetalink: Python library for creating and parsing Metalink files
   # https://github.com/metalink-dev/pymetalink
   # for Raven notebook Extract_geographical_watershed_properties.ipynb
-  - pymetalink >=6.5.3
+  - pymetalink >= 6.5.3
   # salib: Sensitivity Analysis Library
   # https://anaconda.org/conda-forge/salib
   - salib
@@ -209,6 +206,9 @@ dependencies:
   # mesalib: Open-source implementation of the OpenGL specification
   # https://anaconda.org/conda-forge/mesalib
   - mesalib
+  # exactextract: a fast and accurate algorithm for calculating zonal statistics.
+  # https://github.com/isciences/exactextract
+  - exactxtract >= 3.0
 
   # TESTING LIBRARIES
 
@@ -249,8 +249,12 @@ dependencies:
   # ipyleaflet: A Jupyter / Leaflet bridge enabling interactive maps in the Jupyter notebook.
   # https://github.com/jupyter-widgets/ipyleaflet
   - ipyleaflet
+  # mamba: a reimplementation of the conda package manager in C++
+  # NOTE: Included as a requirement for gator
+  # https://github.com/mamba-org/mamba
+  - mamba >= 2.0
   # gator: The Mamba Navigator, a Web UI for managing conda environments
-  # https://github.com/mamba-org/gator (was jupyter_conda)
+  # https://github.com/mamba-org/gator
   - mamba_gator
   # nbdime: Jupyter Notebook Diff and Merge tools
   # https://github.com/jupyter/nbdime
@@ -301,6 +305,14 @@ dependencies:
   - curl
   # wget: command-line utility for downloading files from the web
   - wget
+  # git: fast, scalable, distributed revision control system
+  - git
+  # mercurial: cross-platform, distributed revision-control tool for software developers
+  - mercurial
+  # patch: apply diff files to originals
+  - patch
+  # unzip: list, test and extract compressed files in a ZIP archive
+  - unzip
   # geckodriver: WebDriver for Firefox and Gecko-based browsers
   - geckodriver
   # paramiko: Python implementation of the SSH protocol
@@ -325,11 +337,6 @@ dependencies:
   # C and Fortran NetCDF library support
   - libnetcdf
   - netcdf-fortran
-  # VCS support
-  - git
-  - mercurial
-  - patch
-  - unzip
   # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
   - make
   # cmake: cross-platform, open-source build system
