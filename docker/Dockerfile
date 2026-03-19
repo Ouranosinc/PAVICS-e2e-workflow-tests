@@ -111,6 +111,8 @@ ENV gfortran=x86_64-conda-linux-gnu-gfortran
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
 USER jenkins
+# set entrypoint for jenkins to root
+WORKDIR /
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
 # start notebook in conda environment to have working jupyter extensions
