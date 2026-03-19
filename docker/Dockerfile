@@ -2,19 +2,19 @@
 FROM mambaorg/micromamba
 # Switch to root user for apt access
 USER root
+# No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
 
 # micromamba image only uses conda-forge as source
-# RUN micromamba config --prepend channels nodefaults || true && \
-#     micromamba config --remove channels defaults || true && \
-#     micromamba config --set channel_priority strict && \
+# conda must be present in base for mamba-gator
 RUN micromamba update --name base micromamba && \
-    micromamba install --name base conda-pack && \
-    micromamba clean --all --yes    
+    micromamba install --name base "conda>=4.7.12" "mamba>=2.0" && \
+    micromamba clean --all --yes
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
-# Additional fonts and firefox backend for rendering widgets
+# Additional fonts for matplotlib and widgets
 RUN apt-get update && \
-    apt-get install --yes fonts-humor-sans firefox-esr x11-utils && \
+    apt-get install --yes fonts-humor-sans && \
     apt-get clean
 
 # Create user jenkins for our Jenkins e2e notebooks test suite.
@@ -42,7 +42,7 @@ COPY environment.yml /environment.yml
 # As of March 2026, the new image uses mambaorg/micromamba and the libmamba solver by default. 
 
 RUN umask 0000 && \
-    micromamba create --name birdy python=3.11 --yes && \
+    micromamba create --name birdy "python>=3.12,<3.13" --yes && \
     (micromamba env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
     (du -sh /opt/conda 2>&1 | tee /conda-envs-size-phase1.txt) && \
     micromamba env update --name birdy --file /environment.yml && \
@@ -57,19 +57,6 @@ RUN python -m ipykernel install --name birdy && \
     (diff --unified /conda-env-export-phase1.yml /conda-env-export-final.yml 2>&1 | tee /conda-env-export.diff) && \
     (du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt) && \
     diff /conda-envs-size-phase1.txt /conda-envs-size-final.txt || true
-
-# build jupyterlab extensions installed by conda, see `jupyter labextension list`
-# Supposedly not needed with jupyterlab v3 anymore but see
-# https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998901247
-# TODO: remove 'jupyter lab build' step once all extensions move to prebuilt extensions,
-# see comment https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998917305
-# Currently jupyter-dash is holding back this step, see
-# https://github.com/plotly/jupyter-dash/issues/49
-# RUN jupyter lab build
-
-RUN jupyter serverextension enable voila --sys-prefix && \
-    jupyter serverextension enable panel.io.jupyter_server_extension --sys-prefix && \
-    jupyter serverextension list
 
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be

@@ -7,6 +7,8 @@ channels:
   - fortiers  # for fstd2nc
   - nodefaults
 dependencies:
+  - python >=3.11,<3.15
+
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
   # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/main/recipe/meta.yaml
   # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/main/recipe/meta.yaml
@@ -27,6 +29,7 @@ dependencies:
   - figanos >= 0.6.0
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
   - ravenpy >= 0.21.0
+  - raven-hydro >=4.12.1
   # xclim: Climate indices computation package based on Xarray.
   - xclim >= 0.60.0
   # Hydrological analysis library built with xarray.
@@ -211,7 +214,7 @@ dependencies:
   - mesalib
   # exactextract: a fast and accurate algorithm for calculating zonal statistics.
   # https://github.com/isciences/exactextract
-  - exactextract >= 0.3.0
+  - exactextract
 
   # TESTING LIBRARIES
 
@@ -241,7 +244,7 @@ dependencies:
   - notebook
   # jupyterlab: An extensible environment for interactive and reproducible computing
   # https://github.com/jupyterlab/jupyterlab
-  - jupyterlab
+  - jupyterlab >= 4.0
   # JupyterHub: A multi-user server for Jupyter notebooks
   # https://github.com/jupyterhub/jupyterhub
   - jupyterhub
@@ -277,9 +280,6 @@ dependencies:
   # jupyterlab-archive: A Jupyter extension to make, download and extract archive files.
   # https://github.com/jupyterlab-contrib/jupyter-archive
   - jupyter-archive
-  # jupyterlab-topbar: JupyterLab Top Bar Extensions
-  # https://github.com/jtpio/jupyterlab-topbar
-  - jupyterlab-topbar
   # jupyter-resource-usage: Jupyter Extension to show resource usage
   # https://github.com/jupyter-server/jupyter-resource-usage
   # migrated from https://github.com/jtpio/jupyterlab-system-monitor and originally from jupyterlab-topbar
@@ -293,14 +293,20 @@ dependencies:
   # dask-labextension: A JupyterLab extension for Dask.
   # https://github.com/dask/dask-labextension
   - dask-labextension
+  # jupyterlab-geojson: JupyterLab extension for rendering GeoJSON
+  # https://github.com/jupyterlab/jupyter-renderers/tree/main/packages/geojson-extension
+  - jupyterlab-geojson
+  # jupyterlab-topbar: JupyterLab Top Bar Extensions
+  # https://github.com/jtpio/jupyterlab-topbar
+  - pip:
+    - jupyterlab-logout >= 1.1.0
+    - jupyterlab-theme-toggler >= 1.1.0
 
   # MISCELLANEOUS EXTRAS
 
-  # Force newer nodejs for 'jupyter lab build' issue
-  # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998901247
-  # TODO: remove nodejs once all extensions move to prebuilt extensions, see comment
-  # https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998917305
-  # - nodejs >= 16.0
+  # HDF5: The HDF5 Data Model Specification
+  # https://www.hdfgroup.org/solutions/hdf5/
+  - hdf5
 
   # UTILITIES
 
@@ -331,6 +337,14 @@ dependencies:
   - selenium
   # xlrd: Python library for reading data and formatting information from legacy Excel files
   - xlrd
+
+  # BROWSER SUPPORT
+  # firefox: The one and only
+  # https://github.com/mozilla-firefox/firefox
+  - firefox
+  # selenium: Python library for automating web browser interaction
+  # https://github.com/SeleniumHQ/Selenium
+  - selenium
 
   # PIP PACKAGING SUPPORT
   - pip >= 25.2 # Needed for modern pip packages
