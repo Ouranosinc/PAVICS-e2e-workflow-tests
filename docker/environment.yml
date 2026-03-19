@@ -29,7 +29,7 @@ dependencies:
   - figanos >= 0.6.0
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
   - ravenpy >= 0.21.0
-  - raven-hydro >=4.12.1
+  # - raven-hydro # managed by ravenpy
   # xclim: Climate indices computation package based on Xarray.
   - xclim >= 0.60.0
   # Hydrological analysis library built with xarray.
