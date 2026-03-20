@@ -12,6 +12,7 @@ pipeline {
         docker {
             image "pavics/workflow-tests:py312-260320"
             label 'linux && docker'
+            env ENV_NAME="birdy"
         }
     }
 
