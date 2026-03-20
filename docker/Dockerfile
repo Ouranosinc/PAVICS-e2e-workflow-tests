@@ -1,29 +1,46 @@
 # Use micromamba for improved speed and reduced image size
 FROM mambaorg/micromamba
-# Switch to root user for apt access
-USER root
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
 
-# micromamba image only uses conda-forge as source
+# The micromamba image only uses conda-forge as source
 # conda must be present in base for mamba-gator
 RUN micromamba update --name base micromamba && \
     micromamba install --name base "conda>=4.7.12" "mamba>=2.0" && \
     micromamba clean --all --yes
-ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
-# Additional fonts for matplotlib and widgets
+# Rename mambauser to jenkins for our Jenkins e2e notebooks test suite.
+ARG NEW_MAMBA_USER=jenkins
+ARG NEW_MAMBA_USER_ID=1000
+ARG NEW_MAMBA_USER_GID=1000
+
+USER root
+# Rename mambauser to jenkins; copied from mambaorg/micromamba documentation
+RUN if grep -q '^ID=alpine$' /etc/os-release; then \
+      # alpine does not have usermod/groupmod
+      apk add --no-cache --virtual temp-packages shadow; \
+    fi && \
+    usermod "--login=${NEW_MAMBA_USER}" "--home=/home/${NEW_MAMBA_USER}" \
+        --move-home "-u ${NEW_MAMBA_USER_ID}" "${MAMBA_USER}" && \
+    groupmod "--new-name=${NEW_MAMBA_USER}" \
+        "-g ${NEW_MAMBA_USER_GID}" "${MAMBA_USER}" && \
+    if grep -q '^ID=alpine$' /etc/os-release; then \
+      # remove the packages that were only needed for usermod/groupmod
+      apk del temp-packages; \
+    fi && \
+    # Update the expected value of MAMBA_USER for the
+    # _entrypoint.sh consistency check.
+    echo "${NEW_MAMBA_USER}" > "/etc/arg_mamba_user" && \
+    :
+ENV MAMBA_USER=$NEW_MAMBA_USER
+
+# Copy environment file
+COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/environment.yml
+
+# Add wget and additional fonts for matplotlib and widgets
 RUN apt-get update && \
-    apt-get install --yes fonts-humor-sans && \
+    apt-get install --yes fonts-humor-sans wget && \
     apt-get clean
-
-# Create user jenkins for our Jenkins e2e notebooks test suite.
-# Change /opt/conda folder permissions for jupyter-conda extension.
-RUN groupadd --gid 1000 jenkins && \
-    useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins && \
-    chmod -R a+rwX /opt/conda
-
-COPY environment.yml /environment.yml
 
 # create env "birdy"
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
@@ -41,22 +58,16 @@ COPY environment.yml /environment.yml
 #
 # As of March 2026, the new image uses mambaorg/micromamba and the libmamba solver by default. 
 
+# Create birdy environment
 RUN umask 0000 && \
-    micromamba create --name birdy "python>=3.12,<3.13" --yes && \
-    (micromamba env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
-    (du -sh /opt/conda 2>&1 | tee /conda-envs-size-phase1.txt) && \
-    micromamba env update --name birdy --file /environment.yml && \
+    micromamba create --name birdy --file /tmp/environment.yml "python>=3.12,<3.13" --yes && \
     micromamba clean --all --yes
 
-# Alternate way to 'source activate birdy'
-ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
-
 # Notebooks are hardcoded to lookup for kernel named 'birdy' created in the previous code block
-RUN python -m ipykernel install --name birdy && \
-    (micromamba env export --name birdy 2>&1 | tee /conda-env-export-final.yml) && \
-    (diff --unified /conda-env-export-phase1.yml /conda-env-export-final.yml 2>&1 | tee /conda-env-export.diff) && \
-    (du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt) && \
-    diff /conda-envs-size-phase1.txt /conda-envs-size-final.txt || true
+RUN umask 0000 && \
+    micromamba run --name birdy python -m ipykernel install --name birdy && \
+    micromamba env export --name birdy | tee /conda-env-export-final.yml && \
+    du -sh /opt/conda | tee /conda-envs-size-final.txt
 
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
@@ -79,14 +90,17 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     chmod a+rx /usr/local/bin/start.sh /usr/local/bin/start-singleuser.sh /usr/local/bin/start-notebook.sh /usr/local/bin/fix-permissions && \
     chmod a+r /etc/jupyter/jupyter_notebook_config.py && \
     mkdir -p /notebook_dir/writable-workspace && \
-    chown jenkins /notebook_dir/writable-workspace && \
+    chown "${MAMBA_USER}" /notebook_dir/writable-workspace && \
     mkdir -p /notebook_dir/pavics-homepage && \
-    chown jenkins /notebook_dir/pavics-homepage && \
+    chown "${MAMBA_USER}" /notebook_dir/pavics-homepage && \
     chown root:root /notebook_dir && \
     chmod a-w /notebook_dir && \
+    mkdir -p /opt/conda/envs/birdy/fonts && \
     chmod a+rwX -R /opt/conda/envs/birdy/fonts && \
-    mkdir /opt/conda/pkgs/cache && \
-    chown jenkins:jenkins -R /opt/conda/pkgs/cache && \
+    mkdir -p /opt/conda/pkgs/cache && \
+    chown "${MAMBA_USER}":"${MAMBA_USER}" -R /opt/conda/pkgs/cache && \
+    touch /opt/conda/pkgs/pkgs.lock && \
+    chown "${MAMBA_USER}":"${MAMBA_USER}" /opt/conda/pkgs/pkgs.lock && \
     mkdir -p /usr/local/bin && \
     wget https://downloads.globus.org/globus-connect-personal/linux/stable/globusconnectpersonal-latest.tgz -O /usr/local/bin/globusconnectpersonal-latest.tgz && \
     tar xzf /usr/local/bin/globusconnectpersonal-latest.tgz -C /usr/local/bin/ && \
@@ -110,10 +124,10 @@ ENV gfortran=x86_64-conda-linux-gnu-gfortran
 
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
-USER jenkins
+USER $MAMBA_USER
 # set entrypoint for jenkins to root
 WORKDIR /
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
 # start notebook in conda environment to have working jupyter extensions
-CMD ["micromamba", "run", "-n", "birdy", "/usr/local/bin/start-notebook.sh"]
+CMD ["/usr/local/bin/_entrypoint.sh", "run", "/usr/local/bin/start-notebook.sh"]

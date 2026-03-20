@@ -10,6 +10,10 @@ if [ -z "$DOCKER_IMAGE" ]; then
     DOCKER_IMAGE="pavics/workflow-tests:py311-260319"
 fi
 
+if [ -z "$ENV_NAME" ]; then
+    ENV_NAME="birdy"
+fi 
+
 if [ -z "$CONTAINER_NAME" ]; then
     CONTAINER_NAME="birdy-notebook"
 fi
@@ -19,11 +23,9 @@ GROUP_ID="$(id -g)"
 
 # launch with current user UID and GID to not have write permission problems
 docker run --rm --name $CONTAINER_NAME \
-    -p $PORT:$PORT -u 0:0 -v "$(pwd)":"$(pwd)" --hostname "$(hostname)" \
+    -p $PORT:$PORT -u 0:0 -v "$(pwd)":"$(pwd)" --hostname "$(hostname)" -e ENV_NAME=$ENV_NAME \
     $DOCKER_RUN_OPTS \
     $DOCKER_IMAGE \
     bash -c "groupmod -g $GROUP_ID jenkins; \
              usermod -u $USER_ID jenkins; \
-             echo 'ENV_PATH PATH=/usr/local/envs/birdy/bin:/opt/conda/bin:/usr/local/bin:/usr/bin:/bin' >> /etc/login.defs; \
-             su jenkins -s /bin/bash -c \
-                 'jupyter lab --ip=0.0.0.0 --port=$PORT --no-browser'"
+             su jenkins -s /bin/bash -c 'jupyter lab --ip=0.0.0.0 --port=$PORT --no-browser'"
