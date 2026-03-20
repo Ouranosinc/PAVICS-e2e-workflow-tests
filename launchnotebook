@@ -7,7 +7,7 @@ if [ -z "$PORT" ]; then
 fi
 
 if [ -z "$DOCKER_IMAGE" ]; then
-    DOCKER_IMAGE="pavics/workflow-tests:py311-260319"
+    DOCKER_IMAGE="pavics/workflow-tests:py312-260320"
 fi
 
 if [ -z "$ENV_NAME" ]; then
