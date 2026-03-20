@@ -3,10 +3,9 @@ FROM mambaorg/micromamba
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
 
-# The micromamba image only uses conda-forge as source
-# conda must be present in base for mamba-gator
-RUN micromamba update --name base micromamba && \
-    micromamba install --name base "conda>=4.7.12" "mamba>=2.0" && \
+# Install all jupyter and docker build dependencies in base
+COPY environment-base.yml /tmp/environment-base.yml
+RUN micromamba install --yes --name base --file /tmp/environment-base.yml && \
     micromamba clean --all --yes
 
 # Rename mambauser to jenkins for our Jenkins e2e notebooks test suite.
@@ -37,9 +36,9 @@ ENV MAMBA_USER=$NEW_MAMBA_USER
 # Copy environment file
 COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/environment.yml
 
-# Add wget and additional fonts for matplotlib and widgets
+# Add additional fonts for matplotlib and widgets
 RUN apt-get update && \
-    apt-get install --yes fonts-humor-sans wget && \
+    apt-get install --yes fonts-humor-sans && \
     apt-get clean
 
 # create env "birdy"
@@ -73,6 +72,9 @@ RUN umask 0000 && \
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
 # is breaking with us since we do not have user jovyan.
 ENV DOCKER_STACKS_COMMIT=709206ac8788475728cc9c992c25fb5f1501bc29
+
+# Activate base environment
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 # /notebook_dir for Pavics-landing notebooks to re-create Jupyter env layout:
 # /notebook_dir/writable-workspace, /notebook_dir/pavics-homepage.
@@ -110,6 +112,10 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
 # For jupyter-panel-proxy launcher.
 ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
+# To supply the location of the RavenHydroFramework binary
+# FIXME: This location should be provided via the raven-hydro package which would help with the discovery logic in RavenPy
+ENV RAVENPY_RAVEN_BINARY_PATH="/opt/conda/envs/birdy/bin/raven"
+
 # For import xesmf since esmf-8.4.0, see: https://github.com/conda-forge/esmf-feedstock/issues/91
 ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
 
@@ -121,6 +127,9 @@ ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
 ENV gcc=x86_64-conda-linux-gnu-gcc
 ENV g++=x86_64-conda-linux-gnu-g++
 ENV gfortran=x86_64-conda-linux-gnu-gfortran
+
+# JupyterLab cannot write to hidden folders by design
+ENV XDG_CACHE_HOME="/home/${MAMBA_USER}/cache"
 
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here

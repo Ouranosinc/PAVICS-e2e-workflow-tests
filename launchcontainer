@@ -8,10 +8,6 @@ if [ -z "$CONTAINER_NAME" ]; then
     CONTAINER_NAME="birdy"
 fi
 
-if [ -z "$ENV_NAME" ]; then
-    ENV_NAME="birdy"
-fi 
-
 # allow directly running another command with the launched docker
 # (eg: CONTAINER_CMD=testall launchcontainer)
 # otherwise, start interactive shell
@@ -24,7 +20,7 @@ GROUP_ID="$(id -g)"
 
 # launch with current user UID and GID to not have write permission problems
 docker run -it --rm --name $CONTAINER_NAME \
-    -v "$(pwd)":"$(pwd)" -u 0:0 -w "$(pwd)" --hostname "$(hostname)" -e ENV_NAME=$ENV_NAME \
+    -v "$(pwd)":"$(pwd)" -u 0:0 -w "$(pwd)" --hostname "$(hostname)" \
     $DOCKER_RUN_OPTS \
     $DOCKER_IMAGE \
     bash -c "groupmod -g $GROUP_ID jenkins; \
