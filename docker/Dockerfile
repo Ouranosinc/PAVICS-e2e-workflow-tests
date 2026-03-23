@@ -4,8 +4,8 @@ FROM mambaorg/micromamba
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install all jupyter and docker build dependencies in base
-COPY environment-base.yml /tmp/environment-base.yml
-RUN micromamba install --yes --name base --file /tmp/environment-base.yml && \
+COPY environment-base.yml ./environment-base.yml
+RUN micromamba install --yes --name base --file environment-base.yml && \
     micromamba clean --all --yes
 
 # Rename mambauser to jenkins for our Jenkins e2e notebooks test suite.
@@ -38,7 +38,7 @@ ENV NB_USER=${MAMBA_USER}
 ARG NB_GID="${NEW_MAMBA_USER_GID}"
 
 # Copy environment file
-COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/environment.yml
+COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml ./environment.yml
 
 # Add additional fonts and x11-utils for matplotlib and firefox support
 RUN apt-get update && \
@@ -48,7 +48,7 @@ RUN apt-get update && \
 # Create "birdy" environment
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
 RUN umask 0000 && \
-    micromamba create --name birdy --file /tmp/environment.yml "python>=3.12,<3.13" --yes && \
+    micromamba create --name birdy --file environment.yml "python>=3.12,<3.13" --yes && \
     micromamba clean --all --yes
 
 # Notebooks are hardcoded to lookup for kernel named 'birdy' created in the previous code block
@@ -128,8 +128,6 @@ HEALTHCHECK --interval=3s --timeout=1s --start-period=3s --retries=3 CMD /etc/ju
 USER $MAMBA_USER
 # Activate birdy environment
 ENV ENV_NAME=birdy
-# Set entrypoint for jenkins to root directory
-WORKDIR /
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
 # start notebook in conda environment to have working jupyter extensions
