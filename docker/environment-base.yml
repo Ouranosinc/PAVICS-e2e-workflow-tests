@@ -1,4 +1,4 @@
-# conda env create -f environment.yml
+# conda env create -f environment-base.yml
 name: base
 channels:
   - conda-forge
