@@ -12,6 +12,7 @@ dependencies:
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
   # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/main/recipe/meta.yaml
   # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/main/recipe/meta.yaml
+  # raven-hydro direct dependencies: https://github.com/conda-forge/raven-hydro-feedstock/blob/main/recipe/meta.yaml
   # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/main/recipe/meta.yaml
   # xhydro direct dependencies: https://github.com/conda-forge/xhydro-feedstock/blob/main/recipe/meta.yaml
   # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
@@ -43,42 +44,61 @@ dependencies:
   # Only add pins here as needed
 
   # cartopy: Python library for cartographic projections and geospatial data visualization
+  # https://github.com/SciTools/cartopy
   - cartopy >= 0.23
   # cftime: A Python library for handling time in netCDF files
+  # https://github.com/Unidata/cftime
   # - cftime  # managed by core libraries
   # cf-xarray: xarray extension for CF-compliant data
+  # https://github.com/xarray-contrib/cf-xarray
   - cf_xarray >= 0.10.4
   # dask: parallel computing with task scheduling
+  # https://github.com/dask/dask
   - dask != 2024.11.0  # a bug in this specific version broke Raven notebooks
   # flox: fast & furious GroupBy reductions for dask.array
+  # https://github.com/xarray-contrib/flox
   - flox
   # h5netcdf: NetCDF4 backend for h5py
+  # https://github.com/h5netcdf/h5netcdf
   - h5netcdf >= 1.7.0
   # lmoments3: Estimate linear moments for statistical distribution functions.
+  # https://github.com/Ouranosinc/lmoments3
   - lmoments3 >= 1.0.8
   # matplotlib: 2D plotting library
+  # https://github.com/matplotlib/matplotlib
   - matplotlib >= 3.8.0
   # netcdf4: Python interface to the netCDF C library
+  # https://github.com/Unidata/netcdf4-python
   # - netcdf4  # managed by core libraries
   # numpy: fundamental package for scientific computing with Python
+  # https://github.com/numpy/numpy
   - numpy >= 1.26.0
   # pandas: data structures and data analysis tools for Python
+  # https://github.com/pandas-dev/pandas
   # - pandas  # managed by core libraries
   # pydantic: Data validation and settings management using Python type annotations
+  # https://github.com/pydantic/pydantic
   # - pydantic  # managed by core libraries
   # pydap: A pure python implementation of the Data Access Protocol.
+  # https://github.com/pydap/pydap
   - pydap
   # scipy: scientific computing library for Python
+  # https://github.com/scipy/scipy
   - scipy >= 1.11.0
   # sparse: Sparse arrays for Python
+  # https://github.com/pydata/sparse
   - sparse >= 0.16.0
   # xarray: N-D labelled arrays and datasets in Python
+  # https://github.com/pydata/xarray
   # - xarray  # managed by core libraries
   # xesmf: Universal Regridder for Geospatial Data
+  # https://github.com/pangeo-data/xESMF
   - xesmf >= 0.8.9
   # xncml: Tools for manipulating and opening NCML (NetCDF Markup) files with/for xarray
+  # https://github.com/xarray-contrib/xncml
   - xncml >= 0.5.0
   # zarr: Python implementation of Zarr, a format for chunked, compressed, N-dimensional arrays
+  # https://github.com/zarr-developers/zarr-python
   # - zarr  # managed by core libraries
 
   # C DEPENDENCIES
@@ -237,25 +257,33 @@ dependencies:
 
   # HDF5: The HDF5 Data Model Specification
   # https://www.hdfgroup.org/solutions/hdf5/
+  # https://anaconda.org/channels/conda-forge/packages/hdf5/overview
   - hdf5
 
   # PIP PACKAGING SUPPORT
+  # https://github.com/pypa/pip
   - pip >= 25.2 # Needed for modern pip packages
 
   # BUILD TOOLS
 
   # C and Fortran NetCDF library support
+  # https://github.com/Unidata/netcdf-c
   - libnetcdf
+  # https://github.com/Unidata/netcdf-fortran
   - netcdf-fortran
   # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
   - make
   # cmake: cross-platform, open-source build system
+  # https://gitlab.kitware.com/cmake/cmake
   - cmake
   # c-compiler: C compiler meta-package
+  # https://anaconda.org/channels/conda-forge/packages/c-compiler/overview
   - c-compiler
   # cxx-compiler: C++ compiler meta-package
+  # https://anaconda.org/channels/conda-forge/packages/cxx-compiler/overview
   - cxx-compiler
   # fortran-compiler: Fortran compiler meta-package
+  # https://anaconda.org/channels/conda-forge/packages/fortran-compiler/overview
   - fortran-compiler
 
   # UTILITIES
@@ -267,30 +295,39 @@ dependencies:
   # curl: command-line tool for transferring data with URL syntax
   - curl
   # wget: command-line utility for downloading files from the web
+  # https://anaconda.org/channels/conda-forge/packages/wget/overview
   - wget
   # git: fast, scalable, distributed revision control system
   # NOTES: Included as a requirement for jupyterlab-git
+  # https://github.com/git/git
   - git
   # mamba: a reimplementation of the conda package manager in C++
   # NOTE: Included as a requirement for gator
   # https://github.com/mamba-org/mamba
   - mamba >= 2.0
   # mercurial: cross-platform, distributed revision-control tool for software developers
+  # https://anaconda.org/channels/conda-forge/packages/mercurial/overview
   - mercurial
   # openssh
+  # https://anaconda.org/channels/conda-forge/packages/openssh/overview
   - openssh
   # patch: apply diff files to originals
+  # https://cgit.git.savannah.gnu.org/cgit/patch.git
   - patch
   # unzip: list, test and extract compressed files in a ZIP archive
+  # https://anaconda.org/channels/conda-forge/packages/unzip/overview
   - unzip
   # paramiko: Python implementation of the SSH protocol
+  # https://github.com/paramiko/paramiko
   - paramiko
   # requests-magpie: Authentication library
   # https://github.com/Ouranosinc/requests-magpie
   - requests-magpie
   # scp: Secure Copy Protocol (SCP) implementation for Python and Paramiko
+  # https://github.com/jbardin/scp.py
   - scp
   # xlrd: Python library for reading data and formatting information from legacy Excel files
+  # https://github.com/python-excel/xlrd
   - xlrd
 
   # JUPYTER LIBRARIES
@@ -368,6 +405,7 @@ dependencies:
   # https://github.com/mozilla-firefox/firefox
   - firefox
   # geckodriver: WebDriver for Firefox and Gecko-based browsers
+  # https://github.com/mozilla/geckodriver
   - geckodriver
   # selenium: Python library for automating web browser interaction
   # https://github.com/SeleniumHQ/Selenium
