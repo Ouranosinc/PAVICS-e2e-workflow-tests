@@ -239,32 +239,6 @@ dependencies:
   # https://www.hdfgroup.org/solutions/hdf5/
   - hdf5
 
-  # UTILITIES
-
-  # curl: command-line tool for transferring data with URL syntax
-  - curl
-  # wget: command-line utility for downloading files from the web
-  - wget
-  # git: fast, scalable, distributed revision control system
-  - git
-  # mercurial: cross-platform, distributed revision-control tool for software developers
-  - mercurial
-  # patch: apply diff files to originals
-  - patch
-  # unzip: list, test and extract compressed files in a ZIP archive
-  - unzip
-  # geckodriver: WebDriver for Firefox and Gecko-based browsers
-  - geckodriver
-  # paramiko: Python implementation of the SSH protocol
-  - paramiko
-  # requests-magpie: Authentication library
-  # https://github.com/Ouranosinc/requests-magpie
-  - requests-magpie
-  # scp: Secure Copy Protocol (SCP) implementation for Python and Paramiko
-  - scp
-  # xlrd: Python library for reading data and formatting information from legacy Excel files
-  - xlrd
-
   # PIP PACKAGING SUPPORT
   - pip >= 25.2 # Needed for modern pip packages
 
@@ -283,3 +257,118 @@ dependencies:
   - cxx-compiler
   # fortran-compiler: Fortran compiler meta-package
   - fortran-compiler
+
+  # UTILITIES
+
+  # conda: a cross-platform, language-agnostic binary package manager
+  # NOTE: Included as a requirement for gator
+  # https://github.com/conda/conda
+  - conda >= 4.7.12
+  # curl: command-line tool for transferring data with URL syntax
+  - curl
+  # wget: command-line utility for downloading files from the web
+  - wget
+  # git: fast, scalable, distributed revision control system
+  # NOTES: Included as a requirement for jupyterlab-git
+  - git
+  # mamba: a reimplementation of the conda package manager in C++
+  # NOTE: Included as a requirement for gator
+  # https://github.com/mamba-org/mamba
+  - mamba >= 2.0
+  # mercurial: cross-platform, distributed revision-control tool for software developers
+  - mercurial
+  # openssh
+  - openssh
+  # patch: apply diff files to originals
+  - patch
+  # unzip: list, test and extract compressed files in a ZIP archive
+  - unzip
+  # paramiko: Python implementation of the SSH protocol
+  - paramiko
+  # requests-magpie: Authentication library
+  # https://github.com/Ouranosinc/requests-magpie
+  - requests-magpie
+  # scp: Secure Copy Protocol (SCP) implementation for Python and Paramiko
+  - scp
+  # xlrd: Python library for reading data and formatting information from legacy Excel files
+  - xlrd
+
+  # JUPYTER LIBRARIES
+
+  # Jupyter conda metapackage: Install all the Jupyter components in one go.
+  # https://anaconda.org/conda-forge/jupyter
+  - jupyter
+  # notebook: A web-based notebook environment for interactive computing.
+  # to be launched by image jupyterhub/jupyterhub
+  # https://github.com/jupyter/notebook
+  - notebook
+  # jupyterlab: An extensible environment for interactive and reproducible computing
+  # https://github.com/jupyterlab/jupyterlab
+  - jupyterlab >= 4.0
+  # JupyterHub: A multi-user server for Jupyter notebooks
+  # https://github.com/jupyterhub/jupyterhub
+  - jupyterhub
+  # ipywidgets: Interactive HTML Widgets
+  # https://github.com/jupyter-widgets/ipywidgets
+  # https://ipywidgets.readthedocs.io/en/latest/user_install.html
+  - ipywidgets
+  # ipyleaflet: A Jupyter / Leaflet bridge enabling interactive maps in the Jupyter notebook.
+  # https://github.com/jupyter-widgets/ipyleaflet
+  - ipyleaflet
+  # gator: The Mamba Navigator, a Web UI for managing conda environments
+  # https://github.com/mamba-org/gator
+  - mamba_gator
+  # nbdime: Jupyter Notebook Diff and Merge tools
+  # https://github.com/jupyter/nbdime
+  - nbdime
+  # jupyter_bokeh: An extension for rendering Bokeh content in JupyterLab notebooks
+  # https://github.com/bokeh/jupyter_bokeh
+  - jupyter_bokeh
+  # jupytext: extension to produce .py files from notebook .ipynb files
+  # https://github.com/mwouts/jupytext
+  - jupytext
+  # jupyterlab-git: A JupyterLab extension for version control using Git
+  # https://github.com/jupyterlab/jupyterlab-git
+  - jupyterlab-git >= 0.44.0
+  # voila: Voilà turns Jupyter notebooks into standalone web applications
+  # https://github.com/voila-dashboards/voila
+  - voila
+  # jupyterlab-archive: A Jupyter extension to make, download and extract archive files.
+  # https://github.com/jupyterlab-contrib/jupyter-archive
+  - jupyter-archive
+  # jupyter-resource-usage: Jupyter Extension to show resource usage
+  # https://github.com/jupyter-server/jupyter-resource-usage
+  # migrated from https://github.com/jtpio/jupyterlab-system-monitor and originally from jupyterlab-topbar
+  - jupyter-resource-usage
+  # xeus-python: back-end kernel implementing the Jupyter Debug Protocol
+  # https://github.com/jupyter-xeus/xeus-python
+  - xeus-python
+  # jupyter-server-proxy: run arbitrary external processes alongside your notebook server
+  # https://github.com/jupyterhub/jupyter-server-proxy
+  - jupyter-server-proxy
+  # dask-labextension: A JupyterLab extension for Dask.
+  # https://github.com/dask/dask-labextension
+  - dask-labextension
+  # jupyterlab-geojson: JupyterLab extension for rendering GeoJSON
+  # https://github.com/jupyterlab/jupyter-renderers/tree/main/packages/geojson-extension
+  - jupyterlab-geojson
+  # jupyterlab-topbar: JupyterLab Top Bar Extensions
+  # https://github.com/jtpio/jupyterlab-topbar
+  - pip:
+    - jupyterlab-logout >= 1.1.0
+    - jupyterlab-theme-toggler >= 1.1.0
+  # jupyterlab-unfold: JupyterLab IDE-like file browser
+  # https://jupyterlab-contrib.github.io/jupyterlab-unfold.html
+  - pip:
+    - jupyterlab-unfold
+  
+  # BROWSER SUPPORT
+
+  # firefox: The one and only
+  # https://github.com/mozilla-firefox/firefox
+  - firefox
+  # geckodriver: WebDriver for Firefox and Gecko-based browsers
+  - geckodriver
+  # selenium: Python library for automating web browser interaction
+  # https://github.com/SeleniumHQ/Selenium
+  - selenium
