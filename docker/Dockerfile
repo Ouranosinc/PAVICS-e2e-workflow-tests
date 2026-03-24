@@ -60,6 +60,9 @@ RUN umask 0000 && \
     micromamba env export --name birdy | tee /build-src/conda-env-export-final.yml && \
     du -sh "${MAMBA_ROOT_PREFIX}" | tee /build-src/conda-envs-size-final.txt
 
+# Alternate way to 'source activate birdy'
+ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
+
 # Docker-stacks commit from last time base-notebook was modified (2025/05/24)
 ENV DOCKER_STACKS_COMMIT=e73d308ba06fd5bcc75a4ee8417711743860c964
 
