@@ -3,9 +3,8 @@ FROM mambaorg/micromamba
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install all jupyter and docker build dependencies in base
-COPY environment-base.yml ./environment-base.yml
-RUN micromamba install --yes --name base --file environment-base.yml && \
+# Install conda and mamba in base for mamba_gator
+RUN micromamba install --yes --name base "conda>=4.7.12" "mamba>=2.0" && \
     micromamba clean --all --yes
 
 # Rename mambauser to jenkins for our Jenkins e2e notebooks test suite.
@@ -13,6 +12,7 @@ ARG NEW_MAMBA_USER=jenkins
 ARG NEW_MAMBA_USER_ID=1000
 ARG NEW_MAMBA_USER_GID=1000
 
+# Run username rename and environment setup as root
 USER root
 # Rename mambauser to jenkins; copied from mambaorg/micromamba documentation
 RUN if grep -q '^ID=alpine$' /etc/os-release; then \
@@ -37,31 +37,31 @@ ENV MAMBA_USER=$NEW_MAMBA_USER
 ENV NB_USER=${MAMBA_USER}
 ARG NB_GID="${NEW_MAMBA_USER_GID}"
 
+# Save build configurations
+RUN mkdir build-src
+
 # Copy environment file
-COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml ./environment.yml
+COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /build-src/environment.yml
 
 # Add additional fonts and x11-utils for matplotlib and firefox support
 RUN apt-get update && \
-    apt-get install --yes fonts-humor-sans x11-utils && \
+    apt-get install --yes fonts-humor-sans wget x11-utils && \
     apt-get clean
 
 # Create "birdy" environment
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
 RUN umask 0000 && \
-    micromamba create --name birdy --file environment.yml "python>=3.12,<3.13" --yes && \
+    micromamba create --name birdy --file /build-src/environment.yml "python>=3.12,<3.13" --yes && \
     micromamba clean --all --yes
 
 # Notebooks are hardcoded to lookup for kernel named 'birdy' created in the previous code block
 RUN umask 0000 && \
     micromamba run --name birdy python -m ipykernel install --name birdy && \
-    micromamba env export --name birdy | tee /conda-env-export-final.yml && \
-    du -sh "${MAMBA_ROOT_PREFIX}" | tee /conda-envs-size-final.txt
+    micromamba env export --name birdy | tee /build-src/conda-env-export-final.yml && \
+    du -sh "${MAMBA_ROOT_PREFIX}" | tee /build-src/conda-envs-size-final.txt
 
 # Docker-stacks commit from last time base-notebook was modified (2025/05/24)
 ENV DOCKER_STACKS_COMMIT=e73d308ba06fd5bcc75a4ee8417711743860c964
-
-# Activate base environment
-ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 # /notebook_dir for Pavics-landing notebooks to re-create Jupyter env layout:
 # /notebook_dir/writable-workspace, /notebook_dir/pavics-homepage.
@@ -93,7 +93,11 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     wget https://downloads.globus.org/globus-connect-personal/linux/stable/globusconnectpersonal-latest.tgz -O /usr/local/bin/globusconnectpersonal-latest.tgz && \
     tar xzf /usr/local/bin/globusconnectpersonal-latest.tgz -C /usr/local/bin/ && \
     ln -vs /usr/local/bin/globusconnectpersonal*/globusconnectpersonal /usr/local/bin/globusconnectpersonal && \
-    rm -v /usr/local/bin/globusconnectpersonal-latest.tgz
+    rm -v /usr/local/bin/globusconnectpersonal-latest.tgz && \
+    rm -rf /tmp/*
+
+# Activate base environment
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 # Set birdy as the default kernel
 RUN echo "c.MultiKernelManager.default_kernel_name = 'birdy'" >> /etc/jupyter/jupyter_server_config.py
@@ -123,12 +127,13 @@ ENV XDG_CACHE_HOME="/home/${MAMBA_USER}/cache"
 # Healthcheck - Requires NB_USER variable (copied from Docker-stacks)
 HEALTHCHECK --interval=3s --timeout=1s --start-period=3s --retries=3 CMD /etc/jupyter/docker_healthcheck.py || exit 1
 
-# Problem running start-notebook.sh when being root
-# the jupyter/base-notebook image also do not default to root user so we do the same here
+# Run the jupyterlab environment as the user
 USER $MAMBA_USER
 # Activate birdy environment
 ENV ENV_NAME=birdy
+# Set conda-forge as default channel for conda
+RUN conda config --append channels conda-forge
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
 # start notebook in conda environment to have working jupyter extensions
-CMD ["/usr/local/bin/_entrypoint.sh", "run", "-n", "base", "/usr/local/bin/start-notebook.py"]
+CMD ["/usr/local/bin/_entrypoint.sh", "run", "/usr/local/bin/start-notebook.py"]
