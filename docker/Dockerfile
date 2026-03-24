@@ -71,11 +71,13 @@ ENV DOCKER_STACKS_COMMIT=e73d308ba06fd5bcc75a4ee8417711743860c964
 # to run them seemlessly from the Jupyter env (without having to also copy
 # those *.geojson files with the notebooks).
 RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT/images/base-notebook/start-singleuser.py --output-document /usr/local/bin/start-singleuser.py && \
+    wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT/images/base-notebook/start-singleuser.sh --output-document /usr/local/bin/start-singleuser.sh && \
     wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT/images/base-notebook/start-notebook.py --output-document /usr/local/bin/start-notebook.py && \
+    wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT/images/base-notebook/start-notebook.sh --output-document /usr/local/bin/start-notebook.sh && \
     mkdir /etc/jupyter && \
     wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT/images/base-notebook/jupyter_server_config.py --output-document /etc/jupyter/jupyter_server_config.py && \
     wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT/images/base-notebook/docker_healthcheck.py --output-document /etc/jupyter/docker_healthcheck.py && \
-    chmod a+rx /usr/local/bin/start-singleuser.py /usr/local/bin/start-notebook.py /etc/jupyter/docker_healthcheck.py && \
+    chmod a+rx /usr/local/bin/start-singleuser.py /usr/local/bin/start-singleuser.sh /usr/local/bin/start-notebook.py /usr/local/bin/start-notebook.sh /etc/jupyter/docker_healthcheck.py && \
     chmod a+r /etc/jupyter/jupyter_server_config.py && \
     mkdir -p /notebook_dir/writable-workspace && \
     chown "${MAMBA_USER}" /notebook_dir/writable-workspace && \
@@ -136,4 +138,4 @@ RUN conda config --append channels conda-forge
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
 # start notebook in conda environment to have working jupyter extensions
-CMD ["/usr/local/bin/_entrypoint.sh", "run", "/usr/local/bin/start-notebook.py"]
+CMD ["/usr/local/bin/_entrypoint.sh", "run", "/usr/local/bin/start-notebook.sh"]
