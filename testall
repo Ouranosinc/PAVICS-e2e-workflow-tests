@@ -83,7 +83,7 @@ NOTEBOOKS_TO_TEST=""
 # So that empty dir do not break us.  Empty dir happens when we prepare in
 # advance a new repo, the folder we reference is not yet merged to that repo.
 accumulate_notebooks_to_test() {
-    if ls -1 $1 >& /dev/null; then
+    if ls -1 $1; then
         NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST $1"
     else
         echo "ERROR: '$1' is empty."
