@@ -105,6 +105,27 @@ else
     echo "RAVENPY_REPO has been set to '$RAVENPY_REPO'"
 fi
 
+if [ -z "$TEST_XHYDRO_REPO" ]; then
+    TEST_XHYDRO_REPO=true
+    echo "TEST_XHYDRO_REPO not set, default to '$TEST_XHYDRO_REPO'"
+else
+    echo "TEST_XHYDRO_REPO has been set to '$TEST_XHYDRO_REPO'"
+fi
+
+if [ -z "$XHYDRO_BRANCH" ]; then
+    XHYDRO_BRANCH=main
+    echo "XHYDRO_BRANCH not set, default to '$XHYDRO_BRANCH'"
+else
+    echo "XHYDRO_BRANCH has been set to '$XHYDRO_BRANCH'"
+fi
+
+if [ -z "$XHYDRO_REPO" ]; then
+    XHYDRO_REPO='hydrologie/xhydro'
+    echo "XHYDRO_REPO not set, default to '$XHYDRO_REPO'"
+else
+    echo "XHYDRO_REPO has been set to '$XHYDRO_REPO'"
+fi
+
 if [ -z "$TEST_ESGF_COMPUTE_API_REPO" ]; then
     TEST_ESGF_COMPUTE_API_REPO=false
     echo "TEST_ESGF_COMPUTE_API_REPO not set, default to '$TEST_ESGF_COMPUTE_API_REPO'"

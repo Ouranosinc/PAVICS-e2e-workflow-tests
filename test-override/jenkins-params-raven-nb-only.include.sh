@@ -7,6 +7,7 @@
 TEST_PAVICS_SDI_REPO="false"
 TEST_FINCH_REPO="false"
 TEST_PAVICS_LANDING_REPO="false"
+TEST_XHYDRO_REPO="false"
 TEST_LOCAL_NOTEBOOKS="false"
 
 # Enable raven repos.
