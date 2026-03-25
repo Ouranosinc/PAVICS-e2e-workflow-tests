@@ -10,7 +10,8 @@ rm -r esgf-compute-api-$ESGF_COMPUTE_API_BRANCH
 mkdir hydro
 mv -v raven-${RAVEN_BRANCH}/docs/source/notebooks/*.ipynb ./hydro/
 mv -v RavenPy-${RAVENPY_BRANCH}/docs/notebooks/*.ipynb ./hydro/
-mv -v xhydro-${XHYDRO_BRANCH}/docs/notebooks/pavics_notebooks/*.ipynb ./hydro/
+# TODO: enable with newer Jupyter env
+#mv -v xhydro-${XHYDRO_BRANCH}/docs/notebooks/pavics_notebooks/*.ipynb ./hydro/
 mkdir hydro/paper
 mv -v RavenPy-${RAVENPY_BRANCH}/docs/notebooks/paper/*.ipynb ./hydro/paper/
 rm -r raven-${RAVEN_BRANCH} RavenPy-${RAVENPY_BRANCH} xhydro-${XHYDRO_BRANCH}

@@ -106,7 +106,7 @@ else
 fi
 
 if [ -z "$TEST_XHYDRO_REPO" ]; then
-    TEST_XHYDRO_REPO=true
+    TEST_XHYDRO_REPO=false
     echo "TEST_XHYDRO_REPO not set, default to '$TEST_XHYDRO_REPO'"
 else
     echo "TEST_XHYDRO_REPO has been set to '$TEST_XHYDRO_REPO'"
