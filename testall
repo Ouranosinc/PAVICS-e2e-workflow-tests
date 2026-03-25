@@ -86,7 +86,7 @@ accumulate_notebooks_to_test() {
     if ls -1 $1; then
         NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST $1"
     else
-        echo "ERROR: '$1' is empty."
+        echo "WARNING: dir '$1' do not contain any notebooks to run."
     fi
 }
 
