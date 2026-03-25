@@ -83,7 +83,7 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
                 description: 'RAVENPY_REPO branch to test against.', trim: true)
         string(name: 'RAVENPY_REPO', defaultValue: 'CSHS-CWRA/RavenPy',
                 description: 'https://github.com/CSHS-CWRA/RavenPy repo or fork to test against.', trim: true)
-        booleanParam(name: 'TEST_XHYDRO_REPO', defaultValue: false,
+        booleanParam(name: 'TEST_XHYDRO_REPO', defaultValue: true,
                 description: 'Check the box to test xHydro repo.')
         string(name: 'XHYDRO_BRANCH', defaultValue: 'main',
                 description: 'XHYDRO_REPO branch to test against.', trim: true)
