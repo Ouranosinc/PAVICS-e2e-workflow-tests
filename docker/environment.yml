@@ -288,10 +288,6 @@ dependencies:
 
   # UTILITIES
 
-  # conda: a cross-platform, language-agnostic binary package manager
-  # NOTE: Included as a requirement for gator
-  # https://github.com/conda/conda
-  - conda >= 4.7.12
   # curl: command-line tool for transferring data with URL syntax
   - curl
   # wget: command-line utility for downloading files from the web
