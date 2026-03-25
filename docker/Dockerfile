@@ -34,7 +34,7 @@ RUN if grep -q '^ID=alpine$' /etc/os-release; then \
 ENV MAMBA_USER=$NEW_MAMBA_USER
 
 # Alias UID and GID for use with docker-stacks
-ENV NB_USER=${MAMBA_USER}
+ENV NB_USER="${MAMBA_USER}"
 ARG NB_GID="${NEW_MAMBA_USER_GID}"
 
 # Save build configurations
@@ -61,7 +61,7 @@ RUN umask 0000 && \
     du -sh "${MAMBA_ROOT_PREFIX}" | tee /build-src/conda-envs-size-final.txt
 
 # Alternate way to 'source activate birdy'
-ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
+# ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
 # Docker-stacks commit from last time base-notebook was modified (2025/05/24)
 ENV DOCKER_STACKS_COMMIT=e73d308ba06fd5bcc75a4ee8417711743860c964
