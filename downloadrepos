@@ -47,6 +47,7 @@ lowercase_boolean_build_params() {
     TEST_PAVICS_LANDING_REPO="$(lowercase "$TEST_PAVICS_LANDING_REPO")"
     TEST_RAVEN_REPO="$(lowercase "$TEST_RAVEN_REPO")"
     TEST_RAVENPY_REPO="$(lowercase "$TEST_RAVENPY_REPO")"
+    TEST_XHYDRO_REPO="$(lowercase "$TEST_XHYDRO_REPO")"
     TEST_ESGF_COMPUTE_API_REPO="$(lowercase "$TEST_ESGF_COMPUTE_API_REPO")"
     TEST_LOCAL_NOTEBOOKS="$(lowercase "$TEST_LOCAL_NOTEBOOKS")"
 }
@@ -98,6 +99,9 @@ downloadrepos_main() {
         fi
         if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_RAVENPY_REPO" = xtrue ]; then
             downloadgithubrepos $RAVENPY_REPO $RAVENPY_BRANCH
+        fi
+        if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_XHYDRO_REPO" = xtrue ]; then
+            downloadgithubrepos $XHYDRO_REPO $XHYDRO_BRANCH
         fi
         if [ x"$DOWNLOAD_ALL_DEFAULT_REPOS" = xtrue ] || [ x"$TEST_ESGF_COMPUTE_API_REPO" = xtrue ]; then
             downloadgithubrepos $ESGF_COMPUTE_API_REPO $ESGF_COMPUTE_API_BRANCH
