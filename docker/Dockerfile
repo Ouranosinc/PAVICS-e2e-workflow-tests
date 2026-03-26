@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # The 'channel_priority strict' did help conda but it was not enough.
 RUN conda config --prepend channels nodefaults || true && \
     conda config --remove channels defaults || true && \
-    conda update conda -n base && \
-    conda install mamba -n base -c conda-forge && \
+    conda update --name base --channel conda-forge conda && \
+    conda install --name base --channel conda-forge mamba && \
     conda clean --all --yes && \
     conda config --set channel_priority strict && \
     wget -qO- https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -C /usr/local -xvj bin/micromamba
@@ -48,7 +48,7 @@ COPY environment.yml /environment.yml
 # Create birdy environment
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
 RUN umask 0000 && \
-    mamba create --name birdy --file /environment.yml "python>=3.11,<3.12" --yes && \
+    mamba create --name birdy --file /environment.yml "python>=3.12,<3.13" --yes && \
     mamba clean --all --yes
 
 # Alternate way to 'source activate birdy'
