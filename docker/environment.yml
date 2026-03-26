@@ -390,10 +390,6 @@ dependencies:
   - pip:
     - jupyterlab-logout >= 1.1.0
     - jupyterlab-theme-toggler >= 1.1.0
-  # jupyterlab-unfold: JupyterLab IDE-like file browser
-  # https://jupyterlab-contrib.github.io/jupyterlab-unfold.html
-  - pip:
-    - jupyterlab-unfold
   
   # BROWSER SUPPORT
 
