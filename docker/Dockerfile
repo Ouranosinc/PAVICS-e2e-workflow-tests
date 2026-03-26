@@ -1,11 +1,13 @@
 FROM continuumio/miniconda3
+# No interactive apt calls
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Use mamba for much improved performance over conda.
 # The 'channel_priority strict' did help conda but it was not enough.
 RUN conda config --prepend channels nodefaults || true && \
     conda config --remove channels defaults || true && \
     conda update conda -n base && \
-    conda install mamba conda-pack -n base -c conda-forge && \
+    conda install mamba -n base -c conda-forge && \
     conda clean --all --yes && \
     conda config --set channel_priority strict && \
     wget -qO- https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -C /usr/local -xvj bin/micromamba
@@ -15,7 +17,7 @@ ENV MAMBA_ROOT_PREFIX="/opt/conda"
 
 # to checkout other notebooks and to run pip install
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    apt-get install -y \
     git mercurial gcc unzip patch fonts-humor-sans firefox-esr x11-utils && \
     apt-get clean
 
@@ -27,8 +29,7 @@ RUN groupadd --gid 1000 jenkins && \
 
 COPY environment.yml /environment.yml
 
-# create env "birdy"
-# use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
+# INFO: Outdated information - Consider removing
 #
 # Perform 2 stages install because one single 'conda env create -f
 # /environment.yml' was taking forever to complete, same with mamba.
@@ -43,24 +44,21 @@ COPY environment.yml /environment.yml
 #
 # Conda was stuck at this step:
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
-#
+
+# Create birdy environment
+# use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
 RUN umask 0000 && \
-    mamba create --name birdy --channel conda-forge python=3.11 clisops figanos ravenpy xclim xscen xsdba --yes && \
-    (conda env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
-    (du -sh /opt/conda 2>&1 | tee /conda-envs-size-phase1.txt) && \
-    mamba env update --name birdy --file /environment.yml && \
+    mamba create --name birdy --file /environment.yml "python>=3.11,<3.12" --yes && \
     mamba clean --all --yes
 
-# alternate way to 'source activate birdy'
+# Alternate way to 'source activate birdy'
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
 # our notebooks are hardcoded to lookup for kernel named 'birdy'
 # this python is from the birdy env above
 RUN python -m ipykernel install --name birdy && \
-    (conda env export --name birdy 2>&1 | tee /conda-env-export-final.yml) && \
-    (diff --unified /conda-env-export-phase1.yml /conda-env-export-final.yml 2>&1 | tee /conda-env-export.diff) && \
-    (du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt) && \
-    diff /conda-envs-size-phase1.txt /conda-envs-size-final.txt || true
+    mamba env export --name birdy | tee /conda-env-export-final.yml && \
+    du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
 
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
