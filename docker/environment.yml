@@ -294,6 +294,10 @@ dependencies:
   # wget: command-line utility for downloading files from the web
   # https://anaconda.org/channels/conda-forge/packages/wget/overview
   - wget
+  # conda-pack: Command line tool for creating relocatable conda environments.
+  # PAVICS maintainer utility
+  # https://github.com/conda/conda-pack
+  - conda-pack
   # git: fast, scalable, distributed revision control system
   # NOTES: Included as a requirement for jupyterlab-git
   # https://github.com/git/git
