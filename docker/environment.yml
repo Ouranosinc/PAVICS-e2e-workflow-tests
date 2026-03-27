@@ -60,7 +60,7 @@ dependencies:
   - flox
   # h5netcdf: NetCDF4 backend for h5py
   # https://github.com/h5netcdf/h5netcdf
-  - h5netcdf >= 1.7.0
+  - h5netcdf
   # lmoments3: Estimate linear moments for statistical distribution functions.
   # https://github.com/Ouranosinc/lmoments3
   - lmoments3 >= 1.0.8
@@ -69,7 +69,7 @@ dependencies:
   - matplotlib >= 3.8.0
   # netcdf4: Python interface to the netCDF C library
   # https://github.com/Unidata/netcdf4-python
-  # - netcdf4  # managed by core libraries
+  - netcdf4 < 1.7.3  # pinned due to issues with DAP protocol
   # numpy: fundamental package for scientific computing with Python
   # https://github.com/numpy/numpy
   - numpy >= 1.26.0
@@ -234,7 +234,8 @@ dependencies:
   - mesalib
   # exactextract: a fast and accurate algorithm for calculating zonal statistics.
   # https://github.com/isciences/exactextract
-  - exactextract
+  - pip:
+    - exactextract
 
   # TESTING LIBRARIES
 
@@ -268,7 +269,7 @@ dependencies:
 
   # C and Fortran NetCDF library support
   # https://github.com/Unidata/netcdf-c
-  - libnetcdf
+  - libnetcdf < 4.10.0 # pinned due to issues with DAP protocol
   # https://github.com/Unidata/netcdf-fortran
   - netcdf-fortran
   # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
