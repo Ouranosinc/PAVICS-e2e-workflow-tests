@@ -95,6 +95,9 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     ln -vs /usr/local/bin/globusconnectpersonal*/globusconnectpersonal /usr/local/bin/globusconnectpersonal && \
     rm -v /usr/local/bin/globusconnectpersonal-latest.tgz
 
+# Set default kernel as birdy.
+RUN echo "c.MultiKernelManager.default_kernel_name = 'birdy'" >> /etc/jupyter/jupyter_server_config.py
+
 # For jupyter-panel-proxy launcher.
 ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
