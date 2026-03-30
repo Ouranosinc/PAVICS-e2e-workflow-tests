@@ -30,7 +30,11 @@ dependencies:
   - figanos >= 0.6.0
   # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
   - ravenpy >= 0.21.0
-  # - raven-hydro # managed by ravenpy
+  # raven-hydro:  The Python-based installer for the hydrological modelling framework, Raven.
+  # NOTE: While a conda package exists, the latest version is compiled against an incompatible libnetcdf
+  - pip:
+    # corresponding version is determined by ravenpy
+    - raven-hydro >=4.12.1,<5.0
   # xclim: Climate indices computation package based on Xarray.
   - xclim >= 0.60.0
   # Hydrological analysis library built with xarray.
@@ -81,7 +85,8 @@ dependencies:
   # - pydantic  # managed by core libraries
   # pydap: A pure python implementation of the Data Access Protocol.
   # https://github.com/pydap/pydap
-  - pydap
+  # NOTE: Pinned due to changes/incompatibilities with PAVICS THREDDS implementation of DAP2/4
+  - pydap <= 3.5.6
   # scipy: scientific computing library for Python
   # https://github.com/scipy/scipy
   - scipy >= 1.11.0
@@ -234,6 +239,7 @@ dependencies:
   - mesalib
   # exactextract: a fast and accurate algorithm for calculating zonal statistics.
   # https://github.com/isciences/exactextract
+  # NOTE: While a conda package exists, the latest version is compiled against an incompatible libnetcdf
   - pip:
     - exactextract
 
@@ -354,8 +360,9 @@ dependencies:
   # https://github.com/jupyter-widgets/ipyleaflet
   - ipyleaflet
   # gator: The Mamba Navigator, a Web UI for managing conda environments
+  # NOTE: Disabled due to inability to set default caching configurations programmatically.
   # https://github.com/mamba-org/gator
-  - mamba_gator
+  # - mamba_gator 
   # nbdime: Jupyter Notebook Diff and Merge tools
   # https://github.com/jupyter/nbdime
   - nbdime
