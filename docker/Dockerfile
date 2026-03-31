@@ -2,8 +2,6 @@ FROM continuumio/miniconda3
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
 
-COPY environment.yml /environment.yml
-
 # Use mamba for much improved performance over conda.
 # The 'channel_priority strict' did help conda but it was not enough.
 RUN chmod -R a+rwX /opt/conda && \
@@ -11,8 +9,7 @@ RUN chmod -R a+rwX /opt/conda && \
     conda config --remove channels defaults || true && \
     conda config --set channel_priority strict && \
     conda update --name base --channel conda-forge conda && \
-    conda install --name base --channel conda-forge "python>=3.12,<3.13" mamba && \
-    mamba env update --name base -f /environment.yml && \
+    conda install --name base --channel conda-forge mamba && \
     mamba clean --all --yes
 
 # Default for micromamba is $HOME/micromamba which is wrong.
@@ -44,17 +41,18 @@ RUN groupadd --gid 1000 jenkins && \
 # Conda was stuck at this step:
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 
-# Update base environment
+# Create birdy environment
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
-# RUN umask 0000 && \
-#     mamba update --name base --file /environment.yml "python>=3.12,<3.13" --yes && \
-#     mamba clean --all --yes
+COPY environment.yml /environment.yml
+RUN umask 0000 && \
+    mamba create --name birdy --file /environment.yml "python>=3.12,<3.13" --yes && \
+    mamba clean --all --yes
 
-# Alternate way to 'source activate birdy'
-# ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
+# Add birdy environment to the PATH
+ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
-# Notebooks and PAVICS spawn commands are hardcoded to lookup for kernel named 'birdy'
-RUN python -m ipykernel install --name birdy && \
+# Add a default ipython kernel
+RUN python -m ipykernel install --name python3 && \
     mamba env export --name base | tee /conda-env-export-final.yml && \
     du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
 
@@ -84,8 +82,8 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     chown jenkins /notebook_dir/pavics-homepage && \
     chown root:root /notebook_dir && \
     chmod a-w /notebook_dir && \
-    chmod a+rwX -R /opt/conda/fonts && \
-    mkdir /opt/conda/pkgs/cache && \
+    chmod a+rwX -R /opt/conda/envs/birdy/fonts && \
+    mkdir -p /opt/conda/pkgs/cache && \
     chown jenkins:jenkins -R /opt/conda/pkgs/cache && \
     mkdir -p /usr/local/bin && \
     wget https://downloads.globus.org/globus-connect-personal/linux/stable/globusconnectpersonal-latest.tgz -O /usr/local/bin/globusconnectpersonal-latest.tgz && \
@@ -97,11 +95,11 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
 ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
 # For import xesmf since esmf-8.4.0, see: https://github.com/conda-forge/esmf-feedstock/issues/91
-ENV ESMFMKFILE="/opt/conda/lib/esmf.mk"
+ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
 
 # To avoid error "PROJ: proj_create_from_database: Open of /opt/conda/envs/birdy/share/proj failed"
 # This simulates a real `conda activate birdy`.
-ENV PROJ_DATA="/opt/conda/share/proj"
+ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
 
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
