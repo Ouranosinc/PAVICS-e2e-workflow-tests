@@ -360,9 +360,8 @@ dependencies:
   # https://github.com/jupyter-widgets/ipyleaflet
   - ipyleaflet
   # gator: The Mamba Navigator, a Web UI for managing conda environments
-  # NOTE: Disabled due to inability to set default caching configurations programmatically.
   # https://github.com/mamba-org/gator
-  # - mamba_gator 
+  - mamba_gator 
   # nbdime: Jupyter Notebook Diff and Merge tools
   # https://github.com/jupyter/nbdime
   - nbdime
