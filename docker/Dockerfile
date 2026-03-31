@@ -53,7 +53,7 @@ ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
 # Add a default ipython kernel
 RUN python -m ipykernel install --name python3 && \
-    mamba env export --name base | tee /conda-env-export-final.yml && \
+    mamba env export --name birdy | tee /conda-env-export-final.yml && \
     du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
 
 # This should be "master" but commit
