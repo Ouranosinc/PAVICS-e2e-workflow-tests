@@ -20,8 +20,7 @@ ENV MAMBA_ROOT_PREFIX="/opt/conda"
 
 # to checkout other notebooks and to run pip install
 RUN apt-get update && \
-    apt-get install -y \
-    git mercurial gcc unzip patch fonts-humor-sans firefox-esr x11-utils && \
+    apt-get install -y git mercurial gcc unzip patch fonts-humor-sans firefox-esr x11-utils && \
     apt-get clean
 
 # Create user jenkins for our Jenkins e2e notebooks test suite.
