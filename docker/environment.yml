@@ -1,5 +1,5 @@
 # conda env create -f environment.yml
-name: birdy
+name: base
 channels:
   - conda-forge
   - cdat
@@ -7,7 +7,7 @@ channels:
   - fortiers  # for fstd2nc
   - nodefaults
 dependencies:
-  - python >=3.11,<3.15
+  - python >=3.12,<3.13
 
   # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
   # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/main/recipe/meta.yaml

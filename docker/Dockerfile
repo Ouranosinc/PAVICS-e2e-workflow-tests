@@ -2,15 +2,18 @@ FROM continuumio/miniconda3
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
 
+COPY environment.yml /environment.yml
+
 # Use mamba for much improved performance over conda.
 # The 'channel_priority strict' did help conda but it was not enough.
-RUN conda config --prepend channels nodefaults || true && \
+RUN chmod -R a+rwX /opt/conda && \
+    conda config --prepend channels nodefaults || true && \
     conda config --remove channels defaults || true && \
-    conda update --name base --channel conda-forge conda && \
-    conda install --name base --channel conda-forge mamba && \
-    conda clean --all --yes && \
     conda config --set channel_priority strict && \
-    wget -qO- https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -C /usr/local -xvj bin/micromamba
+    conda update --name base --channel conda-forge conda && \
+    conda install --name base --channel conda-forge "python>=3.12,<3.13" mamba && \
+    mamba env update --name base -f /environment.yml && \
+    mamba clean --all --yes
 
 # Default for micromamba is $HOME/micromamba which is wrong.
 ENV MAMBA_ROOT_PREFIX="/opt/conda"
@@ -24,10 +27,7 @@ RUN apt-get update && \
 # Create user jenkins for our Jenkins e2e notebooks test suite.
 # Change /opt/conda folder permissions for jupyter-conda extension.
 RUN groupadd --gid 1000 jenkins && \
-    useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins && \
-    chmod -R a+rwX /opt/conda
-
-COPY environment.yml /environment.yml
+    useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins
 
 # INFO: Outdated information - Consider removing
 #
@@ -45,19 +45,19 @@ COPY environment.yml /environment.yml
 # Conda was stuck at this step:
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 
-# Create birdy environment
+# Update base environment
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
-RUN umask 0000 && \
-    mamba create --name birdy --file /environment.yml "python>=3.12,<3.13" --yes && \
-    mamba clean --all --yes
+# RUN umask 0000 && \
+#     mamba update --name base --file /environment.yml "python>=3.12,<3.13" --yes && \
+#     mamba clean --all --yes
 
 # Alternate way to 'source activate birdy'
-ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
+# ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
 # our notebooks are hardcoded to lookup for kernel named 'birdy'
 # this python is from the birdy env above
-RUN python -m ipykernel install --name birdy && \
-    mamba env export --name birdy | tee /conda-env-export-final.yml && \
+RUN python -m ipykernel install --name python3 && \
+    mamba env export --name base | tee /conda-env-export-final.yml && \
     du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
 
 # This should be "master" but commit
@@ -86,7 +86,7 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     chown jenkins /notebook_dir/pavics-homepage && \
     chown root:root /notebook_dir && \
     chmod a-w /notebook_dir && \
-    chmod a+rwX -R /opt/conda/envs/birdy/fonts && \
+    chmod a+rwX -R /opt/conda/fonts && \
     mkdir /opt/conda/pkgs/cache && \
     chown jenkins:jenkins -R /opt/conda/pkgs/cache && \
     mkdir -p /usr/local/bin && \
@@ -95,23 +95,15 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     ln -vs /usr/local/bin/globusconnectpersonal*/globusconnectpersonal /usr/local/bin/globusconnectpersonal && \
     rm -v /usr/local/bin/globusconnectpersonal-latest.tgz
 
-# Set default kernel as birdy.
-RUN echo "c.MultiKernelManager.default_kernel_name = 'birdy'" >> /etc/jupyter/jupyter_server_config.py
-
 # For jupyter-panel-proxy launcher.
 ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
 # For import xesmf since esmf-8.4.0, see: https://github.com/conda-forge/esmf-feedstock/issues/91
-ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
+ENV ESMFMKFILE="/opt/conda/lib/esmf.mk"
 
 # To avoid error "PROJ: proj_create_from_database: Open of /opt/conda/envs/birdy/share/proj failed"
 # This simulates a real `conda activate birdy`.
-ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
-
-# To expose conda-installed compilers so that users can make use of them
-ENV gcc=x86_64-conda-linux-gnu-gcc
-ENV g++=x86_64-conda-linux-gnu-g++
-ENV gfortran=x86_64-conda-linux-gnu-gfortran
+ENV PROJ_DATA="/opt/conda/share/proj"
 
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
@@ -119,4 +111,4 @@ USER jenkins
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
 # start notebook in conda environment to have working jupyter extensions
-CMD ["conda", "run", "-n", "birdy", "/usr/local/bin/start-notebook.sh"]
+CMD ["conda", "run", "-n", "base", "/usr/local/bin/start-notebook.sh"]
