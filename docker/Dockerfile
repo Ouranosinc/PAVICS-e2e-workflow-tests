@@ -53,9 +53,8 @@ RUN groupadd --gid 1000 jenkins && \
 # Alternate way to 'source activate birdy'
 # ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
-# our notebooks are hardcoded to lookup for kernel named 'birdy'
-# this python is from the birdy env above
-RUN python -m ipykernel install --name python3 && \
+# Notebooks and PAVICS spawn commands are hardcoded to lookup for kernel named 'birdy'
+RUN python -m ipykernel install --name birdy && \
     mamba env export --name base | tee /conda-env-export-final.yml && \
     du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
 
@@ -110,4 +109,4 @@ USER jenkins
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
 # start notebook in conda environment to have working jupyter extensions
-CMD ["conda", "run", "-n", "base", "/usr/local/bin/start-notebook.sh"]
+CMD ["conda", "run", "-n", "birdy", "/usr/local/bin/start-notebook.sh"]
