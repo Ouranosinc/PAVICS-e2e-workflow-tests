@@ -73,7 +73,7 @@ dependencies:
   - matplotlib >= 3.8.0
   # netcdf4: Python interface to the netCDF C library
   # https://github.com/Unidata/netcdf4-python
-  - netcdf4 < 1.7.3  # pinned due to issues with DAP protocol
+  - netcdf4
   # numpy: fundamental package for scientific computing with Python
   # https://github.com/numpy/numpy
   - numpy >= 1.26.0
@@ -240,8 +240,7 @@ dependencies:
   # exactextract: a fast and accurate algorithm for calculating zonal statistics.
   # https://github.com/isciences/exactextract
   # NOTE: While a conda package exists, the latest version is compiled against an incompatible libnetcdf
-  - pip:
-    - exactextract
+  - exactextract
 
   # TESTING LIBRARIES
 
@@ -265,7 +264,7 @@ dependencies:
   # HDF5: The HDF5 Data Model Specification
   # https://www.hdfgroup.org/solutions/hdf5/
   # https://anaconda.org/channels/conda-forge/packages/hdf5/overview
-  - hdf5
+  - hdf5 < 1.14.6 # NOTE: Pinned due to weird read errors when running with dask
 
   # PIP PACKAGING SUPPORT
   # https://github.com/pypa/pip
@@ -275,7 +274,7 @@ dependencies:
 
   # C and Fortran NetCDF library support
   # https://github.com/Unidata/netcdf-c
-  - libnetcdf < 4.10.0 # pinned due to issues with DAP protocol
+  - libnetcdf
   # https://github.com/Unidata/netcdf-fortran
   - netcdf-fortran
   # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
