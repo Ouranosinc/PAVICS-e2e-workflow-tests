@@ -1,3 +1,4 @@
+# FIXME: This base needs to change to something closer to conda-forge
 FROM continuumio/miniconda3
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
@@ -12,16 +13,13 @@ RUN chmod -R a+rwX /opt/conda && \
     conda install --name base --channel conda-forge mamba && \
     mamba clean --all --yes
 
-# Default for micromamba is $HOME/micromamba which is wrong.
-ENV MAMBA_ROOT_PREFIX="/opt/conda"
-
-# to checkout other notebooks and to run pip install
+# To checkout other notebooks and to run pip install
+# NOTE: All of these dependencies can be migrated to conda except for fonts-humor-sans and x11-utils
 RUN apt-get update && \
     apt-get install -y git mercurial gcc unzip patch fonts-humor-sans firefox-esr x11-utils && \
     apt-get clean
 
 # Create user jenkins for our Jenkins e2e notebooks test suite.
-# Change /opt/conda folder permissions for jupyter-conda extension.
 RUN groupadd --gid 1000 jenkins && \
     useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins
 
@@ -41,20 +39,21 @@ RUN groupadd --gid 1000 jenkins && \
 # Conda was stuck at this step:
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 
-# Create birdy environment
-# use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
+# Copy birdy environment configuration
 COPY environment.yml /environment.yml
+
+# use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
 RUN umask 0000 && \
     mamba create --name birdy --file /environment.yml "python>=3.12,<3.13" --yes && \
-    mamba clean --all --yes
+    mamba env export --name birdy | tee /conda-env-export-final.yml && \
+    mamba clean --all --yes && \
+    du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
 
 # Add birdy environment to the PATH
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
-# Add a default ipython kernel
-RUN python -m ipykernel install --name python3 && \
-    mamba env export --name birdy | tee /conda-env-export-final.yml && \
-    du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
+# Ensure that a default ipython kernel (python3) is available 
+RUN python -m ipykernel install --name python3
 
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
@@ -97,8 +96,7 @@ ENV BOKEH_ALLOW_WS_ORIGIN="*"
 # For import xesmf since esmf-8.4.0, see: https://github.com/conda-forge/esmf-feedstock/issues/91
 ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
 
-# To avoid error "PROJ: proj_create_from_database: Open of /opt/conda/envs/birdy/share/proj failed"
-# This simulates a real `conda activate birdy`.
+# For pyproj, to avoid error "PROJ: proj_create_from_database: Open of /opt/conda/envs/birdy/share/proj failed"
 ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
 
 # problem running start-notebook.sh when being root
