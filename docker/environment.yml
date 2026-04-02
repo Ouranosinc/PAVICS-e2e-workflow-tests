@@ -32,9 +32,8 @@ dependencies:
   - ravenpy >= 0.21.0
   # raven-hydro:  The Python-based installer for the hydrological modelling framework, Raven.
   # NOTE: While a conda package exists, the latest version is compiled against an incompatible libnetcdf
-  - pip:
-    # corresponding version is determined by ravenpy
-    - raven-hydro >=4.12.1,<5.0
+  # corresponding version is determined by ravenpy
+  - raven-hydro
   # xclim: Climate indices computation package based on Xarray.
   - xclim >= 0.60.0
   # Hydrological analysis library built with xarray.
