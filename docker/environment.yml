@@ -61,9 +61,12 @@ dependencies:
   # flox: fast & furious GroupBy reductions for dask.array
   # https://github.com/xarray-contrib/flox
   - flox
-  # h5netcdf: NetCDF4 backend for h5py
+  # h5netcdf: NetCDF4-optimized frontend for h5py
   # https://github.com/h5netcdf/h5netcdf
   - h5netcdf
+  # h5py: Pythonic wrapper around HDF5
+  # https://github.com/h5py/h5py
+  - h5py * mpi_mpich*
   # lmoments3: Estimate linear moments for statistical distribution functions.
   # https://github.com/Ouranosinc/lmoments3
   - lmoments3 >= 1.0.8
@@ -72,7 +75,7 @@ dependencies:
   - matplotlib >= 3.8.0
   # netcdf4: Python interface to the netCDF C library
   # https://github.com/Unidata/netcdf4-python
-  - netcdf4
+  - netcdf4 * mpi_mpich*
   # numpy: fundamental package for scientific computing with Python
   # https://github.com/numpy/numpy
   - numpy >= 1.26.0
@@ -263,7 +266,7 @@ dependencies:
   # HDF5: The HDF5 Data Model Specification
   # https://www.hdfgroup.org/solutions/hdf5/
   # https://anaconda.org/channels/conda-forge/packages/hdf5/overview
-  - hdf5 < 1.14.6 # NOTE: Pinned due to weird read errors when running with dask
+  - hdf5 < 1.14.6 mpi_mpich* # NOTE: Pinned due to weird read errors when running with dask
 
   # PIP PACKAGING SUPPORT
   # https://github.com/pypa/pip
@@ -273,9 +276,9 @@ dependencies:
 
   # C and Fortran NetCDF library support
   # https://github.com/Unidata/netcdf-c
-  - libnetcdf
+  - libnetcdf * mpi_mpich*
   # https://github.com/Unidata/netcdf-fortran
-  - netcdf-fortran
+  - netcdf-fortran * mpi_mpich*
   # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
   - make
   # cmake: cross-platform, open-source build system
