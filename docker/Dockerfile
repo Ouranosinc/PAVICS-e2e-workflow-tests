@@ -99,6 +99,11 @@ ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
 # For pyproj, to avoid error "PROJ: proj_create_from_database: Open of /opt/conda/envs/birdy/share/proj failed"
 ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
 
+# To expose conda-installed compilers so that users can make use of them
+ENV gcc=x86_64-conda-linux-gnu-gcc
+ENV g++=x86_64-conda-linux-gnu-g++
+ENV gfortran=x86_64-conda-linux-gnu-gfortran
+
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
 USER jenkins
