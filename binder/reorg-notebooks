@@ -25,6 +25,7 @@ fi
 rm -r PAVICS-landing-$PAVICS_LANDING_BRANCH
 
 mv -v pavics-sdi-$PAVICS_SDI_BRANCH/docs/source/notebooks/*.ipynb ./
+mv -v pavics-sdi-$PAVICS_SDI_BRANCH/docs/source/notebooks/PAVICS-training ./
 rm -r pavics-sdi-$PAVICS_SDI_BRANCH
 
 mv -v finch-$FINCH_BRANCH/docs/source/notebooks/*.ipynb ./
