@@ -9,6 +9,7 @@ TEST_PAVICS_LANDING_REPO="true"
 TEST_LOCAL_NOTEBOOKS="true"
 TEST_RAVEN_REPO="true"
 TEST_RAVENPY_REPO="true"
+TEST_XHYDRO_REPO="true"
 
 # Force use the local GeoServer, to test the local GeoServer.  Otherwise the
 # production GeoServer will be used, which defeat the purpose of the test.
@@ -30,3 +31,4 @@ export CONFIG_OVERRIDE_SCRIPT_URL
 #PAVICS_LANDING_BRANCH=""
 #RAVEN_BRANCH=""
 #RAVENPY_BRANCH=""
+#XHYDRO_BRANCH=""

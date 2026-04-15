@@ -10,9 +10,11 @@ rm -r esgf-compute-api-$ESGF_COMPUTE_API_BRANCH
 mkdir hydro
 mv -v raven-${RAVEN_BRANCH}/docs/source/notebooks/*.ipynb ./hydro/
 mv -v RavenPy-${RAVENPY_BRANCH}/docs/notebooks/*.ipynb ./hydro/
+# TODO: enable with newer Jupyter env
+#mv -v xhydro-${XHYDRO_BRANCH}/docs/notebooks/pavics_notebooks/*.ipynb ./hydro/
 mkdir hydro/paper
 mv -v RavenPy-${RAVENPY_BRANCH}/docs/notebooks/paper/*.ipynb ./hydro/paper/
-rm -r raven-${RAVEN_BRANCH} RavenPy-${RAVENPY_BRANCH}
+rm -r raven-${RAVEN_BRANCH} RavenPy-${RAVENPY_BRANCH} xhydro-${XHYDRO_BRANCH}
 
 if [ -n "$DEPLOY_PAVICS_LANDING_NB" ]; then
     # Pavics landing notebooks already deployed to Jupyter env via
@@ -24,6 +26,7 @@ fi
 rm -r PAVICS-landing-$PAVICS_LANDING_BRANCH
 
 mv -v pavics-sdi-$PAVICS_SDI_BRANCH/docs/source/notebooks/*.ipynb ./
+mv -v pavics-sdi-$PAVICS_SDI_BRANCH/docs/source/notebooks/PAVICS-training ./
 rm -r pavics-sdi-$PAVICS_SDI_BRANCH
 
 mv -v finch-$FINCH_BRANCH/docs/source/notebooks/*.ipynb ./
