@@ -1,38 +1,23 @@
 [tool.bumpversion]
-current_version = "py311-250423"
-parse = """(?x)                     # Verbose mode
-    ^(?P<python>                    # Python version
-        py                          # py prefix
-        (?:3[0-9]|[1-2][0-9]|[1-9]) # Major version 3x
-        (?:0[0-9]|1[0-9])           # Minor version 00-19
-    )
-    -
-    (?P<date>                       # The release part
-        [0-9]{6}                    # Date in YYMMDD format
-    )
-    (?:                             # Optional dockerupdate
-        -dockerupdate[0-9]{6}
-    )?
-    $
-"""
-serialize = [
-    "{python}-{date}",
-    "{python}-{date}{dockerupdate}",
-]
-commit = false
-commit_message = "Bump version: {current_version} → {new_version}"
-allow_dirty = true
+current_version = "py312-260420"
+commit = true
+commit_args = "--no-verify --signoff"
 tag = false
-message = "Bump image version: pavics/workflow-tests:{current_version} → pavics/workflow-tests:{new_version}"
+allow_dirty = false
+parse = "(?P<python>py\\d+)\\-(?P<date>\\d+)(\\-build(\\.(?P<build>\\d+)))?"
+serialize = [
+  "{python}-{date}-build.{build}",
+  "{python}-{date}"
+]
 
 [tool.bumpversion.parts.python]
-values = ["py311"]
+values = ["py312", "py313", "py314"]
 
 [tool.bumpversion.parts.date]
 calver_format = "{0Y}{0M}{0D}"
 
-[tool.bumpversion.parts.dockerupdate]
-calver_format = "-dockerupdate{0Y}{0M}{0D}"
+[tool.bumpversion.parts.build]
+independent = false
 
 [[tool.bumpversion.files]]
 filename = ".bumpversion.toml"
