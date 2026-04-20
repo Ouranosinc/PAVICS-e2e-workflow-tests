@@ -1,3 +1,5 @@
+#!/bin/sh -x
+
 # "update" release makes it faster to build and release and also allow us
 # sort of pin the entire existing working environment if we foresee many
 # disruptive updates ahead and we are not ready to absorb them.
