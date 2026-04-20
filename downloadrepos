@@ -118,7 +118,7 @@ downloadrepos_main() {
 # The corresponding .output.ipynb will also have the same filename format.
 #
 # Override this function in CONFIG_OVERRIDE_SCRIPT_URL to choose another
-# format, see demo in test-override/jenkins-params-external-repos.include.sh.
+# format, see demo in example-overrides/jenkins-params-external-repos.include.sh.
 #
 # Default implemenation: keep original file hierarchy.
 #
@@ -131,7 +131,7 @@ choose_artifact_filename() {
 # Any post-processing steps at the end of runtest.
 #
 # Override this function in CONFIG_OVERRIDE_SCRIPT_URL to add extra steps,
-# see demo in test-override/jenkins-params-external-repos.include.sh.
+# see demo in example-overrides/jenkins-params-external-repos.include.sh.
 #
 post_runtest() {
     # Can not have empty function, have to put something here.
@@ -156,7 +156,7 @@ post_runtest() {
 # Furthermore, CONFIG_OVERRIDE_SCRIPT_URL can also be a local file that is
 # created on the fly by CONFIG_PARAMETERS_SCRIPT_URL.  So in the end, only
 # CONFIG_PARAMETERS_SCRIPT_URL is needed for a full complete override.
-# See example in test-override/jenkins-params-raven-specific-nb.include.sh.
+# See example in example-overrides/jenkins-params-raven-specific-nb.include.sh.
 #
 # USAGE: handle_config_parameters_script_url "$CONFIG_PARAMETERS_SCRIPT_URL"
 #
@@ -206,7 +206,7 @@ handle_config_override_script_url() {
         else
             # Not starting with http, it's a local file.
             # Local file can be previously created by CONFIG_PARAMETERS_SCRIPT_URL.
-            # See example in test-override/jenkins-params-raven-specific-nb.include.sh.
+            # See example in example-overrides/jenkins-params-raven-specific-nb.include.sh.
             TMP_CONF_OVERRIDE="$TMP_CONFIG_OVERRIDE_SCRIPT_URL"
         fi
 

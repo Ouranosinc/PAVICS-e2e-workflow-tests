@@ -17,7 +17,7 @@ pipeline {
 
     parameters {
         string(name: 'CONFIG_PARAMETERS_SCRIPT_URL', defaultValue: '',
-               description: 'Url to a script that will be sourced, allowing to programmatically set ALL Jenkins params on this page. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/jenkins-params-raven-nb-only.include.sh', trim: true)
+               description: 'Url to a script that will be sourced, allowing to programmatically set ALL Jenkins params on this page. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/example-overrides/jenkins-params-raven-nb-only.include.sh', trim: true)
         string(name: 'PAVICS_HOST', defaultValue: default_pavics_host,
                description: 'PAVICS host to run notebooks against.', trim: true)
         // TEST_MAGPIE_AUTH enables the evaluation of end-2-end access to some secured Thredds and Geoserver resources
@@ -102,7 +102,7 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
         string(name: 'ALLOWLIST_NOTEBOOKS', defaultValue: '',
                 description: 'Optional: space-separated list of notebook paths to run.  Top-most root should resemble {project name}-{branch}.  If empty, all discovered notebooks will be run without filtering.  e.g. pavics-sdi-master/docs/source/notebooks/WCS_example.ipynb pavics-sdi-master/docs/source/notebooks/regridding.ipynb finch-main/docs/source/notebooks/finch-usage.ipynb', trim: true)
         string(name: 'CONFIG_OVERRIDE_SCRIPT_URL', defaultValue: '',
-                description: 'Url or local file path to a script that will be sourced, allowing to programmatically override additional configs right before testsuite starts. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/geoserver-nb-only.include.sh', trim: true)
+                description: 'Url or local file path to a script that will be sourced, allowing to programmatically override additional configs right before testsuite starts. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/example-overrides/geoserver-nb-only.include.sh', trim: true)
         booleanParam(name: 'TEST_LOCAL_NOTEBOOKS', defaultValue: true,
                 description: 'Check the box to test notebooks in this repo (./notebooks/*.ipynb).')
         booleanParam(name: 'VERIFY_SSL', defaultValue: true,

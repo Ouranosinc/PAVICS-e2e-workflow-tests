@@ -11,9 +11,9 @@
 # re-use it.
 
 # Log content of override script for traceability.
-cat test-override/jenkins-params-raven-nb-only.include.sh
+cat example-overrides/jenkins-params-raven-nb-only.include.sh
 
-. test-override/jenkins-params-raven-nb-only.include.sh
+. example-overrides/jenkins-params-raven-nb-only.include.sh
 
 # Then we create CONFIG_OVERRIDE_SCRIPT_URL file on-the-fly to filter for the 2
 # notebooks that we want.

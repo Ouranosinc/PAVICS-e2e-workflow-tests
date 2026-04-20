@@ -23,7 +23,7 @@ fi
 # interractive version, while this DEFAULT_CONFIG_PARAMETERS_SCRIPT_URL can be
 # viewed as the unattended version.
 #
-# See sample test-override/jenkins-params-default.include.sh.
+# See sample example-overrides/jenkins-params-default.include.sh.
 #
 # CI usage sample: https://github.com/Ouranosinc/jenkins-config/blob/f2de2241ee4fd6c516cee67d29600e313d4b4f7c/jcasc/global_env_var.yaml#L11-L12
 # See PR https://github.com/Ouranosinc/jenkins-config/pull/17.
