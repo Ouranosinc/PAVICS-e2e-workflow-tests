@@ -1,35 +1,28 @@
+# FIXME: This base needs to change to something closer to conda-forge
 FROM continuumio/miniconda3
+# No interactive apt calls
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Use mamba for much improved performance over conda.
 # The 'channel_priority strict' did help conda but it was not enough.
-RUN conda config --prepend channels nodefaults || true && \
+RUN chmod -R a+rwX /opt/conda && \
+    conda config --prepend channels nodefaults || true && \
     conda config --remove channels defaults || true && \
-    conda update conda -n base && \
-    conda install mamba conda-pack -n base -c conda-forge && \
-    conda clean --all --yes && \
     conda config --set channel_priority strict && \
-    wget -qO- https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -C /usr/local -xvj bin/micromamba
+    conda update --name base --channel conda-forge conda && \
+    conda install --name base --channel conda-forge mamba && \
+    mamba clean --all --yes
 
-# Default for micromamba is $HOME/micromamba which is wrong.
-ENV MAMBA_ROOT_PREFIX="/opt/conda"
-
-# to checkout other notebooks and to run pip install
+# Install fonts-humor-sans for additional matplotlib fonts, firefox for gtk deps and x11-utils for widget support.
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    git mercurial gcc unzip patch fonts-humor-sans \
-    firefox-esr x11-utils && \
+    apt-get install --yes firefox-esr fonts-humor-sans x11-utils && \
     apt-get clean
 
 # Create user jenkins for our Jenkins e2e notebooks test suite.
-# Change /opt/conda folder permissions for jupyter-conda extension.
 RUN groupadd --gid 1000 jenkins && \
-    useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins && \
-    chmod -R a+rwX /opt/conda
+    useradd --uid 1000 --gid jenkins --shell /bin/bash --create-home jenkins
 
-COPY environment.yml /environment.yml
-
-# create env "birdy"
-# use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
+# INFO: Outdated information - Consider removing
 #
 # Perform 2 stages install because one single 'conda env create -f
 # /environment.yml' was taking forever to complete, same with mamba.
@@ -44,42 +37,22 @@ COPY environment.yml /environment.yml
 #
 # Conda was stuck at this step:
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
-#
-RUN umask 0000 && \
-    mamba create --name birdy --channel conda-forge python=3.11 clisops figanos ravenpy xclim xscen xsdba --yes && \
-    (conda env export --name birdy 2>&1 | tee /conda-env-export-phase1.yml) && \
-    (du -sh /opt/conda 2>&1 | tee /conda-envs-size-phase1.txt) && \
-    mamba env update --name birdy --file /environment.yml && \
-    mamba clean --all --yes
 
-# alternate way to 'source activate birdy'
+# Copy birdy environment configuration
+COPY environment.yml /environment.yml
+
+# use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
+RUN umask 0000 && \
+    mamba create --name birdy --file /environment.yml "python>=3.12,<3.13" --yes && \
+    mamba env export --name birdy | tee /conda-env-export-final.yml && \
+    mamba clean --all --yes && \
+    du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
+
+# Add birdy environment to the PATH
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
-# our notebooks are hardcoded to lookup for kernel named 'birdy'
-# this python is from the birdy env above
-RUN python -m ipykernel install --name birdy && \
-    (conda env export --name birdy 2>&1 | tee /conda-env-export-final.yml) && \
-    (diff --unified /conda-env-export-phase1.yml /conda-env-export-final.yml 2>&1 | tee /conda-env-export.diff) && \
-    (du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt) && \
-    diff /conda-envs-size-phase1.txt /conda-envs-size-final.txt || true
-
-# install using same channel preferences as birdy original env to not downgrade anything accidentally
-# this is for debug only, all dependencies should be specified in environment.yml above
-# RUN mamba install -c conda-forge -c cdat -c bokeh -c fortiers -n birdy nbdime
-
-# build jupyterlab extensions installed by conda, see `jupyter labextension list`
-# Supposedly not needed with jupyterlab v3 anymore but see
-# https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998901247
-# TODO: remove 'jupyter lab build' step once all extensions move to prebuilt extensions,
-# see comment https://github.com/jupyterlab/jupyterlab/issues/11726#issuecomment-998917305
-# Currently jupyter-dash is holding back this step, see
-# https://github.com/plotly/jupyter-dash/issues/49
-RUN jupyter lab build
-
-RUN jupyter serverextension enable voila --sys-prefix && \
-    jupyter serverextension enable panel.io.jupyter_server_extension --sys-prefix && \
-    jupyter serverextension list
-#   jupyter labextension install jupyterlab-clipboard
+# Ensure that a default ipython kernel (python3) is available 
+RUN python -m ipykernel install --name python3
 
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
@@ -108,7 +81,7 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     chown root:root /notebook_dir && \
     chmod a-w /notebook_dir && \
     chmod a+rwX -R /opt/conda/envs/birdy/fonts && \
-    mkdir /opt/conda/pkgs/cache && \
+    mkdir -p /opt/conda/pkgs/cache && \
     chown jenkins:jenkins -R /opt/conda/pkgs/cache && \
     mkdir -p /usr/local/bin && \
     wget https://downloads.globus.org/globus-connect-personal/linux/stable/globusconnectpersonal-latest.tgz -O /usr/local/bin/globusconnectpersonal-latest.tgz && \
@@ -117,16 +90,18 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     rm -v /usr/local/bin/globusconnectpersonal-latest.tgz
 
 # For jupyter-panel-proxy launcher.
-ENV BOKEH_ALLOW_WS_ORIGIN "*"
+ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
-# For import xesmf since esmf-8.4.0, see
-# https://github.com/conda-forge/esmf-feedstock/issues/91
+# For import xesmf since esmf-8.4.0, see: https://github.com/conda-forge/esmf-feedstock/issues/91
 ENV ESMFMKFILE="/opt/conda/envs/birdy/lib/esmf.mk"
 
-# To avoid error "PROJ: proj_create_from_database: Open of
-# /opt/conda/envs/birdy/share/proj failed"
-# This simulates a real `conda activate birdy`.
+# For pyproj, to avoid error "PROJ: proj_create_from_database: Open of /opt/conda/envs/birdy/share/proj failed"
 ENV PROJ_DATA="/opt/conda/envs/birdy/share/proj"
+
+# To expose conda-installed compilers so that users can make use of them
+ENV gcc=x86_64-conda-linux-gnu-gcc
+ENV g++=x86_64-conda-linux-gnu-g++
+ENV gfortran=x86_64-conda-linux-gnu-gfortran
 
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here

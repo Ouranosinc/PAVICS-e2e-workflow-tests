@@ -54,6 +54,8 @@ export RAVEN_BRANCH="$(sanitize_branch_name "$RAVEN_BRANCH")"
 export RAVEN_REPO_NAME="$(extract_repo_name "$RAVEN_REPO")"
 export RAVENPY_BRANCH="$(sanitize_branch_name "$RAVENPY_BRANCH")"
 export RAVENPY_REPO_NAME="$(extract_repo_name "$RAVENPY_REPO")"
+export XHYDRO_BRANCH="$(sanitize_branch_name "$XHYDRO_BRANCH")"
+export XHYDRO_REPO_NAME="$(extract_repo_name "$XHYDRO_REPO")"
 export ESGF_COMPUTE_API_BRANCH="$(sanitize_branch_name "$ESGF_COMPUTE_API_BRANCH")"
 export ESGF_COMPUTE_API_REPO_NAME="$(extract_repo_name "$ESGF_COMPUTE_API_REPO")"
 
@@ -62,6 +64,7 @@ export FINCH_DIR="$(sanitize_extracted_folder_name "${FINCH_REPO_NAME}-${FINCH_B
 export PAVICS_LANDING_DIR="$(sanitize_extracted_folder_name "${PAVICS_LANDING_REPO_NAME}-${PAVICS_LANDING_BRANCH}")"
 export RAVEN_DIR="$(sanitize_extracted_folder_name "${RAVEN_REPO_NAME}-${RAVEN_BRANCH}")"
 export RAVENPY_DIR="$(sanitize_extracted_folder_name "${RAVENPY_REPO_NAME}-${RAVENPY_BRANCH}")"
+export XHYDRO_DIR="$(sanitize_extracted_folder_name "${XHYDRO_REPO_NAME}-${XHYDRO_BRANCH}")"
 export ESGF_COMPUTE_API_DIR="$(sanitize_extracted_folder_name "${ESGF_COMPUTE_API_REPO_NAME}-${ESGF_COMPUTE_API_BRANCH}")"
 
 # lowercase VERIFY_SSL string
@@ -75,24 +78,34 @@ if [ x"$VERIFY_SSL" = xfalse ]; then
     echo "setting env var DISABLE_VERIFY_SSL for notebooks"
 fi
 
-
 NOTEBOOKS_TO_TEST=""
+
+# So that empty dir do not break us.  Empty dir happens when we prepare in
+# advance a new repo, the folder we reference is not yet merged to that repo.
+accumulate_notebooks_to_test() {
+    if ls -1 $1; then
+        NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST $1"
+    else
+        echo "WARNING: dir '$1' do not contain any notebooks to run."
+    fi
+}
+
 if [ x"$TEST_MAGPIE_AUTH" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks-auth/*.ipynb"
+    accumulate_notebooks_to_test "notebooks-auth/*.ipynb"
 fi
 if [ x"$TEST_PAVICS_SDI_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_SDI_DIR}/docs/source/notebooks/*.ipynb"
+    accumulate_notebooks_to_test "${PAVICS_SDI_DIR}/docs/source/notebooks/*.ipynb"
     if [ x"$TEST_PAVICS_SDI_WEAVER" = xtrue ]; then
-        NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_SDI_DIR}/docs/source/notebook-components/*weaver*.ipynb"
+        accumulate_notebooks_to_test "${PAVICS_SDI_DIR}/docs/source/notebook-components/*weaver*.ipynb"
     fi
 fi
 if [ x"$TEST_FINCH_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${FINCH_DIR}/docs/source/notebooks/*.ipynb"
+    accumulate_notebooks_to_test "${FINCH_DIR}/docs/source/notebooks/*.ipynb"
 fi
 
 if [ x"$TEST_PAVICS_LANDING_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_LANDING_DIR}/content/notebooks/climate_indicators/*.ipynb"
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${PAVICS_LANDING_DIR}/content/notebooks/hydrology/*.ipynb"
+    accumulate_notebooks_to_test "${PAVICS_LANDING_DIR}/content/notebooks/climate_indicators/*.ipynb"
+    accumulate_notebooks_to_test "${PAVICS_LANDING_DIR}/content/notebooks/hydrology/*.ipynb"
 
     SETUP_SCRIPT="${PAVICS_LANDING_DIR}/content/notebooks/climate_indicators/setup_dirlayout.sh"
     if [ -x "$SETUP_SCRIPT" ]; then
@@ -106,20 +119,28 @@ if [ x"$TEST_PAVICS_LANDING_REPO" = xtrue ]; then
 fi
 
 if [ x"$TEST_RAVEN_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVEN_DIR}/docs/source/notebooks/*.ipynb"
+    accumulate_notebooks_to_test "${RAVEN_DIR}/docs/source/notebooks/*.ipynb"
 fi
 if [ x"$TEST_RAVENPY_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVENPY_DIR}/docs/notebooks/*.ipynb"
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${RAVENPY_DIR}/docs/notebooks/paper/*.ipynb"
+    accumulate_notebooks_to_test "${RAVENPY_DIR}/docs/notebooks/*.ipynb"
+    accumulate_notebooks_to_test "${RAVENPY_DIR}/docs/notebooks/paper/*.ipynb"
+fi
+if [ x"$TEST_XHYDRO_REPO" = xtrue ]; then
+    accumulate_notebooks_to_test "${XHYDRO_DIR}/docs/notebooks/pavics_notebooks/*.ipynb"
 fi
 if [ x"$TEST_ESGF_COMPUTE_API_REPO" = xtrue ]; then
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST ${ESGF_COMPUTE_API_DIR}/examples/*.ipynb"
+    accumulate_notebooks_to_test "${ESGF_COMPUTE_API_DIR}/examples/*.ipynb"
 fi
 
 if [ x"$TEST_LOCAL_NOTEBOOKS" = xtrue ]; then
     # Add notebooks here last since stress-test.ipynb can possible cause cascading
     # damage to other notebooks.
-    NOTEBOOKS_TO_TEST="$NOTEBOOKS_TO_TEST notebooks/*.ipynb"
+    accumulate_notebooks_to_test "notebooks/*.ipynb"
+fi
+
+if [ x"$ALLOWLIST_NOTEBOOKS" != x ]; then
+  # Allowlist of notebooks to test, can be set by Jenkins job parameters.
+  NOTEBOOKS_TO_TEST="$ALLOWLIST_NOTEBOOKS"
 fi
 
 # last notebooks higher chance for name clash
