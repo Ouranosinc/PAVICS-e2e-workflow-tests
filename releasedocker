@@ -1,38 +1,11 @@
 #!/bin/sh -x
 
-OLD_VER="$1"; shift
-NEW_VER="$1"; shift
+TAG_PREFIX="release"
+CURRENT_VERSION=$(bump-my-version show current_version)
 
-TAG_PREFIX="docker"
-if [ -n "$RELEASEDOCKER_IS_UPDATE" ]; then
-    # "update" release makes it faster to build and release and also allow us
-    # sort of pin the entire existing working environment if we foresee many
-    # disruptive updates ahead and we are not ready to absorb them.
+#WIP
 
-    # Basically allowing us to still release new key components without being
-    # impacted by other changing components that we are not ready to deal with.
-
-    # Full and clean release are much prefered so this is to be used in last
-    # resort only, do not abuse.
-
-    TAG_PREFIX="dockerupdate"
-fi
-
-update_ver() {
-    FILE="$1"
-    sed -i "s@pavics/workflow-tests:$OLD_VER@pavics/workflow-tests:$NEW_VER@g" $FILE
-}
-
-update_ver launchcontainer
-update_ver launchnotebook
-update_ver Jenkinsfile
-update_ver binder/Dockerfile
-
-git add launchcontainer launchnotebook Jenkinsfile binder/Dockerfile
-git status -v
-echo "Looks good to commit? (Ctrl-C to abort)"; read a
-
-git commit -m "release: update to use image pavics/workflow-tests:$NEW_VER"
+git commit -m "release: update to use image pavics/workflow-tests:$CURRENT_VERSION"
 git show
 echo "Looks good to tag? (Ctrl-C to abort)"; read a
 
