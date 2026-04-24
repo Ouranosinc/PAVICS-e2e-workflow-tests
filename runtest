@@ -57,7 +57,7 @@ handle_config_override_script_url "$CI_OVERRIDE_CONFIG_OVERRIDE_SCRIPT_URL"
 handle_config_override_script_url "$CONFIG_OVERRIDE_SCRIPT_URL"
 
 # CONFIG_OVERRIDE_SCRIPT_URL can override NBVAL_SANITIZE_CFG_FILE.
-py.test --rootdir=. --nbval $NOTEBOOKS --nbval-sanitize-with "${NBVAL_SANITIZE_CFG_FILE:=notebooks/output-sanitize.cfg}" $PYTEST_EXTRA_OPTS
+py.test --rootdir=. --nbval $NOTEBOOKS --nbval-sanitize-with="${NBVAL_SANITIZE_CFG_FILE:=notebooks/output-sanitize.cfg}" --nbval-cell-timeout="${PYTEST_NBVAL_NOTEBOOK_TIMEOUT}" $PYTEST_EXTRA_OPTS
 EXIT_CODE="$?"
 
 # lowercase SAVE_RESULTING_NOTEBOOK string
