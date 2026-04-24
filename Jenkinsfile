@@ -110,7 +110,7 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
         booleanParam(name: 'SAVE_RESULTING_NOTEBOOK', defaultValue: true,
                 description: '''Check the box to save the resulting notebooks of the run.
 Note this is another run, will double the time and no guaranty to have same error as the run from py.test.''')
-        string(name: 'SAVE_RESULTING_NOTEBOOK_TIMEOUT', defaultValue: '240',
+        string(name: 'SAVE_RESULTING_NOTEBOOK_TIMEOUT', defaultValue: '300',
                 description: 'Timeout in sec for nbconvert.  For slow notebooks or slow machine', trim: true)
     }
 
