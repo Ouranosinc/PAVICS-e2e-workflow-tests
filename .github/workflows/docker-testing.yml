@@ -56,8 +56,8 @@ jobs:
             # Run the test script inside the Docker container
             conda run -n birdy mamba list
 
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
         with:
           name: conda-env-export.yml
           path: build-artifacts
