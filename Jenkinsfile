@@ -95,6 +95,8 @@ Requires 'weaver' component to be active on the target 'PAVICS_HOST' server
                 description: 'ESGF_COMPUTE_API_REPO branch to test against.', trim: true)
         string(name: 'ESGF_COMPUTE_API_REPO', defaultValue: 'ESGF/esgf-compute-api',
                 description: 'https://github.com/ESGF/esgf-compute-api repo or fork to test against.', trim: true)
+        string(name: 'PYTEST_NBVAL_NOTEBOOK_TIMEOUT', defaultValue: '300',
+                description: "Timeout in sec for pytest --nbval-cell-timeout. For slow notebooks or slow machine", trim: true)        
         string(name: 'PYTEST_EXTRA_OPTS', defaultValue: '--dist=loadscope --numprocesses=0',
                 description: 'Extra options to pass to pytest, e.g. --nbval-lax --dist=loadscope --numprocesses=0', trim: true)
         string(name: 'EXTRA_TEST_ENV_VAR', defaultValue: '',
