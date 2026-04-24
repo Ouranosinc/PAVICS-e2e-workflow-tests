@@ -42,7 +42,7 @@ jobs:
       - name: Gather artifacts
         run: |
           docker create --name test ${{ env.TEST_TAG }}
-          docker cp test:/conda-env-export-final.yml ./conda-env-export.yml
+          docker cp test:/conda-env-export-final.yml ./build-artifacts/conda-env-export.yml
           docker rm test
 
       - name: Run Docker image
@@ -59,3 +59,4 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: conda-env-export.yml
+          path: ./build-artifacts
