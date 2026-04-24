@@ -7,7 +7,7 @@ on:
   pull_request:
 
 env:
-  TEST_TAG: workflow-tests:latest
+  TEST_TAG: workflow-tests:test
 
 jobs:
   build:
@@ -42,8 +42,8 @@ jobs:
       - name: Gather artifacts
         run: |
           docker create --name test ${{ env.TEST_TAG }}
-          mkdir ./build-artifacts
-          docker cp test:/conda-env-export-final.yml ./build-artifacts/conda-env-export.yml
+          mkdir build-artifacts
+          docker cp test:/conda-env-export-final.yml build-artifacts/conda-env-export.yml
           docker rm test
 
       - name: Run Docker image
@@ -60,4 +60,4 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: conda-env-export.yml
-          path: /home/runner/work/PAVICS-e2e-workflow-tests/PAVICS-e2e-workflow-tests/build-artifacts
+          path: build-artifacts
