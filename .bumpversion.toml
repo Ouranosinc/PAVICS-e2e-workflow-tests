@@ -1,0 +1,43 @@
+[tool.bumpversion]
+current_version = "py312-260420"
+commit = true
+commit_args = "--no-verify --signoff"
+tag = false
+allow_dirty = false
+parse = "(?P<python>py\\d+)\\-(?P<date>\\d+)(\\-build(\\.(?P<build>\\d+)))?"
+serialize = [
+  "{python}-{date}-build.{build}",
+  "{python}-{date}"
+]
+
+[tool.bumpversion.parts.python]
+values = ["py312", "py313", "py314"]
+
+[tool.bumpversion.parts.date]
+calver_format = "{0Y}{0M}{0D}"
+
+[tool.bumpversion.parts.build]
+independent = false
+
+[[tool.bumpversion.files]]
+filename = ".bumpversion.toml"
+
+[[tool.bumpversion.files]]
+filename = "launchcontainer"
+search = "pavics/workflow-tests:{current_version}"
+replace = "pavics/workflow-tests:{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "launchnotebook"
+search = "pavics/workflow-tests:{current_version}"
+replace = "pavics/workflow-tests:{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "Jenkinsfile"
+search = "pavics/workflow-tests:{current_version}"
+replace = "pavics/workflow-tests:{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "binder/Dockerfile"
+search = "pavics/workflow-tests:{current_version}"
+replace = "pavics/workflow-tests:{new_version}"
