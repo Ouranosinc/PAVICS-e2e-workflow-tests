@@ -54,6 +54,10 @@ ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 # Ensure that a default ipython kernel (python3) is available 
 RUN python -m ipykernel install --name python3
 
+# For @plotly/dash-jupyterlab that was supposed to be folded into the `dash`
+# package but somehow still generate an error if this step is missing.
+RUN jupyter lab build
+
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
 # is breaking with us since we do not have user jovyan.
@@ -87,7 +91,8 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     wget https://downloads.globus.org/globus-connect-personal/linux/stable/globusconnectpersonal-latest.tgz -O /usr/local/bin/globusconnectpersonal-latest.tgz && \
     tar xzf /usr/local/bin/globusconnectpersonal-latest.tgz -C /usr/local/bin/ && \
     ln -vs /usr/local/bin/globusconnectpersonal*/globusconnectpersonal /usr/local/bin/globusconnectpersonal && \
-    rm -v /usr/local/bin/globusconnectpersonal-latest.tgz
+    rm -v /usr/local/bin/globusconnectpersonal-latest.tgz && \
+    jupyter serverextension list
 
 # For jupyter-panel-proxy launcher.
 ENV BOKEH_ALLOW_WS_ORIGIN="*"
