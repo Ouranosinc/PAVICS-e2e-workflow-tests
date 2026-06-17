@@ -16,7 +16,7 @@ RUN umask 0000 && \
     mamba install --force-reinstall -c conda-forge -c cdat -c bokeh -c fortiers -n birdy dash-leaflet reportlab jupyterlab_rise && \
     mamba update -c conda-forge -c cdat -c bokeh -c fortiers -n birdy xhydro==0.8.0 && \
     mamba clean --all --yes && \
-    jupyter lab build && \
+    jupyter lab build --dev-build=False --minimize=False && \
     jupyter serverextension list
 
 # RUN umask 0000 && \
