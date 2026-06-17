@@ -170,6 +170,13 @@ dependencies:
   # https://streamlit.io/
   # https://anaconda.org/conda-forge/streamlit
   - streamlit
+  # Dash Leaflet is a wrapper of Leaflet, the leading open-source JavaScript library for interactive maps.
+  # The syntax is similar to other Dash components, with naming conventions following React-Leaflet.
+  # https://github.com/emilhe/dash-leaflet
+  - dash-leaflet
+  # Reportlab: Open-source engine for creating complex, data-driven PDF documents and custom vector graphics.
+  # https://docs.reportlab.com/
+  - reportlab
   # Seaborn: Statistical data visualization
   # https://github.com/mwaskom/seaborn
   - seaborn
@@ -397,6 +404,9 @@ dependencies:
   # jupyterlab-geojson: JupyterLab extension for rendering GeoJSON
   # https://github.com/jupyterlab/jupyter-renderers/tree/main/packages/geojson-extension
   - jupyterlab-geojson
+  # RISE: "Live" Reveal.js JupyterLab Slideshow Extension
+  # https://github.com/jupyterlab-contrib/rise
+  - jupyterlab_rise
   # jupyterlab-topbar: JupyterLab Top Bar Extensions
   # https://github.com/jtpio/jupyterlab-topbar
   - pip:
