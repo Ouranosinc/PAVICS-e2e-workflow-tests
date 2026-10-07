@@ -2,7 +2,11 @@
 current_version = "py312-260420"
 commit = true
 commit_args = "--no-verify --signoff"
+message = "release: update to use image pavics/workflow-tests:{new_version}"
 tag = false
+sign_tags = false
+tag_name = "docker-{new_version}"
+tag_message = "docker-{new_version}"
 allow_dirty = false
 parse = "(?P<python>py\\d+)\\-(?P<date>\\d+)(\\.(?P<build>\\d+))?"
 serialize = [
