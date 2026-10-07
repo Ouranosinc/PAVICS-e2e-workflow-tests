@@ -38,8 +38,9 @@ replace = "pavics/workflow-tests:{new_version}"
 
 [[tool.bumpversion.files]]
 filename = "Jenkinsfile"
-search = "pavics/workflow-tests:{current_version}"
+search = "pavics\\/workflow-tests\\:py(312|313|314|315)-(\\d{6})(-dockerupdate-(\\d{6}))?"
 replace = "pavics/workflow-tests:{new_version}"
+regex = true
 
 [[tool.bumpversion.files]]
 filename = "binder/Dockerfile"
