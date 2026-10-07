@@ -4,14 +4,14 @@ commit = true
 commit_args = "--no-verify --signoff"
 tag = false
 allow_dirty = false
-parse = "(?P<python>py\\d+)\\-(?P<date>\\d+)(\\-build(\\.(?P<build>\\d+)))?"
+parse = "(?P<python>py\\d+)\\-(?P<date>\\d+)(\\.(?P<build>\\d+))?"
 serialize = [
-  "{python}-{date}-build.{build}",
+  "{python}-{date}.{build}",
   "{python}-{date}"
 ]
 
 [tool.bumpversion.parts.python]
-values = ["py312", "py313", "py314"]
+values = ["py312", "py313", "py314", "py315"]
 
 [tool.bumpversion.parts.date]
 calver_format = "{0Y}{0M}{0D}"
