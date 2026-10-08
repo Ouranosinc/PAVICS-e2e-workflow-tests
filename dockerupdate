@@ -20,7 +20,11 @@ update_ver() {
   FILE="$1"
   sed -i "s@pavics/workflow-tests:$CURRENT_VERSION@pavics/workflow-tests:$NEW_VERSION@g" $FILE
 }
+
+update_ver binder/Dockerfile
 update_ver Jenkinsfile
+update_ver launchcontainer
+update_ver launchnotebook
 
 git add Jenkinsfile
 git status -v

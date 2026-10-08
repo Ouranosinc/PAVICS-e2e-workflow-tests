@@ -28,21 +28,24 @@ filename = ".bumpversion.toml"
 
 [[tool.bumpversion.files]]
 filename = "launchcontainer"
-search = "pavics/workflow-tests:{current_version}"
+search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
 replace = "pavics/workflow-tests:{new_version}"
+regex = true
 
 [[tool.bumpversion.files]]
 filename = "launchnotebook"
-search = "pavics/workflow-tests:{current_version}"
+search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
 replace = "pavics/workflow-tests:{new_version}"
+regex = true
 
 [[tool.bumpversion.files]]
 filename = "Jenkinsfile"
-search = "pavics\\/workflow-tests\\:py31\\d-\\d{6}(-dockerupdate-\\d{6})?"
+search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
 replace = "pavics/workflow-tests:{new_version}"
 regex = true
 
 [[tool.bumpversion.files]]
 filename = "binder/Dockerfile"
-search = "pavics/workflow-tests:{current_version}"
+search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
 replace = "pavics/workflow-tests:{new_version}"
+regex = true
