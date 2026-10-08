@@ -12,7 +12,7 @@
 
 DATE_TODAY=$(date '+%Y%m%d')
 TAG_PREFIX="dockerupdate"
-CURRENT_VERSION=$(bump-my-version show current_version)
+CURRENT_VERSION=$(awk 'NR == 1 { print $1; exit }' RELEASE.txt)
 NEW_VERSION="${CURRENT_VERSION}-dockerupdate${DATE_TODAY}"
 TAG_NAME="${TAG_PREFIX}-${NEW_VERSION}"
 
@@ -26,7 +26,9 @@ update_ver Jenkinsfile
 update_ver launchcontainer
 update_ver launchnotebook
 
-git add Jenkinsfile
+echo "$NEW_VERSION $(date --universal --iso-8601='seconds')" > RELEASE.txt 
+
+git add binder/Dockerfile Jenkinsfile launchcontainer launchnotebook
 git status -v
 echo "Looks good to commit? (Ctrl-C to abort)"; read a
 git commit -m "release: update pavics/workflow-tests:$CURRENT_VERSION → pavics/workflow-tests:$NEW_VERSION"

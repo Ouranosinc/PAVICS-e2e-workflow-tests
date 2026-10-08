@@ -27,6 +27,18 @@ independent = false
 filename = ".bumpversion.toml"
 
 [[tool.bumpversion.files]]
+filename = "RELEASE.txt"
+search = "py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
+replace = "{new_version}"
+regex = true
+
+[[tool.bumpversion.files]]
+filename = "RELEASE.txt"
+search = "\\d{{4}}-\\d{{2}}-\\d{{2}}T\\d{{2}}:\\d{{2}}:\\d{{2}}+00:00"
+replace = "{utcnow:%Y-%m-%dT%H:%M:%S+00:00}"
+regex = true
+
+[[tool.bumpversion.files]]
 filename = "launchcontainer"
 search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
 replace = "pavics/workflow-tests:{new_version}"
