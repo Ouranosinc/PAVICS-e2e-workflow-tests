@@ -1,7 +1,19 @@
 # FIXME: This base needs to change to something closer to conda-forge
+# Not legally permitted to redistribute this base. See: https://hub.docker.com/r/continuumio/miniconda3
+# The continuumio images are deprecated. Updates to continuumio/miniconda3 will be discontinued after version 26.7.x
 FROM continuumio/miniconda3
+
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
+
+LABEL org.opencontainers.image.authors="Ouranosinc"
+# LABEL org.opencontainers.image.created="2026-01-23T45:67:89Z" # FIXME: This needs to be revised. See work in https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/pull/167
+LABEL org.opencontainers.image.description="The Ouranosinc PAVICS Jupyter environment"
+# LABEL org.opencontainers.image.license="Apache-2.0"  # FIXME: Not compatible with the continuumio/miniconda3 ToU.
+LABEL org.opencontainers.image.source="https://github.com/Ouranosinc/pavics-e2e-workflow-tests"
+LABEL org.opencontainers.image.title="pavics-e2e-workflow-tests"
+LABEL org.opencontainers.image.vendor="Ouranos Inc."
+# LABEL org.opencontainers.image.version="v1.2.3.4.5" FIXME: This needs to be revised. See work in https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/pull/167
 
 # Use mamba for much improved performance over conda.
 # The 'channel_priority strict' did help conda but it was not enough.
