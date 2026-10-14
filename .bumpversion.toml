@@ -28,7 +28,7 @@ filename = ".bumpversion.toml"
 
 [[tool.bumpversion.files]]
 filename = "RELEASE.txt"
-search = "py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
+search = "py31\\d-\\d{{6}}(-update-\\d{{6}})?"
 replace = "{new_version}"
 regex = true
 
@@ -40,24 +40,24 @@ regex = true
 
 [[tool.bumpversion.files]]
 filename = "launchcontainer"
-search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
+search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}"
 replace = "pavics/workflow-tests:{new_version}"
 regex = true
 
 [[tool.bumpversion.files]]
 filename = "launchnotebook"
-search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
+search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}"
 replace = "pavics/workflow-tests:{new_version}"
 regex = true
 
 [[tool.bumpversion.files]]
 filename = "Jenkinsfile"
-search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
+search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}"
 replace = "pavics/workflow-tests:{new_version}"
 regex = true
 
 [[tool.bumpversion.files]]
 filename = "binder/Dockerfile"
-search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}(-dockerupdate-\\d{{8}})?"
+search = "pavics\\/workflow-tests\\:py31\\d-\\d{{6}}"
 replace = "pavics/workflow-tests:{new_version}"
 regex = true
