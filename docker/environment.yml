@@ -173,7 +173,9 @@ dependencies:
   # Dash Leaflet is a wrapper of Leaflet, the leading open-source JavaScript library for interactive maps.
   # The syntax is similar to other Dash components, with naming conventions following React-Leaflet.
   # https://github.com/emilhe/dash-leaflet
-  - dash-leaflet
+  # DISABLE because of https://github.com/plotly/dash/issues/3828
+  # Provided work-around do not work.
+  #- dash-leaflet
   # Reportlab: Open-source engine for creating complex, data-driven PDF documents and custom vector graphics.
   # https://docs.reportlab.com/
   - reportlab

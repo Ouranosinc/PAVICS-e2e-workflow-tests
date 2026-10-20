@@ -55,7 +55,7 @@ ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 RUN python -m ipykernel install --name python3
 
 # https://github.com/plotly/dash/issues/3828#issuecomment-4804690502
-RUN jupyter labextension disable @plotly/dash-jupyterlab
+#RUN jupyter labextension disable @plotly/dash-jupyterlab
 
 # This should be "master" but commit
 # https://github.com/jupyter/docker-stacks/commit/c772e98ac794173d6ed83a08ec249038b27ca3be
