@@ -154,18 +154,18 @@ dependencies:
   - pscript
   # Panel: The powerful data exploration & web app framework for Python
   # https://github.com/holoviz/panel
-  - panel >= 1.2.2
+  #- panel >= 1.2.2
   # pyviz-comms: Simple bidirectional communication architecture between Python and JavaScript
-  - pyviz_comms  # (was labextension pyviz/jupyterlab_pyviz in jupyterlab v2)
+  #- pyviz_comms  # (was labextension pyviz/jupyterlab_pyviz in jupyterlab v2)
   # holoviews: A high-level plotting API for the PyData ecosystem built on HoloViews.
   # https://github.com/holoviz/holoviews
-  - holoviews
+  #- holoviews
   # geoviews: A Python library for building complex visualizations of geospatial data.
   # https://github.com/holoviz/geoviews
-  - geoviews >= 1.9.6
+  #- geoviews >= 1.9.6
   # hvplot: A high-level plotting API for pandas, dask, xarray, and networkx built on HoloViews.
   # https://github.com/holoviz/hvplot
-  - hvplot
+  #- hvplot
   # streamlit: For creating web apps for data science and machine learning projects.
   # https://streamlit.io/
   # https://anaconda.org/conda-forge/streamlit
@@ -175,7 +175,7 @@ dependencies:
   # https://github.com/emilhe/dash-leaflet
   # DISABLE because of https://github.com/plotly/dash/issues/3828
   # Provided work-around do not work.
-  #- dash-leaflet
+  - dash-leaflet
   # Reportlab: Open-source engine for creating complex, data-driven PDF documents and custom vector graphics.
   # https://docs.reportlab.com/
   - reportlab
