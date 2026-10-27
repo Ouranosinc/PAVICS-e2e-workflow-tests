@@ -104,6 +104,9 @@ RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_
     ln -vs /usr/local/bin/globusconnectpersonal*/globusconnectpersonal /usr/local/bin/globusconnectpersonal && \
     rm -v /usr/local/bin/globusconnectpersonal-latest.tgz
 
+# For jupyter_rise when JupyterLab is launched behind JupyterHub.
+COPY jupyter_server_config.py /etc/jupyter/
+
 # For jupyter-panel-proxy launcher.
 ENV BOKEH_ALLOW_WS_ORIGIN="*"
 
