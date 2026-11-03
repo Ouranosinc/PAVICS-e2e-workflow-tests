@@ -1,0 +1,82 @@
+# conda env create -f environment-core.yml
+name: birdy
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python >=3.12,<3.13
+
+  # CORE LIBRARIES
+
+  # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
+  # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/main/recipe/meta.yaml
+  # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/main/recipe/meta.yaml
+  # raven-hydro direct dependencies: https://github.com/conda-forge/raven-hydro-feedstock/blob/main/recipe/meta.yaml
+  # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/main/recipe/meta.yaml
+  # xhydro direct dependencies: https://github.com/conda-forge/xhydro-feedstock/blob/main/recipe/meta.yaml
+  # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
+  # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
+
+  # Pin latest clisops, figanos, ravenpy, xclim, xhydro, xscen, and xsdba to avoid undesired downgrades.
+  # Installation proceeds in two phases in the Dockerfile in order to avoid memory usage issues.
+  # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
+
+  # clisops: Data reduction operations on xarray climate data
+  - clisops >= 0.16.2
+  # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
+  - figanos >= 0.7.0
+  # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
+  - ravenpy >= 0.21.1
+  # raven-hydro:  The Python-based installer for the hydrological modelling framework, Raven.
+  # NOTE: While a conda package exists, the latest version is compiled against an incompatible libnetcdf
+  # corresponding version is determined by ravenpy
+  # - pip:
+  - raven-hydro >= 4.12.1
+  # xclim: Climate indices computation package based on Xarray.
+  - xclim >= 0.62.0, < 1.0
+  # Hydrological analysis library built with xarray.
+  - xhydro >= 0.9.1
+  # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
+  - xscen >= 0.15.3
+  # xsdba: Statistical correction and bias adjustment tools for xarray.
+  - xsdba >= 0.7.0
+
+  # BUILD TOOLS
+
+  # C and Fortran NetCDF library support
+  # https://github.com/Unidata/netcdf-c
+  # https://anaconda.org/channels/conda-forge/packages/libnetcdf/overview
+  - libnetcdf * mpi_mpich*
+  # https://github.com/Unidata/netcdf-fortran
+  # https://anaconda.org/channels/conda-forge/packages/netcdf-fortran/overview
+  - netcdf-fortran * mpi_mpich*
+  # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
+  # https://www.gnu.org/software/make/manual/make.html
+  # https://anaconda.org/channels/conda-forge/packages/make/overview
+  - make
+  # cmake: cross-platform, open-source build system
+  # https://gitlab.kitware.com/cmake/cmake
+  # https://anaconda.org/channels/anaconda/packages/cmake/overview
+  - cmake
+  # c-compiler: C compiler meta-package
+  # https://anaconda.org/channels/conda-forge/packages/c-compiler/overview
+  - c-compiler
+  # cxx-compiler: C++ compiler meta-package
+  # https://anaconda.org/channels/conda-forge/packages/cxx-compiler/overview
+  - cxx-compiler
+  # fortran-compiler: Fortran compiler meta-package
+  # https://anaconda.org/channels/conda-forge/packages/fortran-compiler/overview
+  - fortran-compiler
+
+  # PIP PACKAGING SUPPORT
+
+  # https://github.com/pypa/pip
+  # https://anaconda.org/channels/anaconda/packages/pip/overview
+  - pip >= 26.2.1
+
+  # MISCELLANEOUS EXTRAS
+
+  # HDF5: The HDF5 Data Model Specification
+  # https://www.hdfgroup.org/solutions/hdf5/
+  # https://anaconda.org/channels/conda-forge/packages/hdf5/overview
+  - hdf5 * mpi_mpich*
