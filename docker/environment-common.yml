@@ -1,47 +1,11 @@
-# conda env create -f environment.yml
+# conda env create -f environment-common.yml
 name: birdy
 channels:
   - conda-forge
-  - cdat
-  - bokeh
   - fortiers  # for fstd2nc
   - nodefaults
 dependencies:
   - python >=3.12,<3.13
-
-  # clisops direct dependencies: https://github.com/conda-forge/clisops-feedstock/blob/master/recipe/meta.yaml
-  # figanos direct dependencies: https://github.com/conda-forge/figanos-feedstock/blob/main/recipe/meta.yaml
-  # ravenpy direct dependencies: https://github.com/conda-forge/ravenpy-feedstock/blob/main/recipe/meta.yaml
-  # raven-hydro direct dependencies: https://github.com/conda-forge/raven-hydro-feedstock/blob/main/recipe/meta.yaml
-  # xclim direct dependencies: https://github.com/conda-forge/xclim-feedstock/blob/main/recipe/meta.yaml
-  # xhydro direct dependencies: https://github.com/conda-forge/xhydro-feedstock/blob/main/recipe/meta.yaml
-  # xscen direct dependencies: https://github.com/conda-forge/xscen-feedstock/blob/main/recipe/meta.yaml
-  # xsdba direct dependencies: https://github.com/conda-forge/xsdba-feedstock/blob/main/recipe/meta.yaml
-
-  # Pin latest clisops, figanos, ravenpy, xclim, xhydro, xscen, and xsdba to avoid undesired downgrades.
-  # Installation proceeds in two phases in the Dockerfile in order to avoid memory usage issues.
-  # Mamba is quicker to solve dependencies than conda, but it is less precise so accidental downgrades can happen.
-
-  # CORE LIBRARIES
-
-  # clisops: Data reduction operations on xarray climate data
-  - clisops >= 0.18.1
-  # figanos: Outils pour produire des graphiques informatifs sur les impacts des changements climatiques.
-  - figanos >= 0.7.0
-  # RavenPy: A Python wrapper for configuring and running the hydrologic modelling framework Raven.
-  - ravenpy >= 0.21.1
-  # raven-hydro:  The Python-based installer for the hydrological modelling framework, Raven.
-  # NOTE: While a conda package exists, the latest version is compiled against an incompatible libnetcdf
-  # corresponding version is determined by ravenpy
-  - raven-hydro >= 4.12.1
-  # xclim: Climate indices computation package based on Xarray.
-  - xclim >= 0.62.0, < 1.0
-  # Hydrological analysis library built with xarray.
-  - xhydro >= 0.9.1
-  # xscen: A climate change scenario-building analysis framework, built with xclim/xarray.
-  - xscen >= 0.15.3
-  # xsdba: Statistical correction and bias adjustment tools for xarray.
-  - xsdba >= 0.7.0
 
   # COMMON LIBRARIES
   # Only add pins here as needed
@@ -72,13 +36,13 @@ dependencies:
   - lmoments3 >= 1.0.8
   # matplotlib: 2D plotting library
   # https://github.com/matplotlib/matplotlib
-  - matplotlib >= 3.10.0, < 3.11.0 # FIXME: Pin required for figanos; lift once figanos > 0.7.0
+  - matplotlib
   # netcdf4: Python interface to the netCDF C library
   # https://github.com/Unidata/netcdf4-python
   - netcdf4 * mpi_mpich*
   # numpy: fundamental package for scientific computing with Python
   # https://github.com/numpy/numpy
-  - numpy >= 2.2.0
+  - numpy >= 1.25.0
   # pandas: data structures and data analysis tools for Python
   # https://github.com/pandas-dev/pandas
   # - pandas  # managed by core libraries
@@ -232,7 +196,7 @@ dependencies:
   # esgf-compute-api: The API for end users for esgf compute stacks (cwt)
   # for esgf notebooks
   # https://github.com/ESGF/esgf-compute-api
-  - esgf-compute-api
+  # - esgf-compute-api  # installed directly in Dockerfile
   # esgf-pyclient: Python client for the Earth System Grid Federation (ESGF) web services.
   # https://anaconda.org/conda-forge/esgf-pyclient (for pavics-sdi esgf-dap.ipynb)
   - esgf-pyclient
@@ -260,39 +224,6 @@ dependencies:
   # nbval: A py.test plugin to validate Jupyter notebooks
   # https://github.com/computationalmodelling/nbval
   - nbval
-
-  # MISCELLANEOUS EXTRAS
-
-  # HDF5: The HDF5 Data Model Specification
-  # https://www.hdfgroup.org/solutions/hdf5/
-  # https://anaconda.org/channels/conda-forge/packages/hdf5/overview
-  - hdf5 < 1.14.6 mpi_mpich* # NOTE: Pinned due to weird read errors when running with dask
-
-  # PIP PACKAGING SUPPORT
-  # https://github.com/pypa/pip
-  - pip >= 26.2.1 # Needed for modern pip packages
-
-  # BUILD TOOLS
-
-  # C and Fortran NetCDF library support
-  # https://github.com/Unidata/netcdf-c
-  - libnetcdf * mpi_mpich*
-  # https://github.com/Unidata/netcdf-fortran
-  - netcdf-fortran * mpi_mpich*
-  # make: tool which controls the generation of executables and other non-source files of a program from the program's source files
-  - make
-  # cmake: cross-platform, open-source build system
-  # https://gitlab.kitware.com/cmake/cmake
-  - cmake
-  # c-compiler: C compiler meta-package
-  # https://anaconda.org/channels/conda-forge/packages/c-compiler/overview
-  - c-compiler
-  # cxx-compiler: C++ compiler meta-package
-  # https://anaconda.org/channels/conda-forge/packages/cxx-compiler/overview
-  - cxx-compiler
-  # fortran-compiler: Fortran compiler meta-package
-  # https://anaconda.org/channels/conda-forge/packages/fortran-compiler/overview
-  - fortran-compiler
 
   # UTILITIES
 

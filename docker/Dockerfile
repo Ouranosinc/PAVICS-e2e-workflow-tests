@@ -51,11 +51,14 @@ RUN groupadd --gid 1000 jenkins && \
 # DEBUG conda.common._logic:_run_sat(607): Invoking SAT with clause count: 2500273
 
 # Copy birdy environment configuration
-COPY environment.yml /environment.yml
+COPY environment-core.yml /environment-core.yml
+COPY environment-common.yml /environment-common.yml
 
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
 RUN umask 0000 && \
-    mamba create --name birdy --file /environment.yml "python>=3.12,<3.13" --yes && \
+    mamba create --name birdy --file /environment-core.yml --yes && \
+    mamba env update --name birdy --file /environment-common.yml --yes && \
+    mamba install --name birdy -c cdat esgf-compute-api && \
     mamba env export --name birdy | tee /conda-env-export-final.yml && \
     mamba clean --all --yes && \
     du -sh /opt/conda 2>&1 | tee /conda-envs-size-final.txt
