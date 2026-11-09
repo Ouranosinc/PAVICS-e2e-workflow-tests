@@ -1,0 +1,79 @@
+name: Docker Hub Publishing
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "Dockerfile"
+      - "Dockerfile.testing"
+    tags:
+      - "docker-*"
+      - "release-*"
+
+concurrency:
+  # For a given workflow, if we push to the same branch, cancel all previous builds on that branch except on master.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref == 'refs/heads/master' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build-publish:
+    name: Build and publish (Magpie)
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: "pavics/workflow-tests"
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
+        with:
+          disable-sudo: true
+          egress-policy: audit
+
+      - name: Check out Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Gather Docker metadata
+        id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=staging,enable={{is_not_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=match,pattern=docker-(.*),group=1
+            type=match,pattern=release-(.*),group=1
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          cache-to: type=gha,mode=max
+          file: Dockerfile
+          labels: ${{ steps.meta.outputs.labels }}
+          load: true
+          push: false
+          tags: ${{ env.IMAGE_NAME }}:test
+
+      - name: Inspect image labels
+        run: |
+          docker inspect --format='{{json .Config.Labels}}' ${{ env.IMAGE_NAME }}:test
+
+      - name: Publish image to Docker Hub
+        if: ${{ github.event_name != 'pull_request' }}  # Never push image for pull requests
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          cache-from: type=gha
+          file: Dockerfile
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
