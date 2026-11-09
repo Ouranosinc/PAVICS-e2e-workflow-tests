@@ -1,6 +1,6 @@
 # PAVICS-e2e-workflow-tests
 
-Test user-level end-to-end workflow.
+PAVICS JupyterHub User Image Repository.
 
 ## Description
 

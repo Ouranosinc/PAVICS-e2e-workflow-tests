@@ -17,7 +17,7 @@ pipeline {
 
     parameters {
         string(name: 'CONFIG_PARAMETERS_SCRIPT_URL', defaultValue: '',
-               description: 'Url to a script that will be sourced, allowing to programmatically set ALL Jenkins params on this page. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/jenkins-params-raven-nb-only.include.sh', trim: true)
+               description: 'URL to a script that will be sourced, allowing to programmatically set ALL Jenkins params on this page. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/jenkins-params-raven-nb-only.include.sh', trim: true)
         string(name: 'PAVICS_HOST', defaultValue: default_pavics_host,
                description: 'PAVICS host to run notebooks against.', trim: true)
         // TEST_MAGPIE_AUTH enables the evaluation of end-2-end access to some secured Thredds and Geoserver resources
