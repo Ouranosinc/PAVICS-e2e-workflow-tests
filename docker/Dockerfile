@@ -5,6 +5,8 @@ FROM continuumio/miniconda3
 
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
+# Do not emit warnings for root Python usage
+ENV PIP_ROOT_USER_ACTION=ignore
 
 LABEL org.opencontainers.image.authors="Ouranosinc"
 # LABEL org.opencontainers.image.created="2026-01-23T45:67:89Z" # FIXME: This needs to be revised. See work in https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/pull/167
