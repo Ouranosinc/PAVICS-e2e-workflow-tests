@@ -5,12 +5,15 @@ if (env.IS_PROD == "true" || env.ENABLE_SCHEDULED_TRIGGER == "true") {
 
 String default_pavics_host = env.DEFAULT_PAVICS_HOST != null ? env.DEFAULT_PAVICS_HOST : "pavics.ouranos.ca"
 
+String production_image = "pavics/workflow-tests:py312-260415"
+String staging_image = "pavics/workflow-tests:staging"
+
 pipeline {
     // Guide book on Jenkins declarative pipelines
     // https://jenkins.io/doc/book/pipeline/syntax/
     agent {
         docker {
-            image "pavics/workflow-tests:py312-260415"
+            image "${env.USE_WORKFLOW_TESTS_STAGING == 'true' ? staging_image : production_image}"
             label 'linux && docker'
         }
     }
@@ -20,6 +23,8 @@ pipeline {
                description: 'URL to a script that will be sourced, allowing to programmatically set ALL Jenkins params on this page. e.g. https://raw.githubusercontent.com/Ouranosinc/PAVICS-e2e-workflow-tests/master/test-override/jenkins-params-raven-nb-only.include.sh', trim: true)
         string(name: 'PAVICS_HOST', defaultValue: default_pavics_host,
                description: 'PAVICS host to run notebooks against.', trim: true)
+        booleanParam(name: 'USE_WORKFLOW_TESTS_STAGING', defaultValue: false,
+               description: 'Check the box to use the staging version of pavics/workflow-tests Docker image instead of Jenkinsfile default.')
         // TEST_MAGPIE_AUTH enables the evaluation of end-2-end access to some secured Thredds and Geoserver resources
         // by Twitcher/Magpie and validates that resulting resources are found (or blocked) after proxy resolution of
         // granted/denied access.
