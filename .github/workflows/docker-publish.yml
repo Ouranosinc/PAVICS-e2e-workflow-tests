@@ -5,8 +5,9 @@ on:
     branches:
       - master
     paths:
-      - "Dockerfile"
-      - "Dockerfile.testing"
+      - "docker/Dockerfile"
+      - "docker/environment-common.yml"
+      - "docker/environment-core.yml"
     tags:
       - "docker-*"
       - "release-*"
@@ -43,7 +44,6 @@ jobs:
         with:
           images: ${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=staging,enable={{is_not_default_branch}}
             type=raw,value=latest,enable={{is_default_branch}}
             type=match,pattern=docker-(.*),group=1
             type=match,pattern=release-(.*),group=1
@@ -57,22 +57,28 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
         with:
+          cache-from: type=gha
           cache-to: type=gha,mode=max
+          context: "{{defaultContext}}:docker"
           file: Dockerfile
           labels: ${{ steps.meta.outputs.labels }}
           load: true
           push: false
           tags: ${{ env.IMAGE_NAME }}:test
 
-      - name: Inspect image labels
+      - name: Run smoke tests on built image
         run: |
+          # Inspect labels
           docker inspect --format='{{json .Config.Labels}}' ${{ env.IMAGE_NAME }}:test
+          
+          # Ensure Python is accessible
+          docker run --rm ${{ env.IMAGE_NAME }}:test python -c "import sys; print(f'Python {sys.version}')"
 
       - name: Publish image to Docker Hub
-        if: ${{ github.event_name != 'pull_request' }}  # Never push image for pull requests
         uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
         with:
           cache-from: type=gha
+          context: "{{defaultContext}}:docker"
           file: Dockerfile
           labels: ${{ steps.meta.outputs.labels }}
           push: true
