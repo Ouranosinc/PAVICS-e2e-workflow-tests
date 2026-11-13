@@ -5,6 +5,8 @@ FROM continuumio/miniconda3
 
 # No interactive apt calls
 ENV DEBIAN_FRONTEND=noninteractive
+# Do not emit warnings for root Python usage
+ENV PIP_ROOT_USER_ACTION=ignore
 
 LABEL org.opencontainers.image.authors="Ouranosinc"
 # LABEL org.opencontainers.image.created="2026-01-23T45:67:89Z" # FIXME: This needs to be revised. See work in https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/pull/167
@@ -12,6 +14,7 @@ LABEL org.opencontainers.image.description="The Ouranosinc PAVICS Jupyter enviro
 # LABEL org.opencontainers.image.license="Apache-2.0"  # FIXME: Not compatible with the continuumio/miniconda3 ToU.
 LABEL org.opencontainers.image.source="https://github.com/Ouranosinc/pavics-e2e-workflow-tests"
 LABEL org.opencontainers.image.title="pavics-e2e-workflow-tests"
+LABEL org.opencontainers.image.url="https://hub.docker.com/r/pavics/workflow-tests"
 LABEL org.opencontainers.image.vendor="Ouranos Inc."
 # LABEL org.opencontainers.image.version="v1.2.3.4.5" FIXME: This needs to be revised. See work in https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/pull/167
 
